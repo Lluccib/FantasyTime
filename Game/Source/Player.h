@@ -27,6 +27,9 @@ public:
 
 public:
 	float speed = 0.2f;
+	float speedy = 0.5f;//el programa pasa de metros a píxeles
+	float timer = 0.0f;
+	bool jump = false;
 	const char* texturePath;
 	SDL_Texture* texture = NULL;
 	PhysBody* pbody;
