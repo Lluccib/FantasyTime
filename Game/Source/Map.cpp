@@ -185,15 +185,90 @@ bool Map::Load(SString mapFileName)
     
     // NOTE: Later you have to create a function here to load and create the colliders from the map
 
-    PhysBody* c1 = app->physics->CreateRectangle(224 + 128, 543 + 32, 256, 64, STATIC);
+    //PhysBody* c1 = app->physics->CreateRectangle(224 + 128, 543 + 32, 256, 64, STATIC);
+    //c1->ctype = ColliderType::PLATFORM;//CUADRADO 1
+
+    //PhysBody* c2 = app->physics->CreateRectangle(352 + 64, 384 + 32, 128, 64, STATIC);
+    //c2->ctype = ColliderType::PLATFORM;//CUADRADO 2
+
+    //PhysBody* c3 = app->physics->CreateRectangle(256, 704 + 32, 576, 64, STATIC);
+    //c3->ctype = ColliderType::PLATFORM;
+
+    //PhysBody* c4 = app->physics->CreateRectangle(20*20, 704 + 32, 576, 64, STATIC);
+    //c3->ctype = ColliderType::PLATFORM;
+
+
+    //el cuadrado de colision se pone en el centro, debemos añadirle la mitad de cada cordenada tanto en x como en y para que se situe en su lugar correspondiente.
+
+    ////collider 1
+    int tileSize = mapData.tileWidth;
+    int tilePosX = 11;//distancia del tiles por cuadrado (no en pixeles)
+    int tilePosY = 12;//distancia del tiles por cuadrado (no en pixeles)
+    int colliderW = 4 * tileSize;
+    int colliderH = 2 * tileSize;
+    //Dinamic: el objeto reacciona con las físicas (tiene propiedades)
+    //kinematic: tambien reacciona a las físicas peró lo podemos mover como queramos
+    //Static: es un collider que está quieto. Tiene físicas
+    PhysBody* c1 = app->physics->CreateRectangle(tilePosX * tileSize + colliderW / 2, tilePosY * tileSize + colliderH / 2, colliderW, colliderH, bodyType::STATIC);
     c1->ctype = ColliderType::PLATFORM;
+    ///collider 2
 
-    PhysBody* c2 = app->physics->CreateRectangle(352 + 64, 384 + 32, 128, 64, STATIC);
+    tilePosX = 7;
+    tilePosY = 17;
+    colliderW = 8 * tileSize;
+    colliderH = 2 * tileSize;
+    PhysBody* c2 = app->physics->CreateRectangle(tilePosX * tileSize + colliderW / 2, tilePosY * tileSize + colliderH / 2, colliderW, colliderH, bodyType::STATIC);
     c2->ctype = ColliderType::PLATFORM;
-
-    PhysBody* c3 = app->physics->CreateRectangle(256, 704 + 32, 576, 64, STATIC);
+    ///collider 3
+    tilePosX = 2;
+    tilePosY = 22;
+    colliderW = 15 * tileSize;
+    colliderH = 2 * tileSize;
+    PhysBody* c3 = app->physics->CreateRectangle(tilePosX * tileSize + colliderW / 2, tilePosY * tileSize + colliderH / 2, colliderW, colliderH, bodyType::STATIC);
     c3->ctype = ColliderType::PLATFORM;
-    
+    //collider 4
+    tilePosX = 20;
+    tilePosY = 12;
+    colliderW = 20 * tileSize;
+    colliderH = 2 * tileSize;
+    PhysBody* c4 = app->physics->CreateRectangle(tilePosX * tileSize + colliderW / 2, tilePosY * tileSize + colliderH / 2, colliderW, colliderH, bodyType::STATIC);
+    c4->ctype = ColliderType::PLATFORM;
+    //collider 5
+    tilePosX = 21;
+    tilePosY = 17;
+    colliderW = 9 * tileSize;
+    colliderH = 2 * tileSize;
+    PhysBody* c5 = app->physics->CreateRectangle(tilePosX * tileSize + colliderW / 2, tilePosY * tileSize + colliderH / 2, colliderW, colliderH, bodyType::STATIC);
+    c5->ctype = ColliderType::PLATFORM;
+    //collider 6 //bloque aislado
+    tilePosX = 5;
+    tilePosY = 14;
+    colliderW = 1 * tileSize;
+    colliderH = 1 * tileSize;
+    PhysBody* c6 = app->physics->CreateRectangle(tilePosX * tileSize + colliderW / 2, tilePosY * tileSize + colliderH / 2, colliderW, colliderH, bodyType::STATIC);
+    c6->ctype = ColliderType::PLATFORM;
+    //collider 7 
+    tilePosX = 31;
+    tilePosY = 8;
+    colliderW = 7 * tileSize;
+    colliderH = 2 * tileSize;
+    PhysBody* c7 = app->physics->CreateRectangle(tilePosX * tileSize + colliderW / 2, tilePosY * tileSize + colliderH / 2, colliderW, colliderH, bodyType::STATIC);
+    c7->ctype = ColliderType::PLATFORM;
+    //collider 8 //pared de l'esquerra
+    tilePosX = 2;
+    tilePosY = 2;
+    colliderW = 1 * tileSize;
+    colliderH = 20 * tileSize;
+    PhysBody* c8 = app->physics->CreateRectangle(tilePosX * tileSize + colliderW / 2, tilePosY * tileSize + colliderH / 2, colliderW, colliderH, bodyType::STATIC);
+    c8->ctype = ColliderType::PLATFORM;
+    //collider 9 //terra esquerra
+    tilePosX = 20;
+    tilePosY = 22;
+    colliderW = 40 * tileSize;
+    colliderH = 2 * tileSize;
+    PhysBody* c9 = app->physics->CreateRectangle(tilePosX * tileSize + colliderW / 2, tilePosY * tileSize + colliderH / 2, colliderW, colliderH, bodyType::STATIC);
+    c9->ctype = ColliderType::PLATFORM;
+
     if(ret == true)
     {
         LOG("Successfully parsed map XML file :%s", mapFileName.GetString());
