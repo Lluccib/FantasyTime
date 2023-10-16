@@ -74,7 +74,7 @@ bool Player::Update(float dt)
 
 	//Set the velocity of the pbody of the player
 	if (jump == false) {
-		currentVelocity.y = -GRAVITY_Y;
+		currentVelocity.y = -GRAVITY_Y	;
 
 	}
 	pbody->body->SetLinearVelocity(currentVelocity);
