@@ -43,35 +43,41 @@ bool Player::Start() {
 
 bool Player::Update(float dt)
 {
-	b2Vec2 vel = b2Vec2(0, -GRAVITY_Y);
+	
+
 	b2Vec2 currentVelocity = pbody->body->GetLinearVelocity();
+
+	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE && app->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE)
+	{
+		currentVelocity.x = 0;
+	}
 
 	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && !jump) {
 		jump = true;
-		pbody->body->SetLinearVelocity({ pbody->body->GetLinearVelocity().x, -5});
-		if(app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && jump) {
-			pbody->body->SetLinearVelocity({ vel.x, -5 });
-		}
-		//GetLinearVelocity().x em pilla la velocitat establerta abans de saltar
+		currentVelocity.y = -0.3 * dt;
+		pbody->body->SetLinearVelocity(currentVelocity);
+
 	}
+	
 	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
-		//
+		
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
-		vel = b2Vec2(-speed*dt, -GRAVITY_Y);
+		currentVelocity.x = -speed * dt;
+
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
-		vel = b2Vec2(speed*dt, -GRAVITY_Y);
+		currentVelocity.x = speed * dt;
 	}
 
 	//Set the velocity of the pbody of the player
 	if (jump == false) {
-		pbody->body->SetLinearVelocity(vel);
+		currentVelocity.y = -GRAVITY_Y;
 
 	}
-	
+	pbody->body->SetLinearVelocity(currentVelocity);
 	//Update player position in pixels
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 16;
