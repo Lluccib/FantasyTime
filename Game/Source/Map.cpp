@@ -240,9 +240,34 @@ bool Map::Load(SString mapFileName)
     colliderH = 2 * tileSize;
     PhysBody* c5 = app->physics->CreateRectangle(tilePosX * tileSize + colliderW / 2, tilePosY * tileSize + colliderH / 2, colliderW, colliderH, bodyType::STATIC);
     c5->ctype = ColliderType::PLATFORM;
-
-
-
+    //collider 6 //bloque aislado
+    tilePosX = 5;
+    tilePosY = 14;
+    colliderW = 1 * tileSize;
+    colliderH = 1 * tileSize;
+    PhysBody* c6 = app->physics->CreateRectangle(tilePosX * tileSize + colliderW / 2, tilePosY * tileSize + colliderH / 2, colliderW, colliderH, bodyType::STATIC);
+    c6->ctype = ColliderType::PLATFORM;
+    //collider 7 
+    tilePosX = 31;
+    tilePosY = 8;
+    colliderW = 7 * tileSize;
+    colliderH = 2 * tileSize;
+    PhysBody* c7 = app->physics->CreateRectangle(tilePosX * tileSize + colliderW / 2, tilePosY * tileSize + colliderH / 2, colliderW, colliderH, bodyType::STATIC);
+    c7->ctype = ColliderType::PLATFORM;
+    //collider 8 //pared de l'esquerra
+    tilePosX = 2;
+    tilePosY = 2;
+    colliderW = 1 * tileSize;
+    colliderH = 20 * tileSize;
+    PhysBody* c8 = app->physics->CreateRectangle(tilePosX * tileSize + colliderW / 2, tilePosY * tileSize + colliderH / 2, colliderW, colliderH, bodyType::STATIC);
+    c8->ctype = ColliderType::PLATFORM;
+    //collider 9 //terra esquerra
+    tilePosX = 20;
+    tilePosY = 22;
+    colliderW = 40 * tileSize;
+    colliderH = 2 * tileSize;
+    PhysBody* c9 = app->physics->CreateRectangle(tilePosX * tileSize + colliderW / 2, tilePosY * tileSize + colliderH / 2, colliderW, colliderH, bodyType::STATIC);
+    c9->ctype = ColliderType::PLATFORM;
 
     if(ret == true)
     {
