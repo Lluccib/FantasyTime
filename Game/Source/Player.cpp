@@ -74,6 +74,20 @@ bool Player::Start() {
 	Pray.speed = 0.05f;
 	Pray.loop = false;
 
+	//atack 1
+	Atack1.PushBack({ 43,317,59,54 });
+	Atack1.PushBack({ 169,317,59,54 });
+	Atack1.PushBack({ 295,317,59,54 });
+	Atack1.PushBack({ 428,317,59,54 });
+	Atack1.PushBack({ 553,317,59,54 });
+	Atack1.PushBack({ 676,317,59,54 });
+	Atack1.PushBack({ 808,317,59,54 });
+	Atack1.PushBack({ 937,317,59,54 });
+	Atack1.PushBack({ 43,383,59,54 });
+	Atack1.PushBack({ 167,383,59,54 });
+	Atack1.speed = 0.3f;
+	Atack1.loop = false;
+
 
 	//load texture
 	texture = app->tex->Load(texturePath);
@@ -85,13 +99,14 @@ bool Player::Start() {
 
 	pickCoinFxId = app->audio->LoadFx("Assets/Audio/Fx/retro-video-game-coin-pickup-38299.ogg");
 
+
 	return true;
 }
 
 bool Player::Update(float dt)
 {
 	
-	if (!isWalking, !jump, !isPraying)
+	if (!isWalking, !jump, !isPraying, !atacking)
 	{
 		currentAnimation = &idle;
 	}
@@ -137,16 +152,28 @@ bool Player::Update(float dt)
 		{
 			isPraying = false;
 		}
-		
-		
-		
-		
+	}
+	if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN) {
+		atacking = true;
+		currentAnimation = &Atack1;
+		atacktimer = SDL_GetTicks();
 	}
 	//Set the velocity of the pbody of the player
 	if (jump == false) {
 		currentVelocity.y = -GRAVITY_Y	;
 
 	}
+	if (atacking)
+	{
+		currentTime = SDL_GetTicks();
+		atackduration = currentTime - atacktimer;
+		if (atackduration >= 700)
+		{
+			atacking = false;
+			currentAnimation->Reset();
+		}
+	}
+	
 	pbody->body->SetLinearVelocity(currentVelocity);
 	//Update player position in pixels
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
