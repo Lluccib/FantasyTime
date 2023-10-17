@@ -91,16 +91,17 @@ bool Player::Start() {
 bool Player::Update(float dt)
 {
 	
-	if (!isWalking, !jump)
+	if (!isWalking, !jump, !isPraying)
 	{
 		currentAnimation = &idle;
 	}
 
 	b2Vec2 currentVelocity = pbody->body->GetLinearVelocity();
 
-	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE && app->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE)
+	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE && app->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE )
 	{
 		isWalking = false;
+		
 		currentVelocity.x = 0;
 	}
 
@@ -125,10 +126,19 @@ bool Player::Update(float dt)
 		isWalking = true;
 		currentAnimation = &Runright;
 	}
-	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT) {
+	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN) {
 		
-			
+		if (!isPraying)
+		{
+			isPraying = true;
 			currentAnimation = &Pray;
+		}
+		else
+		{
+			isPraying = false;
+		}
+		
+		
 		
 		
 	}
