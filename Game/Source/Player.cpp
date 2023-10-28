@@ -88,7 +88,24 @@ bool Player::Start() {
 	Atack1.speed = 0.3f;
 	Atack1.loop = false;
 
-
+	//Death
+	Death.PushBack({ 1415,343, 60, 50 });
+	Death.PushBack({ 1535,343, 60, 50 });
+	Death.PushBack({ 1415,409, 60, 50 });
+	Death.PushBack({ 1535,409, 60, 50 });
+	Death.speed = 0.1f;
+	Death.loop = false;
+	//jump
+	Jump.PushBack({ 642, 14, 44, 52 });
+	Jump.PushBack({ 772, 14, 44, 52 });
+	Jump.PushBack({ 642, 75, 44, 52 });
+	Jump.PushBack({ 772, 75, 44, 52 });
+	Jump.PushBack({ 642, 142, 44, 52 });
+	Jump.PushBack({ 772, 142, 44, 52 });
+	Jump.PushBack({ 642, 206, 44, 52 });
+	Jump.PushBack({ 772, 206, 44, 52 });
+	Jump.speed = 0.3f;
+	Jump.loop = false;
 	//load texture
 	texture = app->tex->Load(texturePath);
 	currentAnimation = &idle;
@@ -105,8 +122,9 @@ bool Player::Start() {
 
 bool Player::Update(float dt)
 {
-	
-	if (!isWalking, !jump, !isPraying, !atacking)
+	SDL_RendererFlip flip = SDL_FLIP_NONE;
+
+	if (!isWalking, !jump, !isPraying, !atacking, !dead)
 	{
 		currentAnimation = &idle;
 	}
@@ -120,8 +138,9 @@ bool Player::Update(float dt)
 		currentVelocity.x = 0;
 	}
 
-	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && !jump) {
+	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT && !jump) {
 		jump = true;
+		currentAnimation = &Jump;
 		currentVelocity.y = -0.3 * dt;
 		pbody->body->SetLinearVelocity(currentVelocity);
 
@@ -133,6 +152,7 @@ bool Player::Update(float dt)
 
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
 		currentVelocity.x = -speed * dt;
+		isWalking = true;
 		currentAnimation = &Runleft;
 	}
 
@@ -153,27 +173,62 @@ bool Player::Update(float dt)
 			isPraying = false;
 		}
 	}
+	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN) {
+
+		if (!isPraying)
+		{
+			isPraying = true;
+			currentAnimation = &Pray;
+		}
+		else
+		{
+			isPraying = false;
+		}
+	}
+	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) {
+
+		dead = true;
+		currentAnimation = &Death;
+		deathtimer = SDL_GetTicks();
+	}
 	if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN) {
 		atacking = true;
 		currentAnimation = &Atack1;
 		atacktimer = SDL_GetTicks();
 	}
 	//Set the velocity of the pbody of the player
+
 	if (jump == false) {
 		currentVelocity.y = -GRAVITY_Y	;
-
+		
 	}
 	if (atacking)
 	{
 		currentTime = SDL_GetTicks();
 		atackduration = currentTime - atacktimer;
-		if (atackduration >= 700)
+		if (atackduration >= 700) //700
 		{
 			atacking = false;
 			currentAnimation->Reset();
 		}
 	}
-	
+	if (dead)
+	{
+		currentTime = SDL_GetTicks();
+		deathduration = currentTime - deathtimer;
+		if (deathduration >= 1500) //700
+		{
+			
+			dead = false;
+			currentAnimation->Reset();
+		}
+	}
+	if (isFacingRight) {
+		flip = SDL_FLIP_NONE; // No se voltea la textura.
+	}
+	else {
+		flip = SDL_FLIP_HORIZONTAL; // Voltea la textura horizontalmente.
+	}
 	pbody->body->SetLinearVelocity(currentVelocity);
 	//Update player position in pixels
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
