@@ -136,6 +136,8 @@ bool Player::Update(float dt)
 		isWalking = false;
 		
 		currentVelocity.x = 0;
+		
+
 	}//funciona
 
 	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT && !jump) {
@@ -154,12 +156,18 @@ bool Player::Update(float dt)
 		currentVelocity.x = -speed * dt;
 		isWalking = true;
 		currentAnimation = &Runleft;
+		//Movimiento de la cámara
+		float camSpeed = 0.2;
+		app->render->camera.x += (int)ceil(camSpeed * dt);
 	}//funciona
 
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
 		currentVelocity.x = speed * dt;
 		isWalking = true;
 		currentAnimation = &Runright;
+		//Movimiento de la cámara
+		float camSpeed = 0.2;
+		app->render->camera.x -= (int)ceil(camSpeed * dt);
 	}//funciona
 	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN) {
 		
