@@ -93,7 +93,7 @@ bool Player::Start() {
 	Death.PushBack({ 1535,343, 60, 50 });
 	Death.PushBack({ 1415,409, 60, 50 });
 	Death.PushBack({ 1535,409, 60, 50 });
-	Death.speed = 0.1f;
+	Death.speed = 0.2f;
 	Death.loop = false;
 	//jump
 	Jump.PushBack({ 642, 14, 44, 52 });
@@ -148,11 +148,11 @@ bool Player::Update(float dt)
 
 	}//funciona
 	
-	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
+	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT && !dead) {
 		
 	}
 
-	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
+	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !dead) {
 		currentVelocity.x = -speed * dt;
 		isWalking = true;
 		currentAnimation = &Runleft;
@@ -161,7 +161,7 @@ bool Player::Update(float dt)
 		app->render->camera.x += (int)ceil(camSpeed * dt);
 	}//funciona
 
-	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && !dead) {
 		currentVelocity.x = speed * dt;
 		isWalking = true;
 		currentAnimation = &Runright;
@@ -169,7 +169,7 @@ bool Player::Update(float dt)
 		float camSpeed = 0.2;
 		app->render->camera.x -= (int)ceil(camSpeed * dt);
 	}//funciona
-	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN) {
+	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN && !dead) {
 		
 		if (!isPraying)
 		{
@@ -193,13 +193,13 @@ bool Player::Update(float dt)
 	//		isPraying = false;
 	//	}
 	//}
-	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) {
+	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN !dead) {
 
 		dead = true;
 		currentAnimation = &Death;
 		deathtimer = SDL_GetTicks();
 	}//funciona
-	if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN) {
+	if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN && !dead) {
 		atacking = true;
 		currentAnimation = &Atack1;
 		atacktimer = SDL_GetTicks();
