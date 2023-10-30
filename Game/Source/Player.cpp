@@ -145,7 +145,8 @@ bool Player::Update(float dt)
 		currentAnimation = &Jump;
 		currentVelocity.y = -0.3 * dt;
 		pbody->body->SetLinearVelocity(currentVelocity);
-
+		//Movimiento de la camara
+		//posar camara vertical quan salta
 	}//funciona
 	
 	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT && !dead) {
@@ -181,18 +182,7 @@ bool Player::Update(float dt)
 			isPraying = false;
 		}
 	}
-	//if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN) {
-
-	//	if (!isPraying)
-	//	{
-	//		isPraying = true;
-	//		currentAnimation = &Pray;
-	//	}
-	//	else
-	//	{
-	//		isPraying = false;
-	//	}
-	//}
+	
 	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN && !dead) {
 
 		dead = true;
