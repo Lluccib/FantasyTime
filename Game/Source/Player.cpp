@@ -136,7 +136,7 @@ bool Player::Update(float dt)
 		isWalking = false;
 		
 		currentVelocity.x = 0;
-	}
+	}//funciona
 
 	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT && !jump) {
 		jump = true;
@@ -144,7 +144,7 @@ bool Player::Update(float dt)
 		currentVelocity.y = -0.3 * dt;
 		pbody->body->SetLinearVelocity(currentVelocity);
 
-	}
+	}//funciona
 	
 	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
 		
@@ -154,13 +154,13 @@ bool Player::Update(float dt)
 		currentVelocity.x = -speed * dt;
 		isWalking = true;
 		currentAnimation = &Runleft;
-	}
+	}//funciona
 
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
 		currentVelocity.x = speed * dt;
 		isWalking = true;
 		currentAnimation = &Runright;
-	}
+	}//funciona
 	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN) {
 		
 		if (!isPraying)
@@ -173,29 +173,31 @@ bool Player::Update(float dt)
 			isPraying = false;
 		}
 	}
-	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN) {
+	//if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN) {
 
-		if (!isPraying)
-		{
-			isPraying = true;
-			currentAnimation = &Pray;
-		}
-		else
-		{
-			isPraying = false;
-		}
-	}
+	//	if (!isPraying)
+	//	{
+	//		isPraying = true;
+	//		currentAnimation = &Pray;
+	//	}
+	//	else
+	//	{
+	//		isPraying = false;
+	//	}
+	//}
 	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) {
 
 		dead = true;
 		currentAnimation = &Death;
 		deathtimer = SDL_GetTicks();
-	}
+	}//funciona
 	if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN) {
 		atacking = true;
 		currentAnimation = &Atack1;
 		atacktimer = SDL_GetTicks();
-	}
+	}//No funciona
+
+
 	//Set the velocity of the pbody of the player
 
 	if (jump == false) {
