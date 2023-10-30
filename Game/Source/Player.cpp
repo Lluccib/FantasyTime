@@ -193,7 +193,7 @@ bool Player::Update(float dt)
 	//		isPraying = false;
 	//	}
 	//}
-	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN !dead) {
+	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN && !dead) {
 
 		dead = true;
 		currentAnimation = &Death;
