@@ -32,6 +32,14 @@ public:
 	float timer = 0.0f;
 	bool jump = false;
 	bool isPraying = false;
+	bool atacking = false;
+	bool dead = false;
+	bool isFacingRight = false;
+	Uint32 atacktimer = 0;
+	Uint32 deathtimer = 0;
+	Uint32 currentTime = 0;
+	Uint32 atackduration = 0;
+	Uint32 deathduration = 0;
 	const char* texturePath;
 	SDL_Texture* texture = NULL;
 	
@@ -45,6 +53,9 @@ public:
 	Animation Runleft;
 	Animation Pray;
 	Animation Atack1;
+	Animation Death;
+	Animation Jump;
+
 
 };
 
