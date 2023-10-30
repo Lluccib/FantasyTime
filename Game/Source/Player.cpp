@@ -157,8 +157,8 @@ bool Player::Update(float dt)
 		isWalking = true;
 		currentAnimation = &Runleft;
 		//Movimiento de la cámara
-		float camSpeed = 0.2;
-		app->render->camera.x += (int)ceil(camSpeed * dt);
+		float camSpeed = 0.2f;
+		app->render->camera.x = -(position.x - 100);
 	}//funciona
 
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && !dead) {
@@ -166,8 +166,8 @@ bool Player::Update(float dt)
 		isWalking = true;
 		currentAnimation = &Runright;
 		//Movimiento de la cámara
-		float camSpeed = 0.2;
-		app->render->camera.x -= (int)ceil(camSpeed * dt);
+		float camSpeed = 0.2f;
+		app->render->camera.x = -(position.x - 100);
 	}//funciona
 	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN && !dead) {
 		
