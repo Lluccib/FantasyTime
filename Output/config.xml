@@ -23,7 +23,7 @@
 
   <scene>
     <map path="Assets/Maps/" name="mapa.tmx"/>
-    <player x="100" y="680" texturepath="Assets/Textures/personaje.png"/>
+    <player x="120" y="800" texturepath="Assets/Textures/personaje.png"/>
     
   </scene>
 	<!-- idle -->
