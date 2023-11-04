@@ -153,7 +153,8 @@ bool Player::Update(float dt)
 		currentAnimation = &Jump;
 		currentVelocity.y = -0.3 * dt;
 		pbody->body->SetLinearVelocity(currentVelocity);
-
+		//Movimiento de la camara
+		//posar camara vertical quan salta
 	}//funciona
 	
 	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT && !dead) {
@@ -164,18 +165,18 @@ bool Player::Update(float dt)
 		currentVelocity.x = -speed * dt;
 		isWalking = true;
 		currentAnimation = &Runleft;
-		//Movimiento de la cámara
-		float camSpeed = 0.2;
-		app->render->camera.x += (int)ceil(camSpeed * dt);
+		//Movimiento de la cÃ¡mara
+		float camSpeed = 0.2f;
+		app->render->camera.x = -(position.x - 100);
 	}//funciona
 
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && !dead) {
 		currentVelocity.x = speed * dt;
 		isWalking = true;
 		currentAnimation = &Runright;
-		//Movimiento de la cámara
-		float camSpeed = 0.2;
-		app->render->camera.x -= (int)ceil(camSpeed * dt);
+		//Movimiento de la cÃ¡mara
+		float camSpeed = 0.2f;
+		app->render->camera.x = -(position.x - 100);
 	}//funciona
 	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN && !dead) {
 		
@@ -189,18 +190,7 @@ bool Player::Update(float dt)
 			isPraying = false;
 		}
 	}
-	//if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN) {
 
-	//	if (!isPraying)
-	//	{
-	//		isPraying = true;
-	//		currentAnimation = &Pray;
-	//	}
-	//	else
-	//	{
-	//		isPraying = false;
-	//	}
-	//}
 	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN && !dead) {
 
 		dead = true;
