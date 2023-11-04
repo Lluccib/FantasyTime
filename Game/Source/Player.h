@@ -35,6 +35,7 @@ public:
 	bool atacking = false;
 	bool dead = false;
 	bool isFacingRight = false;
+	bool godmode = false;
 	Uint32 atacktimer = 0;
 	Uint32 deathtimer = 0;
 	Uint32 currentTime = 0;

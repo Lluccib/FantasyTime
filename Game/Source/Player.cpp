@@ -197,6 +197,7 @@ bool Player::Update(float dt)
 		currentAnimation = &Death;
 		deathtimer = SDL_GetTicks();
 	}//funciona
+
 	if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN && !dead) {
 		atacking = true;
 		currentAnimation = &Atack1;
@@ -254,23 +255,32 @@ bool Player::CleanUp()
 }
 
 void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
-
-	switch (physB->ctype)
+	if (!godmode)
 	{
-	case ColliderType::ITEM:
-		LOG("Collision ITEM");
-		/*app->audio->PlayFx(pickCoinFxId);*/
-		break;
-	case ColliderType::PLATFORM:
-		jump = false;
-		LOG("Collision PLATFORM");
-		break;
-	case ColliderType::ENEMY:
-		dead = false;
-		LOG("Collision PLATFORM");
-		break;
-	case ColliderType::UNKNOWN:
-		LOG("Collision UNKNOWN");
-		break;
+		switch (physB->ctype)
+		{
+		case ColliderType::ITEM:
+			LOG("Collision ITEM");
+			/*app->audio->PlayFx(pickCoinFxId);*/
+			break;
+		case ColliderType::PLATFORM:
+			jump = false;
+			LOG("Collision PLATFORM");
+			break;
+		case ColliderType::ENEMY:
+			dead = true;
+			currentAnimation = &Death;
+			deathtimer = SDL_GetTicks();
+			LOG("Collision PLATFORM");
+			break;
+		case ColliderType::UNKNOWN:
+			LOG("Collision UNKNOWN");
+			break;
+		}
 	}
+	if (godmode)
+	{
+
+	}
+	
 }
