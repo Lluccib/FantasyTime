@@ -151,7 +151,7 @@ bool Player::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT && !jump) {
 		jump = true;
 		currentAnimation = &Jump;
-		currentVelocity.y = -0.3 * dt;
+		currentVelocity.y = -0.4 * dt;
 		pbody->body->SetLinearVelocity(currentVelocity);
 		//Movimiento de la camara
 		//posar camara vertical quan salta

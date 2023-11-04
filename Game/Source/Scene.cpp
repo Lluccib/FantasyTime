@@ -101,7 +101,7 @@ bool Scene::Update(float dt)
 	// Renders the image in the center of the screen 
 	app->render->DrawTexture(img, (int)textPosX, (int)textPosY);
 
-	return true;
+	return true; 
 }
 
 // Called each loop iteration
