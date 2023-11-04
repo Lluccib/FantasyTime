@@ -75,6 +75,52 @@ bool Map::Update(float dt)
     return true;
 }
 
+bool Map::loadCollisions(std::string Collisions)
+{
+    if (mapLoaded == false)
+        return false;
+
+    ListItem<MapLayer*>* mapLayerItem;
+    mapLayerItem = mapData.maplayers.start;
+    while (mapLayerItem != NULL) {
+        //if (mapLayerItem->data->properties.GetProperty("Draw") != NULL && !mapLayerItem->data->properties.GetProperty("Draw")->value) {
+        if (mapLayerItem->data->name.GetString() == Collisions) {
+            LOG("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+            for (int x = 0; x < mapLayerItem->data->width; x++)
+            {
+
+                for (int y = 0; y < mapLayerItem->data->height; y++)
+                {
+                    int gid = mapLayerItem->data->Get(x, y);
+                    TileSet* tileset = GetTilesetFromTileId(gid);
+
+                    SDL_Rect r = tileset->GetTileRect(gid);
+                    iPoint pos = MapToWorld(x, y);
+
+                    /* app->render->DrawTexture(tileset->texture,
+                         pos.x,
+                         pos.y,
+                         &r);*/
+
+                    if (tileset->firstgid + 0 == gid) {
+                        PhysBody* c1 = app->physics->CreateRectangle(pos.x + 16, pos.y + 16, 32, 32, STATIC);
+                        c1->ctype = ColliderType::PLATFORM;
+                    }
+
+                    if (tileset->firstgid + 1 == gid) {
+                        PhysBody* c1 = app->physics->CreateRectangle(pos.x, pos.y, 32, 32, STATIC);
+                        c1->ctype = ColliderType::ENEMY;
+
+
+                    }
+
+
+                }
+            }
+        }
+        mapLayerItem = mapLayerItem->next;
+    }
+}
 iPoint Map::MapToWorld(int x, int y) const
 {
     iPoint ret;
