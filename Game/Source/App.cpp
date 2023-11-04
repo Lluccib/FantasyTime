@@ -173,6 +173,19 @@ void App::PrepareUpdate()
 // ---------------------------------------------
 void App::FinishUpdate()
 {
+	if (input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
+	{
+		unlimitFrames = !unlimitFrames;
+	}
+	if (unlimitFrames)
+	{
+		maxFrameDuration = 32; //now is variable
+	}
+	else
+	{
+		maxFrameDuration = 16;
+	}
+
 	// This is a good place to call Load / Save functions
 	double currentDt = frameTime.ReadMs();
 	if (maxFrameDuration > 0 && currentDt < maxFrameDuration) {
@@ -206,10 +219,23 @@ void App::FinishUpdate()
 
 	// Shows the time measurements in the window title
 	static char title[256];
-	sprintf_s(title, 256, "%s: Av.FPS: %.2f Last sec frames: %i Last dt: %.3f Time since startup: %I32u Frame Count: %I64u ",
-		gameTitle.GetString(), averageFps, framesPerSecond, dt, secondsSinceStartup, frameCount);
+	
+
+	if (vsync == true)
+	{
+		sprintf_s(title, 256, "%s: Av.FPS: %.2f Last sec frames: %i Last dt: %.3f Time since startup: %I32u Frame Count: %I64u Vsync : ON ",
+			gameTitle.GetString(), averageFps, framesPerSecond, dt, secondsSinceStartup, frameCount);
+	}
+	else
+	{
+		sprintf_s(title, 256, "%s: Av.FPS: %.2f Last sec frames: %i Last dt: %.3f Time since startup: %I32u Frame Count: %I64u Vsync : OFF ",
+			gameTitle.GetString(), averageFps, framesPerSecond, dt, secondsSinceStartup, frameCount);
+	}
+
+
 
 	app->win->SetTitle(title);
+
 }
 
 // Call modules before each loop iteration

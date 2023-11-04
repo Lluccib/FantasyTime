@@ -84,6 +84,7 @@ public:
 	Map* map;
 	Physics* physics;
 
+
 private:
 
 	int argc;
@@ -114,6 +115,9 @@ private:
 	uint32 secondsSinceStartup = 0;
 
 	uint32 maxFrameDuration = 16;
+
+	bool vsync = false;
+	bool unlimitFrames = false;
 
 };
 
