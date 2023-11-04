@@ -121,8 +121,6 @@ public:
     // Load new map
 	bool Load(SString mapFileName);
 
-	bool loadCollisions(std::string layerName);
-
 	iPoint MapToWorld(int x, int y) const;
 	iPoint Map::WorldToMap(int x, int y);
 
@@ -134,6 +132,7 @@ private:
 	bool LoadAllLayers(pugi::xml_node mapNode);
 	TileSet* GetTilesetFromTileId(int gid) const;
 	bool LoadProperties(pugi::xml_node& node, Properties& properties);
+	bool LoadColliders(pugi::xml_node& layerNode);
 
 public: 
 
