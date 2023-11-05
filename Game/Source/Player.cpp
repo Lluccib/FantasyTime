@@ -65,7 +65,9 @@ bool Player::Update(float dt)
 	if (!isWalking, !jump, !isPraying, !atacking, !dead)
 	{
 		currentAnimation = &idle;
+		
 	}
+
 
 
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE && app->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE )
@@ -76,6 +78,7 @@ bool Player::Update(float dt)
 		
 
 	}
+
 
 	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && !jump && !dead) {
 		jump = true;
@@ -177,7 +180,9 @@ bool Player::Update(float dt)
 
 	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) { //ENTER GOD MODE
 
-		//godMode = !godMode;
+		
+		godmode = !godmode;
+
 	}
 
 
@@ -237,10 +242,25 @@ bool Player::Update(float dt)
 		app->render->camera.x = -(position.x - 100);
 
 	}
+	if (app->render->camera.x - position.x - 100 <= -7744) {
+		app->render->camera.x = -3772;
+	}
+
+	printf("\r %i", app->render->camera.x);
+
+
+	if (godmode)
+	{
+		pbody->body->GetFixtureList()->SetSensor(true);
+		pbody->body->SetGravityScale(0);
+	}
+	else
+	{
+		pbody->body->GetFixtureList()->SetSensor(false);
+		pbody->body->SetGravityScale(1);
+	}
+
 	
-
-	printf("\r %i", app->render->camera.x - position.x - 100);
-
 	return true;
 
 	
@@ -255,8 +275,8 @@ bool Player::CleanUp()
 }
 
 void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
-	if (!godmode)
-	{
+
+	
 		switch (physB->ctype)
 		{
 		case ColliderType::ITEM:
@@ -277,10 +297,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			LOG("Collision UNKNOWN");
 			break;
 		}
-	}
-	if (godmode)
-	{
-
-	}
+	
+	
 	
 }
