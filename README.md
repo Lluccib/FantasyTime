@@ -6,21 +6,24 @@ Adéntrate en un emocionante viaje a través de un mágico reino lleno de desaf�
 
 ## Key Features
 
- - {Feature01}
- - {Feature02}
- - {Feature03}
- - {Feature04}
- 
+ - Move Right or left to advance
+ - Jump to avoid obstacles
+
 ## Controls
 
- - {ControlsScheme}
-
+ - A -> move left
+ - D -> move right
+ - SPACE -> jump
+## Debug
+ - F1/F2 Start from the first/second level
+ - F3 Start from the beginning of the current level
+ - F9 Visualize the colliders/logic
+ - F10 God Mode (fly arounf, cannot be killed)
+ - F11 Enable/Disable FPS cap to 30
 ## Developers
 
- - {Dev01} - {Role(s)}
- - {Dev02} - {Role(s)}
- - {Dev03} - {Role(s)}
- - {Dev04} - {Role(s)}
+ - Lluc Cid
+ - Miguel Turmo
 
 ## License
 
