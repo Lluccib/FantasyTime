@@ -62,7 +62,7 @@ bool Player::Update(float dt)
 
 	/*currentVelocity.y = 0.5f;*/
 
-	if (!isWalking, !jump, !isPraying, !atacking, !dead)
+	if (!isWalking, !jump, !dead)
 	{
 		currentAnimation = &idle;
 		
@@ -80,7 +80,7 @@ bool Player::Update(float dt)
 	}
 
 
-	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && !jump && !dead) {
+	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && !jump && !dead && !godmode) {
 		jump = true;
 
 		currentAnimation = &Jump;
@@ -89,8 +89,11 @@ bool Player::Update(float dt)
 		
 	}
 	
-	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT && !dead) {
-		
+	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT && godmode == true) {
+		currentVelocity.y = currentVelocity.y + 0.35;
+	}
+	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && godmode == true) {
+		currentVelocity.y = currentVelocity.y - 0.35;
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !dead) {
@@ -101,7 +104,6 @@ bool Player::Update(float dt)
 		float camSpeed = 0.2f;
 
 	}
-
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && !dead) {
 		currentVelocity.x = speed * dt;
 		isWalking = true;
@@ -111,19 +113,6 @@ bool Player::Update(float dt)
 		
 	}
 
-	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN && !dead) {
-		
-		if (!isPraying)
-		{
-			isPraying = true;
-			currentAnimation = &Pray;
-		}
-		else
-		{
-			isPraying = false;
-		}
-	}
-
 	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN && !dead) {
 
 		dead = true;
@@ -131,11 +120,6 @@ bool Player::Update(float dt)
 		deathtimer = SDL_GetTicks();
 	}
 
-	if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN && !dead) {
-		atacking = true;
-		currentAnimation = &Atack1;
-		atacktimer = SDL_GetTicks();
-	}//No funciona
 
 	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) //START FROM FIRST LEVEL
 	{
@@ -180,16 +164,30 @@ bool Player::Update(float dt)
 
 	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) { //ENTER GOD MODE
 
-		
 		godmode = !godmode;
+
+		
+
 
 	}
 
+	if (godmode)
+	{
+
+		pbody->body->GetFixtureList()->SetSensor(true);
+		pbody->body->SetGravityScale(0);
+	}
+	else
+	{
+		pbody->body->GetFixtureList()->SetSensor(false);
+		pbody->body->SetGravityScale(1);
+		
+	}
 
 
 	//Set the velocity of the pbody of the player
 
-	if (jump == false) {
+	if (jump == false && !godmode) {
 		currentVelocity.y = -GRAVITY_Y	;
 		
 	}
@@ -249,16 +247,7 @@ bool Player::Update(float dt)
 	printf("\r %i", app->render->camera.x);
 
 
-	if (godmode)
-	{
-		pbody->body->GetFixtureList()->SetSensor(true);
-		pbody->body->SetGravityScale(0);
-	}
-	else
-	{
-		pbody->body->GetFixtureList()->SetSensor(false);
-		pbody->body->SetGravityScale(1);
-	}
+	
 
 	
 	return true;
@@ -276,7 +265,8 @@ bool Player::CleanUp()
 
 void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 
-	
+	if (!godmode)
+	{
 		switch (physB->ctype)
 		{
 		case ColliderType::ITEM:
@@ -297,6 +287,11 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			LOG("Collision UNKNOWN");
 			break;
 		}
+	}
+	if (godmode)
+	{
+
+	}
 	
 	
 	
