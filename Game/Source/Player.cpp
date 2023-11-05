@@ -121,6 +121,7 @@ bool Player::Update(float dt)
 	}
 
 
+
 	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) //START FROM FIRST LEVEL
 	{
 		dead = false;
