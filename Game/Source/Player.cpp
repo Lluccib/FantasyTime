@@ -43,6 +43,7 @@ bool Player::Start() {
 	currentAnimation = &idle;
 
 	pbody = app->physics->CreateCircle(position.x + 16, position.y + 16, 16, bodyType::DYNAMIC);
+	level = 1;
 	pbody->listener = this;
 	pbody->ctype = ColliderType::PLAYER;
 
@@ -148,18 +149,18 @@ bool Player::Update(float dt)
 
 	}
 
-	//if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) //START FROM SECOND LEVEL
-	//{
-	//	dead = false;
-	//	pbody->body->SetTransform({ PIXEL_TO_METERS(32 * 4), PIXEL_TO_METERS(32 * 26) }, 0);
+	if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) //START FROM SECOND LEVEL
+	{
+		dead = false;
+		pbody->body->SetTransform({ PIXEL_TO_METERS(32 * 145), PIXEL_TO_METERS(32 * 16) }, 0);
 
-	//	level = 2;
+		level = 2;
 
-	//	app->render->camera.x = 0;
-	//	app->render->camera.y = -190;
+		app->render->camera.x = 0;
+		app->render->camera.y = -190;
 
 
-	//}
+	}
 
 	if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
 	{
@@ -170,7 +171,7 @@ bool Player::Update(float dt)
 		}
 		else
 		{
-			/*pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(1800), PIXEL_TO_METERS(3000)), 0);*/
+			pbody->body->SetTransform({ PIXEL_TO_METERS(32 * 145), PIXEL_TO_METERS(32 * 16) }, 0);
 		}
 	}
 
@@ -232,7 +233,7 @@ bool Player::Update(float dt)
 	currentAnimation->Update();
 	
 	//Movimiento de la camara, y bloqueo de la camara
-	if (app->render->camera.x - position.x -100 <= -200 && app->render->camera.x - position.x -100 >= -7532) {
+	if (app->render->camera.x - position.x -100 <= -200 && app->render->camera.x - position.x -100 >= -7744) {
 		app->render->camera.x = -(position.x - 100);
 
 	}
