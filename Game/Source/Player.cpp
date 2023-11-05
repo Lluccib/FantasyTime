@@ -59,12 +59,13 @@ bool Player::Update(float dt)
 
 	b2Vec2 currentVelocity = pbody->body->GetLinearVelocity();
 
-	currentVelocity.y = 0.5;
+	/*currentVelocity.y = 0.5f;*/
 
 	if (!isWalking, !jump, !isPraying, !atacking, !dead)
 	{
 		currentAnimation = &idle;
 	}
+
 
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE && app->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE )
 	{
@@ -79,7 +80,7 @@ bool Player::Update(float dt)
 		jump = true;
 
 		currentAnimation = &Jump;
-		currentVelocity.y = -15;
+		currentVelocity.y = -0.35 * dt;
 		pbody->body->SetLinearVelocity(currentVelocity);
 		
 	}
