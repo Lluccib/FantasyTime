@@ -51,6 +51,12 @@ public:
 	const char* GetTitle() const;
 	const char* GetOrganization() const;
 
+	//load save
+	bool LoadRequest();
+	bool SaveRequest();
+	bool Load();
+	bool Save();
+
 private:
 
 	// Load config file
@@ -118,6 +124,10 @@ private:
 
 	bool vsync = false;
 	bool unlimitFrames = false;
+
+
+	bool saveRequest = false;
+	bool loadRequest = false;
 
 };
 

@@ -350,4 +350,56 @@ const char* App::GetOrganization() const
 	return organization.GetString();
 }
 
+bool App::LoadRequest() {
+	bool ret = true;
+	loadRequest = true;
+	return ret;
+}
+bool App::SaveRequest() {
+	bool ret = true;
+	saveRequest = true;
+	return ret;
+}
+
+bool App::Load() {
+	pugi::xml_document saveGameDoc;
+	pugi::xml_parse_result result = saveGameDoc.load_file("save_game.xml");
+	if (result)
+	{
+		ListItem<Module*>* moduleItem;
+		moduleItem = modules.start;
+		while (moduleItem != NULL)
+		{
+			moduleItem->data->LoadState(saveGameDoc.child("game_state").child(moduleItem->data->name.GetString()));
+			moduleItem = moduleItem->next;
+		}
+	}
+	else
+	{
+		LOG("Error loading save_game.xml: %s", result.description());
+	}
+
+	return true;
+}
+bool App::Save() {
+
+	pugi::xml_document saveGameDoc;
+
+	pugi::xml_node gameStateNode = saveGameDoc.append_child("game_state");
+
+	ListItem<Module*>* moduleItem;
+	moduleItem = modules.start;
+
+	while (moduleItem != NULL)
+	{
+		pugi::xml_node moduleNode = gameStateNode.append_child(moduleItem->data->name.GetString());
+
+		moduleItem->data->SaveState(moduleNode);
+		moduleItem = moduleItem->next;
+	}
+
+	saveGameDoc.save_file("save_game.xml");
+	return true;
+}
+
 
