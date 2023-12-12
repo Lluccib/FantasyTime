@@ -30,13 +30,13 @@ bool Player::Awake() {
 
 bool Player::Start() {
 
-	idle.LoadAnimations("idle");
-	Runright.LoadAnimations("Runright");
-	Runleft.LoadAnimations("Runleft");
-	Pray.LoadAnimations("Pray");
-	Atack1.LoadAnimations("Atack1");
-	Death.LoadAnimations("Death");
-	Jump.LoadAnimations("Jump");
+	idle.LoadAnimations("idle","player");
+	Runright.LoadAnimations("Runright","player");
+	Runleft.LoadAnimations("Runleft", "player");
+	Pray.LoadAnimations("Pray", "player");
+	Atack1.LoadAnimations("Atack1", "player");
+	Death.LoadAnimations("Death", "player");
+	Jump.LoadAnimations("Jump", "player");
 	
 	
 	texture = app->tex->Load(texturePath);
@@ -88,7 +88,14 @@ bool Player::Update(float dt)
 		pbody->body->SetLinearVelocity(currentVelocity);
 		
 	}
-	
+
+	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN && !jump && !dead && !godmode) {
+		atacking = true;
+
+		currentAnimation = &Atack1;
+		
+
+	}
 	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT && godmode == true) {
 		currentVelocity.y = currentVelocity.y + 0.35;
 	}
@@ -171,6 +178,13 @@ bool Player::Update(float dt)
 
 
 	}
+	if (currentAnimation == &Atack1 && currentAnimation->HasFinished())
+	{
+		atacking = false;
+		currentAnimation->Reset();
+		
+		
+	}
 
 	if (godmode)
 	{
@@ -192,16 +206,16 @@ bool Player::Update(float dt)
 		currentVelocity.y = -GRAVITY_Y	;
 		
 	}
-	if (atacking)
-	{
-		currentTime = SDL_GetTicks();
-		atackduration = currentTime - atacktimer;
-		if (atackduration >= 700) //700
-		{
-			atacking = false;
-			currentAnimation->Reset();
-		}
-	}
+	//if (atacking)
+	//{
+	//	currentTime = SDL_GetTicks();
+	//	atackduration = currentTime - atacktimer;
+	//	if (atackduration >= 700) //700
+	//	{
+	//		atacking = false;
+	//		currentAnimation->Reset();
+	//	}
+	//}
 	if (dead)
 	{
 		currentTime = SDL_GetTicks();

@@ -24,82 +24,93 @@
   <scene>
     <map path="Assets/Maps/" name="mapa.tmx"/>
     <player x="120" y="800" texturepath="Assets/Textures/personaje.png"/>
+	<blue x="240" y="800" texturepath="Assets/Textures/Dino_azul.png"/>
     
   </scene>
-	<!-- idle -->
-	<idle loop="true" speed="0.1f">
-		<animation x="47" y="16" w="30" h="49"/>
-		<animation x="175" y="16" w="30" h="49"/>
-		<animation x="47" y="80" w="30" h="49"/>
-		<animation x="175" y="80" w="30" h="49"/>
-		<animation x="47" y="144" w="30" h="49"/>
-		<animation x="175" y="144" w="30" h="49"/>
-		<animation x="47" y="208" w="30" h="49"/>
-		<animation x="175" y="208" w="30" h="49"/>
-	</idle>
-	<!-- Runright -->
-	<Runright loop="true" speed="0.2f">
-		<animation x="345" y="17" w="32" h="49"/>
-		<animation x="473" y="17" w="30" h="49"/>
-		<animation x="345" y="80" w="30" h="49"/>
-		<animation x="473" y="80" w="30" h="49"/>
-		<animation x="345" y="145" w="30" h="49"/>
-		<animation x="471" y="145" w="30" h="49"/>
-		<animation x="345" y="209" w="30" h="49"/>
-		<animation x="473" y="209" w="30" h="49"/>
-	</Runright>
+	<player>
+		<!-- idle -->
+		<idle loop="true" speed="0.1f">
+			<animation x="47" y="16" w="30" h="49"/>
+			<animation x="175" y="16" w="30" h="49"/>
+			<animation x="47" y="80" w="30" h="49"/>
+			<animation x="175" y="80" w="30" h="49"/>
+			<animation x="47" y="144" w="30" h="49"/>
+			<animation x="175" y="144" w="30" h="49"/>
+			<animation x="47" y="208" w="30" h="49"/>
+			<animation x="175" y="208" w="30" h="49"/>
+		</idle>
+		<!-- Runright -->
+		<Runright loop="true" speed="0.2f">
+			<animation x="345" y="17" w="32" h="49"/>
+			<animation x="473" y="17" w="30" h="49"/>
+			<animation x="345" y="80" w="30" h="49"/>
+			<animation x="473" y="80" w="30" h="49"/>
+			<animation x="345" y="145" w="30" h="49"/>
+			<animation x="471" y="145" w="30" h="49"/>
+			<animation x="345" y="209" w="30" h="49"/>
+			<animation x="473" y="209" w="30" h="49"/>
+		</Runright>
 
-	<!-- Runleft -->
-	<Runleft loop="true" speed="0.2f">
-		<animation x="1430" y="24" w="32" h="49"/>
-		<animation x="1558" y="24" w="30" h="49"/>
-		<animation x="1430" y="88" w="30" h="49"/>
-		<animation x="1558" y="88" w="30" h="49"/>
-		<animation x="1430" y="153" w="30" h="49"/>
-		<animation x="1558" y="153" w="30" h="49"/>
-		<animation x="1430" y="217" w="30" h="49"/>
-		<animation x="1558" y="217" w="30" h="49"/>
-	</Runleft>
+		<!-- Runleft -->
+		<Runleft loop="true" speed="0.2f">
+			<animation x="1430" y="24" w="32" h="49"/>
+			<animation x="1558" y="24" w="30" h="49"/>
+			<animation x="1430" y="88" w="30" h="49"/>
+			<animation x="1558" y="88" w="30" h="49"/>
+			<animation x="1430" y="153" w="30" h="49"/>
+			<animation x="1558" y="153" w="30" h="49"/>
+			<animation x="1430" y="217" w="30" h="49"/>
+			<animation x="1558" y="217" w="30" h="49"/>
+		</Runleft>
 
-	<!-- Pray -->
-	<Pray loop="false" speed="0.05f">
-		<animation x="939" y="19" w="32" h="49"/>
-		<animation x="1065" y="19" w="30" h="49"/>
-		<animation x="1194" y="19" w="30" h="49"/>
-		<animation x="1323" y="19" w="30" h="49"/>
-	</Pray>
+		<!-- Pray -->
+		<Pray loop="false" speed="0.05f">
+			<animation x="939" y="19" w="32" h="49"/>
+			<animation x="1065" y="19" w="30" h="49"/>
+			<animation x="1194" y="19" w="30" h="49"/>
+			<animation x="1323" y="19" w="30" h="49"/>
+		</Pray>
 
-	<!-- Atack1 -->
-	<Atack1 loop="false" speed="0.3f">
-		<animation x="43" y="317" w="59" h="54"/>
-		<animation x="169" y="317" w="59" h="54"/>
-		<animation x="295" y="317" w="59" h="54"/>
-		<animation x="428" y="317" w="59" h="54"/>
-		<animation x="553" y="317" w="59" h="54"/>
-		<animation x="676" y="317" w="59" h="54"/>
-		<animation x="808" y="317" w="59" h="54"/>
-		<animation x="937" y="317" w="59" h="54"/>
-		<animation x="43" y="383" w="59" h="54"/>
-		<animation x="167" y="383" w="59" h="54"/>
-	</Atack1>
+		<!-- Atack1 -->
+		<Atack1 loop="false" speed="0.3f">
+			<animation x="43" y="317" w="59" h="54"/>
+			<animation x="169" y="317" w="59" h="54"/>
+			<animation x="295" y="317" w="59" h="54"/>
+			<animation x="428" y="317" w="59" h="54"/>
+			<animation x="553" y="317" w="59" h="54"/>
+			<animation x="676" y="317" w="59" h="54"/>
+			<animation x="808" y="317" w="59" h="54"/>
+			<animation x="937" y="317" w="59" h="54"/>
+			<animation x="43" y="383" w="59" h="54"/>
+			<animation x="167" y="383" w="59" h="54"/>
+		</Atack1>
 
-	<!-- Death -->
-	<Death loop="false" speed="0.2f">
-		<animation x="1415" y="343" w="60" h="50"/>
-		<animation x="1535" y="343" w="60" h="50"/>
-		<animation x="1415" y="409" w="60" h="50"/>
-		<animation x="1535" y="409" w="60" h="50"/>
-	</Death>
+		<!-- Death -->
+		<Death loop="false" speed="0.2f">
+			<animation x="1415" y="343" w="60" h="50"/>
+			<animation x="1535" y="343" w="60" h="50"/>
+			<animation x="1415" y="409" w="60" h="50"/>
+			<animation x="1535" y="409" w="60" h="50"/>
+		</Death>
 
-	<!-- Jump -->
-	<Jump loop="false" speed="0.3f">
-		<animation x="642" y="14" w="44" h="52"/>
-		<animation x="772" y="14" w="44" h="52"/>
-		<animation x="642" y="75" w="44" h="52"/>
-		<animation x="772" y="75" w="44" h="52"/>
-		<animation x="642" y="142" w="44" h="52"/>
-		<animation x="772" y="142" w="44" h="52"/>
-		<animation x="642" y="206" w="44" h="52"/>
-		<animation x="772" y="206" w="44" h="52"/>
-	</Jump>
+		<!-- Jump -->
+		<Jump loop="false" speed="0.3f">
+			<animation x="642" y="14" w="44" h="52"/>
+			<animation x="772" y="14" w="44" h="52"/>
+			<animation x="642" y="75" w="44" h="52"/>
+			<animation x="772" y="75" w="44" h="52"/>
+			<animation x="642" y="142" w="44" h="52"/>
+			<animation x="772" y="142" w="44" h="52"/>
+			<animation x="642" y="206" w="44" h="52"/>
+			<animation x="772" y="206" w="44" h="52"/>
+		</Jump>
+	</player>
+	<blue>
+		<Idle loop="true" speed="0.1f">
+			<animation x="0" y="0" w="24" h="24"/>
+			<animation x="24" y="0" w="24" h="24"/>
+			<animation x="48" y="0" w="24" h="24"/>
+		</Idle>
+		
+	</blue>
 </config>
