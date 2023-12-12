@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "Item.h"
 #include "DinoAzul.h"
+#include "Dragoncin.h"
 
 struct SDL_Texture;
 

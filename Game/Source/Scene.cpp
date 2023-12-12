@@ -33,10 +33,15 @@ bool Scene::Awake(pugi::xml_node& config)
 		item->parameters = itemNode;
 	}
 	
-	for (pugi::xml_node EnemyNode = config.child("blue"); EnemyNode; EnemyNode = EnemyNode.next_sibling("blue"))
+	for (pugi::xml_node BlueNode = config.child("blue"); BlueNode; BlueNode = BlueNode.next_sibling("blue"))
 	{
-		Blue* blue = (Blue*)app->entityManager->CreateEntity(EntityType::ENEMY);
-		blue->parameters = EnemyNode;
+		Blue* blue = (Blue*)app->entityManager->CreateEntity(EntityType::BLUE);
+		blue->parameters = BlueNode;
+	}
+	for (pugi::xml_node DrakeNode = config.child("drake"); DrakeNode; DrakeNode = DrakeNode.next_sibling("drake"))
+	{
+		Drake* drake = (Drake*)app->entityManager->CreateEntity(EntityType::DRAKE);
+		drake->parameters = DrakeNode;
 	}
 
 	if (config.child("player")) {

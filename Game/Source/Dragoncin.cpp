@@ -1,4 +1,4 @@
-#include "DinoAzul.h"
+#include "Dragoncin.h"
 #include "Player.h"
 #include "App.h"
 #include "Textures.h"
@@ -10,17 +10,17 @@
 #include "Point.h"
 #include "Physics.h"
 
-Blue::Blue() : Entity(EntityType::BLUE)
+Drake::Drake() : Entity(EntityType::PLAYER)
 {
 
-	name.Create("blue");
+	name.Create("drake");
 }
 
-Blue::~Blue() {
+Drake::~Drake() {
 
 }
 
-bool Blue::Awake() {
+bool Drake::Awake() {
 
 	position.x = parameters.attribute("x").as_int();
 	position.y = parameters.attribute("y").as_int();
@@ -29,21 +29,21 @@ bool Blue::Awake() {
 	return true;
 }
 
-bool Blue::Start() {
+bool Drake::Start() {
 
-	Run.LoadAnimations("Idle", "blue");
+	Run.LoadAnimations("Idle", "drake");
 	texture = app->tex->Load(texturePath);
-	pbody = app->physics->CreateCircle(position.x + 20, position.y , 8, bodyType::DYNAMIC);
+	pbody = app->physics->CreateRectangle(position.x+80, position.y, 183, 127, bodyType::DYNAMIC);
 	pbody->listener = this;
 	pbody->ctype = ColliderType::ENEMY;
 
-	
+
 
 
 	return true;
 }
 
-bool Blue::Update(float dt)
+bool Drake::Update(float dt)
 {
 	/*currentVelocity.y = 0.5f;*/
 	currentAnimation = &Run;
@@ -52,7 +52,7 @@ bool Blue::Update(float dt)
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 16;
 	app->render->DrawTexture(texture, position.x, position.y, &currentAnimation->GetCurrentFrame());
 	currentAnimation->Update();
-	
+
 
 
 
@@ -63,19 +63,19 @@ bool Blue::Update(float dt)
 
 }
 
-bool Blue::CleanUp()
+bool Drake::CleanUp()
 {
 
 	return true;
 }
 
-void Blue::OnCollision(PhysBody* physA, PhysBody* physB) {
+void Drake::OnCollision(PhysBody* physA, PhysBody* physB) {
 
-	
+
 	switch (physB->ctype)
 	{
 	case ColliderType::PLATFORM:
-		
+
 		LOG("Collision PLATFORM");
 		break;
 	case ColliderType::UNKNOWN:

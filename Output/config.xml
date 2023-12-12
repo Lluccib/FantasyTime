@@ -25,7 +25,7 @@
     <map path="Assets/Maps/" name="mapa.tmx"/>
     <player x="120" y="800" texturepath="Assets/Textures/personaje.png"/>
 	<blue x="240" y="800" texturepath="Assets/Textures/Dino_azul.png"/>
-    
+	<drake x="260" y="800" texturepath="Assets/Textures/drake.png"/>
   </scene>
 	<player>
 		<!-- idle -->
@@ -113,4 +113,18 @@
 		</Idle>
 		
 	</blue>
+	<drake>
+		<Idle loop="true" speed="0.2f">
+			<animation x="5" y="1" w="180" h="173"/>
+			<animation x="189" y="1" w="185" h="172"/>
+			<animation x="378" y="1" w="185" h="172"/>
+			<animation x="575" y="1" w="185" h="172"/>
+			<animation x="771" y="1" w="185" h="172"/>
+			<animation x="967" y="1" w="185" h="172"/>
+			<animation x="1149" y="1" w="185" h="172"/>
+			<animation x="1346" y="1" w="185" h="172"/>
+			<animation x="1541" y="1" w="185" h="172"/>
+		</Idle>
+
+	</drake>
 </config>

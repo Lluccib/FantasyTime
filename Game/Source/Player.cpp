@@ -62,7 +62,7 @@ bool Player::Update(float dt)
 
 	/*currentVelocity.y = 0.5f;*/
 
-	if (!isWalking, !jump, !dead)
+	if (!isWalking, !jump, !dead, !atacking)
 	{
 		currentAnimation = &idle;
 		

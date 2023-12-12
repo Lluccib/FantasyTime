@@ -87,8 +87,11 @@ Entity* EntityManager::CreateEntity(EntityType type)
 	case EntityType::ITEM:
 		entity = new Item();
 		break;
-	case EntityType::ENEMY:
+	case EntityType::BLUE:
 		entity = new Blue();
+		break;
+	case EntityType::DRAKE:
+		entity = new Drake();
 		break;
 	default:
 		break;
