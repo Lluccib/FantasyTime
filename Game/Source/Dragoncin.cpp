@@ -33,7 +33,7 @@ bool Drake::Start() {
 
 	Run.LoadAnimations("Idle", "drake");
 	texture = app->tex->Load(texturePath);
-	pbody = app->physics->CreateRectangle(position.x+80, position.y, 183, 127, bodyType::DYNAMIC);
+	pbody = app->physics->CreateCircle(position.x+180, position.y, 20, bodyType::DYNAMIC);
 	pbody->listener = this;
 	pbody->ctype = ColliderType::ENEMY;
 
@@ -50,7 +50,7 @@ bool Drake::Update(float dt)
 
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 16;
-	app->render->DrawTexture(texture, position.x, position.y, &currentAnimation->GetCurrentFrame());
+	app->render->DrawTexture(texture, position.x-80, position.y-90, &currentAnimation->GetCurrentFrame());
 	currentAnimation->Update();
 
 

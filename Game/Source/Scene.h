@@ -36,12 +36,14 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	//player
+	Player* player;
 private:
 	SDL_Texture* img;
 	float textPosX, textPosY = 0;
 	uint texW, texH;
 	uint windowW, windowH;
-	Player* player;
+	
 
 };
 

@@ -1,5 +1,4 @@
 #include "DinoAzul.h"
-#include "Player.h"
 #include "App.h"
 #include "Textures.h"
 #include "Audio.h"
@@ -31,13 +30,16 @@ bool Blue::Awake() {
 
 bool Blue::Start() {
 
-	Run.LoadAnimations("Idle", "blue");
+	idle.LoadAnimations("Idle", "blue");
+	walk.LoadAnimations("walk", "blue");
+	damage.LoadAnimations("damage", "blue");
+	run.LoadAnimations("run", "blue");
 	texture = app->tex->Load(texturePath);
 	pbody = app->physics->CreateCircle(position.x + 20, position.y , 8, bodyType::DYNAMIC);
 	pbody->listener = this;
 	pbody->ctype = ColliderType::ENEMY;
 
-	
+
 
 
 	return true;
@@ -46,14 +48,22 @@ bool Blue::Start() {
 bool Blue::Update(float dt)
 {
 	/*currentVelocity.y = 0.5f;*/
-	currentAnimation = &Run;
+	if (!atacking)
+	{
+		currentAnimation = &walk;
+	}
+	
 
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 16;
 	app->render->DrawTexture(texture, position.x, position.y, &currentAnimation->GetCurrentFrame());
 	currentAnimation->Update();
 	
-
+	if (app->scene->player->position.DistanceTo(position) <= 100)
+	{
+		atacking = true;
+		currentAnimation = &run;
+	}
 
 
 	return true;

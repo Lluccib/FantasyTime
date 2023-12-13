@@ -93,7 +93,11 @@ bool Player::Update(float dt)
 		atacking = true;
 
 		currentAnimation = &Atack1;
-		
+
+		atackcollider = app->physics->CreateRectangle(position.x +40, position.y + 16, 8, 32, bodyType::STATIC);
+		atackcollider->ctype = ColliderType::PLAYERATACK;
+		atackcollider->listener = this;
+		atacktimer = SDL_GetTicks();
 
 	}
 	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT && godmode == true) {
@@ -222,15 +226,27 @@ bool Player::Update(float dt)
 		deathduration = currentTime - deathtimer;
 		if (deathduration >= 1500) //700
 		{
-			pbody->body->SetTransform({ PIXEL_TO_METERS(32*4), PIXEL_TO_METERS(32*26) }, 0);
+			
+			pbody->body->SetTransform({ PIXEL_TO_METERS(32 * 4), PIXEL_TO_METERS(32 * 26) }, 0);
 			dead = false;
 
 			app->render->camera.x = 0;
 			app->render->camera.y = -190;
 
 			currentAnimation->Reset();
-
 			
+
+		}
+	}
+	if (atacking)
+	{
+		atacktimer = SDL_GetTicks();
+		atackduration = currentTime - atacktimer;
+		if (deathduration >= 1500) //700
+		{
+			atackcollider->body->GetWorld()->DestroyBody(atackcollider->body);
+
+
 
 		}
 	}

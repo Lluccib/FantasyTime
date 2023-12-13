@@ -36,11 +36,16 @@ public:
 	SDL_Texture* texture = NULL;
 
 	PhysBody* pbody;
+	PhysBody* pbody2;
 	
 	bool isWalking = false;
+	bool atacking = false;
 
 	Animation* currentAnimation = nullptr;
-	Animation Run;
+	Animation idle;
+	Animation walk;
+	Animation damage;
+	Animation run;
 
 
 };

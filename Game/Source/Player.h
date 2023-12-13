@@ -46,6 +46,7 @@ public:
 	SDL_Texture* texture = NULL;
 	
 	PhysBody* pbody;
+	PhysBody* atackcollider;
 	int pickCoinFxId;
 	bool isWalking = false;
 	
