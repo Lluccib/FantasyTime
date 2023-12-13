@@ -4,8 +4,17 @@
 #include "Module.h"
 #include "List.h"
 #include "Point.h"
+#include "PQueue.h"
+#include "DynArray.h"
+#include "Pathfinding.h"
 
 #include "PugiXml\src\pugixml.hpp"
+
+enum MapOrientation
+{
+	ORTOGRAPHIC = 0,
+	ISOMETRIC
+};
 
 // Ignore Terrain Types and Tile Types for now, but we want the image!
 struct TileSet
