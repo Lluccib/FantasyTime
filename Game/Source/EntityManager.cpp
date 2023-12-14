@@ -93,6 +93,9 @@ Entity* EntityManager::CreateEntity(EntityType type)
 	case EntityType::DRAKE:
 		entity = new Drake();
 		break;
+	case EntityType::NIGHTBRINGER:
+		entity = new Bringer();
+		break;
 	default:
 		break;
 	}

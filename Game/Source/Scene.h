@@ -6,6 +6,7 @@
 #include "Item.h"
 #include "DinoAzul.h"
 #include "Dragoncin.h"
+#include "NightBringer.h"
 
 struct SDL_Texture;
 

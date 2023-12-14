@@ -26,6 +26,7 @@
     <player x="120" y="800" texturepath="Assets/Textures/personaje.png"/>
 	<blue x="240" y="800" texturepath="Assets/Textures/Dino_azul.png"/>
 	<drake x="260" y="800" texturepath="Assets/Textures/drake.png"/>
+	<bringer x="260" y="800" texturepath="Assets/Textures/bringer.png"/>
   </scene>
 	<player>
 		<!-- idle -->
@@ -153,4 +154,44 @@
 		</Idle>
 
 	</drake>
+
+	<bringer>
+		<Idle loop="true" speed="0.1f">
+			<animation x="1" y="12" w="147" h="84"/>
+			<animation x="148" y="12" w="147" h="84"/>
+			<animation x="295" y="12" w="147" h="84"/>
+			<animation x="442" y="12" w="147" h="84"/>
+			<animation x="589" y="12" w="147" h="84"/>
+			<animation x="736" y="12" w="147" h="84"/>
+			<animation x="883" y="12" w="147" h="84"/>
+			<animation x="1030" y="12" w="147" h="84"/>
+		</Idle>
+		<walk loop="true" speed="0.1f">
+			<animation x="72" y="0" w="24" h="24"/>
+			<animation x="96" y="0" w="24" h="24"/>
+			<animation x="120" y="0" w="24" h="24"/>
+			<animation x="144" y="0" w="24" h="24"/>
+			<animation x="168" y="0" w="24" h="24"/>
+			<animation x="192" y="0" w="24" h="24"/>
+			<animation x="216" y="0" w="24" h="24"/>
+			<animation x="240" y="0" w="24" h="24"/>
+			<animation x="264" y="0" w="24" h="24"/>
+			<animation x="288" y="0" w="24" h="24"/>
+		</walk>
+		<damage loop="false" speed="0.15f">
+			<animation x="336" y="0" w="24" h="24"/>
+			<animation x="360" y="0" w="24" h="24"/>
+			<animation x="384" y="0" w="24" h="24"/>
+		</damage>
+		<run loop="true" speed="0.3f">
+			<animation x="408" y="0" w="24" h="24"/>
+			<animation x="432" y="0" w="24" h="24"/>
+			<animation x="456" y="0" w="24" h="24"/>
+			<animation x="480" y="0" w="24" h="24"/>
+			<animation x="504" y="0" w="24" h="24"/>
+			<animation x="528" y="0" w="24" h="24"/>
+			<animation x="552" y="0" w="24" h="24"/>
+		</run>
+
+	</bringer>
 </config>

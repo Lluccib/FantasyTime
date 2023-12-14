@@ -43,6 +43,11 @@ bool Scene::Awake(pugi::xml_node& config)
 		Drake* drake = (Drake*)app->entityManager->CreateEntity(EntityType::DRAKE);
 		drake->parameters = DrakeNode;
 	}
+	for (pugi::xml_node BringerNode = config.child("bringer"); BringerNode; BringerNode = BringerNode.next_sibling("bringer"))
+	{
+		Bringer* bringer = (Bringer*)app->entityManager->CreateEntity(EntityType::NIGHTBRINGER);
+		bringer->parameters = BringerNode;
+	}
 
 	if (config.child("player")) {
 		player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
