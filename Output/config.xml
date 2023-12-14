@@ -157,41 +157,61 @@
 
 	<bringer>
 		<Idle loop="true" speed="0.1f">
-			<animation x="1" y="12" w="147" h="84"/>
-			<animation x="148" y="12" w="147" h="84"/>
-			<animation x="295" y="12" w="147" h="84"/>
-			<animation x="442" y="12" w="147" h="84"/>
-			<animation x="589" y="12" w="147" h="84"/>
-			<animation x="736" y="12" w="147" h="84"/>
-			<animation x="883" y="12" w="147" h="84"/>
-			<animation x="1030" y="12" w="147" h="84"/>
+			<animation x="0" y="9" w="147" h="84"/>
+			<animation x="140" y="9" w="147" h="84"/>
+			<animation x="280" y="9" w="147" h="84"/>
+			<animation x="420" y="9" w="147" h="84"/>
+			<animation x="560" y="9" w="147" h="84"/>
+			<animation x="700" y="9" w="147" h="84"/>
+			<animation x="840" y="9" w="147" h="84"/>
+			<animation x="980" y="9" w="147" h="84"/>
 		</Idle>
-		<walk loop="true" speed="0.1f">
-			<animation x="72" y="0" w="24" h="24"/>
-			<animation x="96" y="0" w="24" h="24"/>
-			<animation x="120" y="0" w="24" h="24"/>
-			<animation x="144" y="0" w="24" h="24"/>
-			<animation x="168" y="0" w="24" h="24"/>
-			<animation x="192" y="0" w="24" h="24"/>
-			<animation x="216" y="0" w="24" h="24"/>
-			<animation x="240" y="0" w="24" h="24"/>
-			<animation x="264" y="0" w="24" h="24"/>
-			<animation x="288" y="0" w="24" h="24"/>
+		<walk loop="true" speed="0.05f">
+			<animation x="0" y="103" w="147" h="24"/>
+			<animation x="140" y="103" w="147" h="84"/>
+			<animation x="280" y="103" w="147" h="84"/>
+			<animation x="420" y="103" w="147" h="84"/>
+			<animation x="560" y="103" w="147" h="84"/>
+			<animation x="700" y="103" w="147" h="84"/>
+			<animation x="840" y="103" w="147" h="84"/>
+			<animation x="980" y="103" w="147" h="84"/>
 		</walk>
-		<damage loop="false" speed="0.15f">
-			<animation x="336" y="0" w="24" h="24"/>
-			<animation x="360" y="0" w="24" h="24"/>
-			<animation x="384" y="0" w="24" h="24"/>
+		<damage loop="false" speed="0.1f">
+			<animation x="280" y="289" w="147" h="84"/>
+			<animation x="420" y="289" w="147" h="84"/>
+			<animation x="280" y="289" w="147" h="84"/>
+			<animation x="420" y="289" w="147" h="84"/>
+			
+		
 		</damage>
-		<run loop="true" speed="0.3f">
-			<animation x="408" y="0" w="24" h="24"/>
-			<animation x="432" y="0" w="24" h="24"/>
-			<animation x="456" y="0" w="24" h="24"/>
-			<animation x="480" y="0" w="24" h="24"/>
-			<animation x="504" y="0" w="24" h="24"/>
-			<animation x="528" y="0" w="24" h="24"/>
-			<animation x="552" y="0" w="24" h="24"/>
-		</run>
+		<atack loop="true" speed="0.2f">
+			<animation x="0" y="196" w="147" h="84"/>
+			<animation x="140" y="196" w="147" h="84"/>
+			<animation x="280" y="196" w="147" h="84"/>
+			<animation x="420" y="196" w="147" h="84"/>
+			<animation x="560" y="196" w="147" h="84"/>
+			<animation x="700" y="196" w="147" h="84"/>
+			<animation x="840" y="196" w="147" h="84"/>
+			<animation x="980" y="196" w="147" h="84"/>
+			<animation x="0" y="289" w="147" h="84"/>
+			<animation x="140" y="289" w="147" h="84"/>
+		</atack>
+		
+		<death loop="true" speed="0.1f">
+			<animation x="280" y="289" w="147" h="84"/>
+			<animation x="420" y="289" w="147" h="84"/>
+			<animation x="560" y="289" w="147" h="84"/>
+			<animation x="700" y="289" w="147" h="84"/>
+			<animation x="840" y="289" w="147" h="84"/>
+			<animation x="980" y="289" w="147" h="84"/>
+			<animation x="0" y="382" w="147" h="84"/>
+			<animation x="140" y="382" w="147" h="84"/>
+			<animation x="280" y="382" w="147" h="84"/>
+			<animation x="420" y="382" w="147" h="84"/>
+			<animation x="560" y="382" w="147" h="84"/>
+			<animation x="700" y="382" w="147" h="84"/>
+			<animation x="840" y="382" w="147" h="84"/>
+		</death>
 
 	</bringer>
 </config>

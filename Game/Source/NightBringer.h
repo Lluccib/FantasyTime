@@ -46,6 +46,7 @@ public:
 	Animation walk;
 	Animation damage;
 	Animation run;
+	Animation death;
 
 
 };

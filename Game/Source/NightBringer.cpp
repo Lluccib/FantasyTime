@@ -33,7 +33,8 @@ bool Bringer::Start() {
 	idle.LoadAnimations("Idle", "bringer");
 	walk.LoadAnimations("walk", "bringer");
 	damage.LoadAnimations("damage", "bringer");
-	run.LoadAnimations("run", "bringer");
+	run.LoadAnimations("atack", "bringer");
+	death.LoadAnimations("death", "bringer");
 	texture = app->tex->Load(texturePath);
 	pbody = app->physics->CreateCircle(position.x + 20, position.y, 8, bodyType::DYNAMIC);
 	pbody->listener = this;
@@ -50,7 +51,7 @@ bool Bringer::Update(float dt)
 	/*currentVelocity.y = 0.5f;*/
 	if (!atacking)
 	{
-		currentAnimation = &idle;
+		currentAnimation = &death;
 	}
 
 
