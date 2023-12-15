@@ -1,5 +1,5 @@
-#ifndef __PLAYER_H__
-#define __PLAYER_H__
+#ifndef __DINO_AZUL_H__
+#define __DINO_AZUL_H__
 
 #include "Entity.h"
 #include "Point.h"
@@ -8,13 +8,13 @@
 
 struct SDL_Texture;
 
-class Player : public Entity
+class Blue : public Entity
 {
 public:
 
-	Player();
-	
-	virtual ~Player();
+	Blue();
+
+	virtual ~Blue();
 
 	bool Awake();
 
@@ -31,34 +31,21 @@ public:
 	float speed = 0.2f;
 	float speedy = 0.5f;//el programa pasa de metros a píxeles
 	float timer = 0.0f;
-	bool jump = false;
-	bool isPraying = false;
-	bool atacking = false;
-	bool dead = false;
-	bool isFacingRight = false;
-	bool godmode = false;
-	bool life = true;
-	Uint32 atacktimer = 0;
-	Uint32 deathtimer = 0;
-	Uint32 currentTime = 0;
-	Uint32 atackduration = 0;
-	Uint32 deathduration = 0;
+	
 	const char* texturePath;
 	SDL_Texture* texture = NULL;
-	
+
 	PhysBody* pbody;
 	PhysBody* pbody2;
-	int pickCoinFxId;
+	
 	bool isWalking = false;
-	bool destroybody = false;
+	bool atacking = false;
+
 	Animation* currentAnimation = nullptr;
 	Animation idle;
-	Animation Runright;
-	Animation Runleft;
-	Animation Pray;
-	Animation Atack1;
-	Animation Death;
-	Animation Jump;
+	Animation walk;
+	Animation damage;
+	Animation run;
 
 
 };

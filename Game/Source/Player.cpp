@@ -30,13 +30,13 @@ bool Player::Awake() {
 
 bool Player::Start() {
 
-	idle.LoadAnimations("idle");
-	Runright.LoadAnimations("Runright");
-	Runleft.LoadAnimations("Runleft");
-	Pray.LoadAnimations("Pray");
-	Atack1.LoadAnimations("Atack1");
-	Death.LoadAnimations("Death");
-	Jump.LoadAnimations("Jump");
+	idle.LoadAnimations("idle","player");
+	Runright.LoadAnimations("Runright","player");
+	Runleft.LoadAnimations("Runleft", "player");
+	Pray.LoadAnimations("Pray", "player");
+	Atack1.LoadAnimations("Atack1", "player");
+	Death.LoadAnimations("Death", "player");
+	Jump.LoadAnimations("Jump", "player");
 	
 	
 	texture = app->tex->Load(texturePath);
@@ -62,12 +62,15 @@ bool Player::Update(float dt)
 
 	/*currentVelocity.y = 0.5f;*/
 
-	if (!isWalking, !jump, !dead)
+	if (life, !isWalking, !jump, !dead, !atacking)
 	{
 		currentAnimation = &idle;
 		
 	}
-
+	if (!life)
+	{
+		currentAnimation = &Death;
+	}
 
 
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE && app->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE )
@@ -88,7 +91,18 @@ bool Player::Update(float dt)
 		pbody->body->SetLinearVelocity(currentVelocity);
 		
 	}
-	
+
+	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN && !jump && !dead && !godmode && !isWalking) {
+		atacking = true;
+
+		currentAnimation = &Atack1;
+
+		pbody2 = app->physics->CreateRectangleSensor(position.x +40, position.y + 16, 8, 32, bodyType::STATIC);
+		pbody2->ctype = ColliderType::PLAYERATACK;
+		pbody2->listener = this;
+		atacktimer = SDL_GetTicks();
+
+	}
 	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT && godmode == true) {
 		currentVelocity.y = currentVelocity.y + 0.35;
 	}
@@ -100,7 +114,7 @@ bool Player::Update(float dt)
 		currentVelocity.x = -speed * dt;
 		isWalking = true;
 		currentAnimation = &Runleft;
-		
+		atacking = false;
 		float camSpeed = 0.2f;
 
 	}
@@ -108,7 +122,7 @@ bool Player::Update(float dt)
 		currentVelocity.x = speed * dt;
 		isWalking = true;
 		currentAnimation = &Runright;
-		
+		atacking = false;
 		float camSpeed = 0.2f;
 		
 	}
@@ -116,6 +130,7 @@ bool Player::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN && !dead) {
 
 		dead = true;
+		life = false;
 		currentAnimation = &Death;
 		deathtimer = SDL_GetTicks();
 	}
@@ -171,6 +186,20 @@ bool Player::Update(float dt)
 
 
 	}
+	if (destroybody)
+	{
+		destroybody = false;
+		pbody2->body->GetWorld()->DestroyBody(pbody2->body);
+	}
+	if (currentAnimation == &Atack1 && currentAnimation->HasFinished())
+	{
+
+		atacking = false;
+		destroybody = true;
+		currentAnimation->Reset();
+		
+		
+	}
 
 	if (godmode)
 	{
@@ -192,41 +221,37 @@ bool Player::Update(float dt)
 		currentVelocity.y = -GRAVITY_Y	;
 		
 	}
-	if (atacking)
-	{
-		currentTime = SDL_GetTicks();
-		atackduration = currentTime - atacktimer;
-		if (atackduration >= 700) //700
-		{
-			atacking = false;
-			currentAnimation->Reset();
-		}
-	}
+	//if (atacking)
+	//{
+	//	currentTime = SDL_GetTicks();
+	//	atackduration = currentTime - atacktimer;
+	//	if (atackduration >= 700) //700
+	//	{
+	//		atacking = false;
+	//		currentAnimation->Reset();
+	//	}
+	//}
 	if (dead)
 	{
 		currentTime = SDL_GetTicks();
 		deathduration = currentTime - deathtimer;
 		if (deathduration >= 1500) //700
 		{
-			pbody->body->SetTransform({ PIXEL_TO_METERS(32*4), PIXEL_TO_METERS(32*26) }, 0);
+			
+			pbody->body->SetTransform({ PIXEL_TO_METERS(32 * 4), PIXEL_TO_METERS(32 * 26) }, 0);
 			dead = false;
-
+			life = true;
 			app->render->camera.x = 0;
 			app->render->camera.y = -190;
 
 			currentAnimation->Reset();
-
 			
 
 		}
 	}
+	
 
-	if (isFacingRight) {
-		flip = SDL_FLIP_NONE; // No se voltea la textura.
-	}
-	else {
-		flip = SDL_FLIP_HORIZONTAL; // Voltea la textura horizontalmente.
-	}
+	
 
 	pbody->body->SetLinearVelocity(currentVelocity);
 	//Update player position in pixels
@@ -280,8 +305,8 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			LOG("Collision PLATFORM");
 			break;
 		case ColliderType::ENEMY:
+			life = false;
 			dead = true;
-			currentAnimation = &Death;
 			deathtimer = SDL_GetTicks();
 			LOG("Collision PLATFORM");
 			break;

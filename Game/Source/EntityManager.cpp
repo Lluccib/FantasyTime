@@ -87,6 +87,18 @@ Entity* EntityManager::CreateEntity(EntityType type)
 	case EntityType::ITEM:
 		entity = new Item();
 		break;
+	case EntityType::BLUE:
+		entity = new Blue();
+		break;
+	case EntityType::DRAKE:
+		entity = new Drake();
+		break;
+	case EntityType::NIGHTBRINGER:
+		entity = new Bringer();
+		break;
+	case EntityType::GHOST:
+		entity = new Ghost();
+		break;
 	default:
 		break;
 	}
