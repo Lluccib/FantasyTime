@@ -15,6 +15,7 @@ enum class EntityType
 	BLUE,
 	DRAKE,
 	NIGHTBRINGER,
+	GHOST,
 	UNKNOWN
 };
 

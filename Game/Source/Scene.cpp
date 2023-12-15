@@ -48,6 +48,11 @@ bool Scene::Awake(pugi::xml_node& config)
 		Bringer* bringer = (Bringer*)app->entityManager->CreateEntity(EntityType::NIGHTBRINGER);
 		bringer->parameters = BringerNode;
 	}
+	for (pugi::xml_node GhostNode = config.child("ghost"); GhostNode; GhostNode = GhostNode.next_sibling("Ghost"))
+	{
+		Ghost* ghost = (Ghost*)app->entityManager->CreateEntity(EntityType::GHOST);
+		ghost->parameters = GhostNode;
+	}
 
 	if (config.child("player")) {
 		player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);

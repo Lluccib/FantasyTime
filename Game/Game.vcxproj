@@ -98,6 +98,7 @@
     <ClCompile Include="Source\DinoAzul.cpp" />
     <ClCompile Include="Source\Dragoncin.cpp" />
     <ClCompile Include="Source\EntityManager.cpp" />
+    <ClCompile Include="Source\Fantasma.cpp" />
     <ClCompile Include="Source\Item.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\App.cpp" />
@@ -118,6 +119,7 @@
     <ClInclude Include="Source\Dragoncin.h" />
     <ClInclude Include="Source\Entity.h" />
     <ClInclude Include="Source\EntityManager.h" />
+    <ClInclude Include="Source\Fantasma.h" />
     <ClInclude Include="Source\Item.h" />
     <ClInclude Include="Source\Map.h" />
     <ClInclude Include="Source\NightBringer.h" />

@@ -7,6 +7,7 @@
 #include "DinoAzul.h"
 #include "Dragoncin.h"
 #include "NightBringer.h"
+#include "Fantasma.h"
 
 struct SDL_Texture;
 

@@ -96,6 +96,9 @@ Entity* EntityManager::CreateEntity(EntityType type)
 	case EntityType::NIGHTBRINGER:
 		entity = new Bringer();
 		break;
+	case EntityType::GHOST:
+		entity = new Ghost();
+		break;
 	default:
 		break;
 	}

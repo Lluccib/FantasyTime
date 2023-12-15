@@ -25,6 +25,7 @@
     <ClCompile Include="Source\DinoAzul.cpp" />
     <ClCompile Include="Source\Dragoncin.cpp" />
     <ClCompile Include="Source\NightBringer.cpp" />
+    <ClCompile Include="Source\Fantasma.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -74,6 +75,7 @@
     <ClInclude Include="Source\DinoAzul.h" />
     <ClInclude Include="Source\Dragoncin.h" />
     <ClInclude Include="Source\NightBringer.h" />
+    <ClInclude Include="Source\Fantasma.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

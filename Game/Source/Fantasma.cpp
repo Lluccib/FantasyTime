@@ -1,5 +1,4 @@
-#include "Dragoncin.h"
-#include "Player.h"
+#include "Fantasma.h"
 #include "App.h"
 #include "Textures.h"
 #include "Audio.h"
@@ -10,17 +9,17 @@
 #include "Point.h"
 #include "Physics.h"
 
-Drake::Drake() : Entity(EntityType::PLAYER)
+Ghost::Ghost() : Entity(EntityType::GHOST)
 {
 
-	name.Create("drake");
+	name.Create("ghost");
 }
 
-Drake::~Drake() {
+Ghost::~Ghost() {
 
 }
 
-bool Drake::Awake() {
+bool Ghost::Awake() {
 
 	position.x = parameters.attribute("x").as_int();
 	position.y = parameters.attribute("y").as_int();
@@ -29,11 +28,11 @@ bool Drake::Awake() {
 	return true;
 }
 
-bool Drake::Start() {
+bool Ghost::Start() {
 
-	Run.LoadAnimations("Idle", "drake");
+	idle.LoadAnimations("Idle", "ghost");
 	texture = app->tex->Load(texturePath);
-	pbody = app->physics->CreateCircle(position.x+180, position.y, 20, bodyType::DYNAMIC);
+	pbody = app->physics->CreateCircle(position.x + 20, position.y, 12, bodyType::DYNAMIC);
 	pbody->listener = this;
 	pbody->ctype = ColliderType::ENEMY;
 
@@ -43,14 +42,16 @@ bool Drake::Start() {
 	return true;
 }
 
-bool Drake::Update(float dt)
+bool Ghost::Update(float dt)
 {
 	/*currentVelocity.y = 0.5f;*/
-	currentAnimation = &Run;
+	
+	currentAnimation = &idle;
+	
 
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 16;
-	app->render->DrawTexture(texture, position.x-20, position.y-90, &currentAnimation->GetCurrentFrame());
+	app->render->DrawTexture(texture, position.x-20, position.y-20, &currentAnimation->GetCurrentFrame());
 	currentAnimation->Update();
 
 
@@ -63,13 +64,13 @@ bool Drake::Update(float dt)
 
 }
 
-bool Drake::CleanUp()
+bool Ghost::CleanUp()
 {
 
 	return true;
 }
 
-void Drake::OnCollision(PhysBody* physA, PhysBody* physB) {
+void Ghost::OnCollision(PhysBody* physA, PhysBody* physB) {
 
 
 	switch (physB->ctype)

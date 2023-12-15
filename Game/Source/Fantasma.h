@@ -1,5 +1,5 @@
-#ifndef __NIGHTBRINGER_H__
-#define __NIGHTBRINGER_H__
+#ifndef __GHOST_H__
+#define __GHOST_H__
 
 #include "Entity.h"
 #include "Point.h"
@@ -8,13 +8,13 @@
 
 struct SDL_Texture;
 
-class Bringer : public Entity
+class Ghost : public Entity
 {
 public:
 
-	Bringer();
+	Ghost();
 
-	virtual ~Bringer();
+	virtual ~Ghost();
 
 	bool Awake();
 
@@ -36,18 +36,13 @@ public:
 	SDL_Texture* texture = NULL;
 
 	PhysBody* pbody;
-	
+
 
 	bool isWalking = false;
 	bool atacking = false;
-	bool dead = false;
 
 	Animation* currentAnimation = nullptr;
 	Animation idle;
-	Animation walk;
-	Animation damage;
-	Animation run;
-	Animation death;
 
 
 };

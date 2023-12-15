@@ -56,13 +56,17 @@ bool Blue::Update(float dt)
 
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 16;
-	app->render->DrawTexture(texture, position.x, position.y, &currentAnimation->GetCurrentFrame());
+	app->render->DrawTexture(texture, position.x+3, position.y+1, &currentAnimation->GetCurrentFrame());
 	currentAnimation->Update();
 	
 	if (app->scene->player->position.DistanceTo(position) <= 100)
 	{
 		atacking = true;
 		currentAnimation = &run;
+	}
+	else
+	{
+		atacking = false;
 	}
 
 

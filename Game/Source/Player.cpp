@@ -62,12 +62,15 @@ bool Player::Update(float dt)
 
 	/*currentVelocity.y = 0.5f;*/
 
-	if (!isWalking, !jump, !dead, !atacking)
+	if (life, !isWalking, !jump, !dead, !atacking)
 	{
 		currentAnimation = &idle;
 		
 	}
-
+	if (!life)
+	{
+		currentAnimation = &Death;
+	}
 
 
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE && app->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE )
@@ -89,14 +92,14 @@ bool Player::Update(float dt)
 		
 	}
 
-	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN && !jump && !dead && !godmode) {
+	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN && !jump && !dead && !godmode && !isWalking) {
 		atacking = true;
 
 		currentAnimation = &Atack1;
 
-		atackcollider = app->physics->CreateRectangle(position.x +40, position.y + 16, 8, 32, bodyType::STATIC);
-		atackcollider->ctype = ColliderType::PLAYERATACK;
-		atackcollider->listener = this;
+		pbody2 = app->physics->CreateRectangleSensor(position.x +40, position.y + 16, 8, 32, bodyType::STATIC);
+		pbody2->ctype = ColliderType::PLAYERATACK;
+		pbody2->listener = this;
 		atacktimer = SDL_GetTicks();
 
 	}
@@ -111,7 +114,7 @@ bool Player::Update(float dt)
 		currentVelocity.x = -speed * dt;
 		isWalking = true;
 		currentAnimation = &Runleft;
-		
+		atacking = false;
 		float camSpeed = 0.2f;
 
 	}
@@ -119,7 +122,7 @@ bool Player::Update(float dt)
 		currentVelocity.x = speed * dt;
 		isWalking = true;
 		currentAnimation = &Runright;
-		
+		atacking = false;
 		float camSpeed = 0.2f;
 		
 	}
@@ -127,6 +130,7 @@ bool Player::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN && !dead) {
 
 		dead = true;
+		life = false;
 		currentAnimation = &Death;
 		deathtimer = SDL_GetTicks();
 	}
@@ -182,9 +186,16 @@ bool Player::Update(float dt)
 
 
 	}
+	if (destroybody)
+	{
+		destroybody = false;
+		pbody2->body->GetWorld()->DestroyBody(pbody2->body);
+	}
 	if (currentAnimation == &Atack1 && currentAnimation->HasFinished())
 	{
+
 		atacking = false;
+		destroybody = true;
 		currentAnimation->Reset();
 		
 		
@@ -229,7 +240,7 @@ bool Player::Update(float dt)
 			
 			pbody->body->SetTransform({ PIXEL_TO_METERS(32 * 4), PIXEL_TO_METERS(32 * 26) }, 0);
 			dead = false;
-
+			life = true;
 			app->render->camera.x = 0;
 			app->render->camera.y = -190;
 
@@ -238,25 +249,9 @@ bool Player::Update(float dt)
 
 		}
 	}
-	if (atacking)
-	{
-		atacktimer = SDL_GetTicks();
-		atackduration = currentTime - atacktimer;
-		if (deathduration >= 1500) //700
-		{
-			atackcollider->body->GetWorld()->DestroyBody(atackcollider->body);
+	
 
-
-
-		}
-	}
-
-	if (isFacingRight) {
-		flip = SDL_FLIP_NONE; // No se voltea la textura.
-	}
-	else {
-		flip = SDL_FLIP_HORIZONTAL; // Voltea la textura horizontalmente.
-	}
+	
 
 	pbody->body->SetLinearVelocity(currentVelocity);
 	//Update player position in pixels
@@ -309,8 +304,8 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			LOG("Collision PLATFORM");
 			break;
 		case ColliderType::ENEMY:
+			life = false;
 			dead = true;
-			currentAnimation = &Death;
 			deathtimer = SDL_GetTicks();
 			LOG("Collision PLATFORM");
 			break;

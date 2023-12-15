@@ -9,7 +9,7 @@
 #include "Point.h"
 #include "Physics.h"
 
-Bringer::Bringer() : Entity(EntityType::BLUE)
+Bringer::Bringer() : Entity(EntityType::NIGHTBRINGER)
 {
 
 	name.Create("bringer");
@@ -36,7 +36,7 @@ bool Bringer::Start() {
 	run.LoadAnimations("atack", "bringer");
 	death.LoadAnimations("death", "bringer");
 	texture = app->tex->Load(texturePath);
-	pbody = app->physics->CreateCircle(position.x + 20, position.y, 8, bodyType::DYNAMIC);
+	pbody = app->physics->CreateCircle(position.x + 20, position.y, 16, bodyType::DYNAMIC);
 	pbody->listener = this;
 	pbody->ctype = ColliderType::ENEMY;
 
@@ -49,17 +49,38 @@ bool Bringer::Start() {
 bool Bringer::Update(float dt)
 {
 	/*currentVelocity.y = 0.5f;*/
-	if (!atacking)
+	if (!atacking, !isWalking, !dead)
 	{
-		currentAnimation = &death;
+		currentAnimation = &idle;
 	}
 
 
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 16;
-	app->render->DrawTexture(texture, position.x, position.y, &currentAnimation->GetCurrentFrame());
+	app->render->DrawTexture(texture, position.x-90, position.y-50, &currentAnimation->GetCurrentFrame());
 	currentAnimation->Update();
+	if (app->input->GetKey(SDL_SCANCODE_Y) == KEY_DOWN)
+	{
+		dead = true;
+		currentAnimation = &death;
 
+
+	}
+	if (app->scene->player->position.DistanceTo(position) <= 100 && app->scene->player->position.DistanceTo(position) >= 50)
+	{
+		isWalking = true;
+		currentAnimation = &walk;
+	}
+	else if (app->scene->player->position.DistanceTo(position) <= 50)
+	{
+		atacking = true;
+		currentAnimation = &run;
+	}
+	else
+	{
+		atacking = false;
+		isWalking = false;
+	}
 	
 
 
