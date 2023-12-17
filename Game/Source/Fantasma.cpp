@@ -31,6 +31,7 @@ bool Ghost::Awake() {
 bool Ghost::Start() {
 
 	idle.LoadAnimations("Idle", "ghost");
+	idleleft.LoadAnimations("Idleleft", "ghost");
 	texture = app->tex->Load(texturePath);
 	pbody = app->physics->CreateCircle(position.x + 20, position.y, 12, bodyType::DYNAMIC);
 	pbody->listener = this;
@@ -45,15 +46,24 @@ bool Ghost::Start() {
 bool Ghost::Update(float dt)
 {
 	/*currentVelocity.y = 0.5f;*/
-	
-	currentAnimation = &idle;
-	
+	if (!atacking)
+	{
+		currentAnimation = &idle;
+	}
 
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 16;
 	app->render->DrawTexture(texture, position.x-20, position.y-20, &currentAnimation->GetCurrentFrame());
 	currentAnimation->Update();
-
+	if (app->scene->player->position.DistanceTo(position) <= 100)
+	{
+		atacking = true;
+		currentAnimation = &idleleft;
+	}
+	else
+	{
+		atacking = false;
+	}
 
 
 

@@ -31,10 +31,12 @@ bool Player::Awake() {
 bool Player::Start() {
 
 	idle.LoadAnimations("idle","player");
+	idleleft.LoadAnimations("idleleft", "player");
 	Runright.LoadAnimations("Runright","player");
 	Runleft.LoadAnimations("Runleft", "player");
 	Pray.LoadAnimations("Pray", "player");
 	Atack1.LoadAnimations("Atack1", "player");
+	Atack1left.LoadAnimations("Atack1left", "player");
 	Death.LoadAnimations("Death", "player");
 	Jump.LoadAnimations("Jump", "player");
 	
@@ -62,11 +64,20 @@ bool Player::Update(float dt)
 
 	/*currentVelocity.y = 0.5f;*/
 
+
 	if (life, !isWalking, !jump, !dead, !atacking)
 	{
-		currentAnimation = &idle;
+		if (right)
+		{
+			currentAnimation = &idle;
+		}
+		else if (left)
+		{
+			currentAnimation = &idleleft;
+		}
 		
 	}
+	
 	if (!life)
 	{
 		currentAnimation = &Death;
@@ -93,15 +104,26 @@ bool Player::Update(float dt)
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN && !jump && !dead && !godmode && !isWalking) {
-		atacking = true;
+		
+		
 
-		currentAnimation = &Atack1;
-
-		pbody2 = app->physics->CreateRectangleSensor(position.x +40, position.y + 16, 8, 32, bodyType::STATIC);
-		pbody2->ctype = ColliderType::PLAYERATACK;
-		pbody2->listener = this;
+		if (right)
+		{
+			atacking = true;
+			currentAnimation = &Atack1;
+			pbody2 = app->physics->CreateRectangleSensor(position.x + 40, position.y + 16, 8, 32, bodyType::STATIC);
+			pbody2->ctype = ColliderType::PLAYERATACK;
+			pbody2->listener = this;
+		}
+		else if (left)
+		{
+			atacking = true;
+			currentAnimation = &Atack1left;
+			pbody2 = app->physics->CreateRectangleSensor(position.x - 10, position.y + 16, 8, 32, bodyType::STATIC);
+			pbody2->ctype = ColliderType::PLAYERATACK;
+			pbody2->listener = this;
+		}
 		atacktimer = SDL_GetTicks();
-
 	}
 	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT && godmode == true) {
 		currentVelocity.y = currentVelocity.y + 0.35;
@@ -116,6 +138,8 @@ bool Player::Update(float dt)
 		currentAnimation = &Runleft;
 		atacking = false;
 		float camSpeed = 0.2f;
+		right = false;
+		left = true;
 
 	}
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && !dead) {
@@ -124,6 +148,8 @@ bool Player::Update(float dt)
 		currentAnimation = &Runright;
 		atacking = false;
 		float camSpeed = 0.2f;
+		left = false;
+		right = true;
 		
 	}
 
@@ -200,6 +226,16 @@ bool Player::Update(float dt)
 		
 		
 	}
+	else if (currentAnimation == &Atack1left && currentAnimation->HasFinished())
+	{
+
+		atacking = false;
+		destroybody = true;
+		currentAnimation->Reset();
+
+
+	}
+	else
 
 	if (godmode)
 	{
@@ -292,8 +328,9 @@ bool Player::CleanUp()
 
 void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 
-	if (!godmode)
+	if (!godmode && physA->ctype == ColliderType::PLAYER)
 	{
+		
 		switch (physB->ctype)
 		{
 		case ColliderType::ITEM:

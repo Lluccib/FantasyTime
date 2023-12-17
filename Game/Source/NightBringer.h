@@ -29,7 +29,6 @@ public:
 public:
 	int level;
 	float speed = 0.2f;
-	float speedy = 0.5f;//el programa pasa de metros a píxeles
 	float timer = 0.0f;
 
 	const char* texturePath;
@@ -41,12 +40,17 @@ public:
 	bool isWalking = false;
 	bool atacking = false;
 	bool dead = false;
-
+	bool left = false;
+	bool right = true;
 	Animation* currentAnimation = nullptr;
 	Animation idle;
+	Animation idleleft;
 	Animation walk;
+	Animation walkleft;
+	Animation damageleft;
 	Animation damage;
-	Animation run;
+	Animation atack;
+	Animation atackleft;
 	Animation death;
 
 

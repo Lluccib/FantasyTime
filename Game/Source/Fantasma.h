@@ -43,6 +43,7 @@ public:
 
 	Animation* currentAnimation = nullptr;
 	Animation idle;
+	Animation idleleft;
 
 
 };

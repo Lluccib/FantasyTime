@@ -43,9 +43,13 @@ public:
 
 	Animation* currentAnimation = nullptr;
 	Animation idle;
+	Animation idleleft;
 	Animation walk;
+	Animation walkleft;
 	Animation damage;
+	Animation damageleft;
 	Animation run;
+	Animation runleft;
 
 
 };

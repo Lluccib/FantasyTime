@@ -41,6 +41,7 @@ public:
 
 	Animation* currentAnimation = nullptr;
 	Animation Run;
+	Animation Runleft;
 
 
 };

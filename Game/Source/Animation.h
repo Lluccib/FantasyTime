@@ -2,7 +2,7 @@
 #define __ANIMATION_H__
 
 #include "External/SDL/include/SDL_rect.h"
-#define MAX_FRAMES 400
+#define MAX_FRAMES 800
 
 class Animation {
 
