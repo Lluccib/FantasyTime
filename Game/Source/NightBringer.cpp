@@ -164,9 +164,8 @@ bool Bringer::Update(float dt)
 		
 	if (destroybody)
 	{
-		atackhitbox->body->SetActive(false);
+		atackhitbox->body->GetWorld()->DestroyBody(atackhitbox->body);
 		destroybody = false;
-		
 		
 	}
 	if (currentAnimation == &atack && currentAnimation->HasFinished() && !destroybody)

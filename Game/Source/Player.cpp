@@ -67,14 +67,7 @@ bool Player::Update(float dt)
 
 	if (life, !isWalking, !jump, !dead, !atacking)
 	{
-		if (right)
-		{
-			currentAnimation = &idle;
-		}
-		else if (left)
-		{
-			currentAnimation = &idleleft;
-		}
+		currentAnimation = &idle;
 		
 	}
 	
@@ -118,7 +111,7 @@ bool Player::Update(float dt)
 		else if (left)
 		{
 			atacking = true;
-			currentAnimation = &Atack1left;
+			currentAnimation = &Atack1;
 			pbody2 = app->physics->CreateRectangleSensor(position.x - 10, position.y + 16, 8, 32, bodyType::STATIC);
 			pbody2->ctype = ColliderType::PLAYERATACK;
 			pbody2->listener = this;
@@ -135,7 +128,7 @@ bool Player::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !dead) {
 		currentVelocity.x = -speed * dt;
 		isWalking = true;
-		currentAnimation = &Runleft;
+		currentAnimation = &Runright;
 		atacking = false;
 		float camSpeed = 0.2f;
 		right = false;
@@ -294,8 +287,17 @@ bool Player::Update(float dt)
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 16;
 
-	app->render->DrawTexture(texture, position.x, position.y, &currentAnimation->GetCurrentFrame());
-	currentAnimation->Update();
+	if (left)
+	{
+		app->render->DrawTexture(texture, position.x, position.y, &currentAnimation->GetCurrentFrame(),SDL_FLIP_HORIZONTAL);
+		currentAnimation->Update();
+	}
+	if (right)
+	{
+		app->render->DrawTexture(texture, position.x-5, position.y, &currentAnimation->GetCurrentFrame());
+		currentAnimation->Update();
+	}
+	
 	
 	//Movimiento de la camara, y bloqueo de la camara
 	if (app->render->camera.x - position.x -100 <= -200 && app->render->camera.x - position.x -100 >= -12850) {

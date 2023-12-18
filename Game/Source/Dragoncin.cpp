@@ -51,7 +51,7 @@ bool Drake::Update(float dt)
 
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 16;
-	app->render->DrawTexture(texture, position.x-20, position.y-90, &currentAnimation->GetCurrentFrame());
+	app->render->DrawTexture(texture, position.x-130, position.y-80, &currentAnimation->GetCurrentFrame());
 	currentAnimation->Update();
 
 

@@ -51,8 +51,8 @@ public:
 	int pickCoinFxId;
 	bool isWalking = false;
 	bool destroybody = false;
-	bool right;
-	bool left;
+	bool right = false;
+	bool left = true;
 	int posicionanterior;
 	Animation* currentAnimation = nullptr;
 	Animation idle;
