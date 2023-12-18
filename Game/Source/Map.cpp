@@ -260,7 +260,7 @@ bool Map::Load(SString mapFileName)
         ret = LoadAllLayers(mapFileXML.child("map"));
     }
 
-    else {
+    if (ret == true) {
 
         //Fill mapData variable
         mapData.width = mapFileXML.child("map").attribute("width").as_int();
@@ -406,7 +406,7 @@ bool Map::LoadMap(pugi::xml_node mapFile)
         mapData.width = map.attribute("width").as_int();
         mapData.tileHeight = map.attribute("tileheight").as_int();
         mapData.tileWidth = map.attribute("tilewidth").as_int();
-        mapData.type = MAPTYPE_UNKNOWN;
+        mapData.type = MAPTYPE_ORTHOGONAL;
     }
 
     return ret;
@@ -596,6 +596,7 @@ void Map::CreateNavigationMap(int& width, int& height, uchar** buffer) const
             //!!!! make sure that you assign blockedGid according to your map
             if (gid == blockedGid) navigationMap[i] = 0;
             else navigationMap[i] = 1;
+            //utilizar más de 
         }
     }
 
