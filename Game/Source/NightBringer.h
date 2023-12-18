@@ -31,18 +31,22 @@ public:
 	int lives = 10;
 	float speed = 0.2f;
 	float timer = 0.0f;
-
+	uint currentTime;
+	uint atackTimer;
+	uint atackduration;
 	const char* texturePath;
 	SDL_Texture* texture = NULL;
 
 	PhysBody* pbody;
-	
+	PhysBody* atackhitbox;
 
 	bool isWalking = false;
 	bool atacking = false;
+	bool atackcooldown = false;
 	bool dead = false;
 	bool left = false;
 	bool right = true;
+	bool destroybody = false;
 	Animation* currentAnimation = nullptr;
 	Animation idle;
 	Animation idleleft;
@@ -53,6 +57,8 @@ public:
 	Animation atack;
 	Animation atackleft;
 	Animation death;
+
+	
 
 
 };

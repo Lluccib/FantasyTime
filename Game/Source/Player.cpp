@@ -330,27 +330,49 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 
 	if (!godmode && physA->ctype == ColliderType::PLAYER)
 	{
-		
-		switch (physB->ctype)
+		if (life)
 		{
-		case ColliderType::ITEM:
-			LOG("Collision ITEM");
-			/*app->audio->PlayFx(pickCoinFxId);*/
-			break;
-		case ColliderType::PLATFORM:
-			jump = false;
-			LOG("Collision PLATFORM");
-			break;
-		case ColliderType::ENEMY:
-			life = false;
-			dead = true;
-			deathtimer = SDL_GetTicks();
-			LOG("Collision PLATFORM");
-			break;
-		case ColliderType::UNKNOWN:
-			LOG("Collision UNKNOWN");
-			break;
+			switch (physB->ctype)
+			{
+			case ColliderType::ITEM:
+				LOG("Collision ITEM");
+				/*app->audio->PlayFx(pickCoinFxId);*/
+				break;
+			case ColliderType::PLATFORM:
+				jump = false;
+				LOG("Collision PLATFORM");
+				break;
+
+			case ColliderType::ENEMY:
+				life = false;
+				dead = true;
+				deathtimer = SDL_GetTicks();
+				LOG("Collision PLATFORM");
+				break;
+			case ColliderType::UNKNOWN:
+				LOG("Collision UNKNOWN");
+				break;
+			}
 		}
+		if (dead)
+		{
+			switch (physB->ctype)
+			{
+			case ColliderType::ITEM:
+				LOG("Collision ITEM");
+				/*app->audio->PlayFx(pickCoinFxId);*/
+				break;
+			case ColliderType::PLATFORM:
+				jump = false;
+				LOG("Collision PLATFORM");
+				break;
+			case ColliderType::UNKNOWN:
+				LOG("Collision UNKNOWN");
+				break;
+			}
+		}
+		
+		
 	}
 	if (godmode)
 	{
