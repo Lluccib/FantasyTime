@@ -101,7 +101,7 @@ struct MapLayer
 		RELEASE(data);
 	}
 
-	//nos deshacemos del valor de x e y.
+	//obtenemos el valor de x e y
 	inline uint Get(int x, int y) const
 	{
 		return data[(y * width) + x];
@@ -116,6 +116,10 @@ struct MapData
 	int	tileHeight;
 	List<TileSet*> tilesets;
 	MapTypes type;
+
+
+	
+	MapOrientation orientation;
 
 	List<MapLayer*> maplayers;
 };
@@ -144,8 +148,22 @@ public:
     // Load new map
 	bool Load(SString mapFileName);
 
+	// L06: DONE 8: Create a method that translates x,y coordinates from map positions to world positions
 	iPoint MapToWorld(int x, int y) const;
-	iPoint Map::WorldToMap(int x, int y);
+	// L09: DONE 5: Add method WorldToMap to obtain  map coordinates from screen coordinates 
+	iPoint Map::WorldToMap(int x, int y)const;
+
+	// L08: DONE 2: Implement function to the Tileset based on a tile id
+	TileSet* GetTilesetFromTileId(int gid) const;
+
+	// L06: DONE 6: Load a group of properties 
+	bool LoadProperties(pugi::xml_node& node, Properties& properties);
+
+	// L13: Create navigation map for pathfinding
+	void CreateNavigationMap(int& width, int& height, uchar** buffer) const;
+
+	int GetTileWidth();
+	int GetTileHeight();
 
 private:
 
@@ -153,8 +171,7 @@ private:
 	bool LoadTileSet(pugi::xml_node mapFile);
 	bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
 	bool LoadAllLayers(pugi::xml_node mapNode);
-	TileSet* GetTilesetFromTileId(int gid) const;
-	bool LoadProperties(pugi::xml_node& node, Properties& properties);
+
 	bool LoadColliders(pugi::xml_node& layerNode);
 
 public: 
@@ -164,7 +181,7 @@ public:
 	SString path;
 	PathFinding* pathfinding;
 
-private:
+public:
 	MapData mapData;
 	bool mapLoaded;
 	MapLayer* navigationLayer;
