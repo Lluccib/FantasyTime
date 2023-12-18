@@ -55,16 +55,16 @@ bool Bringer::Update(float dt)
 	/*currentVelocity.y = 0.5f;*/
 	if (!atacking, !isWalking, !dead)
 	{
-		/*if (right)
+		if (left)
 		{
 			currentAnimation = &idle;
-		}*/
-		/*else if (left)
+		}
+		else if (right)
 		{
 			currentAnimation = &idleleft;
 			
-		}*/
-		currentAnimation = &idle;
+		}
+		/*currentAnimation = &idle;*/
 	}
 	else if (dead)
 	{
@@ -85,18 +85,21 @@ bool Bringer::Update(float dt)
 		app->render->DrawTexture(texture, position.x - 90, position.y - 50, &currentAnimation->GetCurrentFrame());
 		currentAnimation->Update();
 	}*/
-	int distancia = app->scene->player->position.x - position.x;
+	/*int distancia = app->scene->player->position.x - position.x;
 	if ( distancia < 0)
 	{
 		left = true;
 		right = false;
 		LOG("CACA");
 	}
-	if(distancia>0);
+	else if(distancia>0);
 	{
 		right = true;
 		left = false;
-	}
+		LOG("CACA2");
+	}*/
+	left = false;
+	right = true;
 	if (app->input->GetKey(SDL_SCANCODE_Y) == KEY_DOWN)
 	{
 		dead = true;
@@ -104,22 +107,33 @@ bool Bringer::Update(float dt)
 		
 
 	}
-	if (app->scene->player->position.DistanceTo(position) <= 100 && app->scene->player->position.DistanceTo(position) >= 50)
+	if (app->scene->player->position.DistanceTo(position) <= 100 && app->scene->player->position.DistanceTo(position) >= 50 && !dead)
 	{
 		isWalking = true;
 		atacking = false;
-		currentAnimation = &walk;
+		if (right)
+		{
+			
+			currentAnimation = &walkleft;
+		}
+		if (left)
+		{
+
+			currentAnimation = &walk;
+		}
+		
+		
 		LOG("esta caminando");
 	}
-	else if (app->scene->player->position.DistanceTo(position) <= 50)
+	else if (app->scene->player->position.DistanceTo(position) <= 50 && !dead)
 	{
 		atacking = true;
 		isWalking = false;
-		if (left)
+		if (right)
 		{
 			currentAnimation = &atackleft;
 		}
-		if(right)
+		if(left)
 		{
 			currentAnimation = &atack;
 		}
@@ -131,6 +145,7 @@ bool Bringer::Update(float dt)
 		atacking = false;
 		isWalking = false;
 	}
+	
 	if (left)
 	{
 		app->render->DrawTexture(texture, position.x - 90, position.y - 50, &currentAnimation->GetCurrentFrame());
@@ -138,9 +153,11 @@ bool Bringer::Update(float dt)
 	}
 	if (right)
 	{
-		app->render->DrawTexture(texture, position.x - 90, position.y - 50, &currentAnimation->GetCurrentFrame()), SDL_FLIP_HORIZONTAL;
+		app->render->DrawTexture(texture, position.x -20, position.y - 50, &currentAnimation->GetCurrentFrame());
 		currentAnimation->Update();
 	}
+		
+	
 
 	return true;
 

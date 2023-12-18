@@ -44,13 +44,13 @@
 		
 		<idleleft loop="true" speed="0.1f">
 			<animation x="46" y="655" w="30" h="49"/>
-			<animation x="172" y="655" w="30" h="49"/>
+			<animation x="174" y="655" w="30" h="49"/>
 			<animation x="46" y="719" w="30" h="49"/>
-			<animation x="172" y="719" w="30" h="49"/>
+			<animation x="174" y="719" w="30" h="49"/>
 			<animation x="46" y="783" w="30" h="49"/>
-			<animation x="172" y="783" w="30" h="49"/>
+			<animation x="174" y="783" w="30" h="49"/>
 			<animation x="46" y="847" w="30" h="49"/>
-			<animation x="172" y="847" w="30" h="49"/>
+			<animation x="174" y="847" w="30" h="49"/>
 		</idleleft>
 		<!-- Runright -->
 		<Runright loop="true" speed="0.2f">
@@ -98,16 +98,16 @@
 			<animation x="167" y="383" w="59" h="54"/>
 		</Atack1>
 		<Atack1left loop="false" speed="0.3f">
-			<animation x="534" y="444" w="59" h="54"/>
-			<animation x="667" y="444" w="59" h="54"/>
-			<animation x="796" y="444" w="59" h="54"/>
-			<animation x="921" y="444" w="59" h="54"/>
-			<animation x="25" y="506" w="59" h="54"/>
-			<animation x="155" y="506" w="59" h="54"/>
-			<animation x="282" y="506" w="59" h="54"/>
-			<animation x="410" y="506" w="59" h="54"/>
-			<animation x="539" y="506" w="59" h="54"/>
-			<animation x="669" y="506" w="59" h="54"/>
+			<animation x="539" y="446" w="59" h="54"/>
+			<animation x="666" y="446" w="59" h="54"/>
+			<animation x="795" y="446" w="59" h="54"/>
+			<animation x="920" y="446" w="59" h="54"/>
+			<animation x="22" y="510" w="59" h="54"/>
+			<animation x="153" y="510" w="59" h="54"/>
+			<animation x="281" y="510" w="59" h="54"/>
+			<animation x="409" y="510" w="59" h="54"/>
+			<animation x="538" y="510" w="59" h="54"/>
+			<animation x="668" y="510" w="59" h="54"/>
 		</Atack1left>
 
 		<!-- Death -->

@@ -28,6 +28,7 @@ public:
 
 public:
 	int level;
+	int lives = 10;
 	float speed = 0.2f;
 	float timer = 0.0f;
 
