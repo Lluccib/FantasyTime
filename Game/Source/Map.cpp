@@ -245,7 +245,7 @@ bool Map::Load(SString mapFileName)
         ret = false;
     }
 
-    /*if(ret == true)
+    if(ret == true)
     {
         ret = LoadMap(mapFileXML);
     }
@@ -258,7 +258,7 @@ bool Map::Load(SString mapFileName)
     if (ret == true)
     {
         ret = LoadAllLayers(mapFileXML.child("map"));
-    }*/
+    }
 
     else {
 
