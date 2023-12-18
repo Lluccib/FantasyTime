@@ -30,9 +30,22 @@ struct TileSet
 
 	SDL_Texture* texture;
 	SDL_Rect GetTileRect(int gid) const;
+	SDL_Rect GetRect(uint gid) {
+		SDL_Rect rect = { 0 };
+
+		int relativeIndex = gid - firstgid;
+		rect.w = tileWidth;
+		rect.h = tileHeight;
+		rect.x = margin + (tileWidth + spacing) * (relativeIndex % columns);
+		rect.y = margin + (tileHeight + spacing) * (relativeIndex / columns);
+
+		return rect;
+	}
 };
 
+
 //  We create an enum for map type, just for convenience,
+// 
 // NOTE: Platformer game will be of type ORTHOGONAL
 enum MapTypes
 {
@@ -88,6 +101,7 @@ struct MapLayer
 		RELEASE(data);
 	}
 
+	//nos deshacemos del valor de x e y.
 	inline uint Get(int x, int y) const
 	{
 		return data[(y * width) + x];
@@ -145,13 +159,16 @@ private:
 
 public: 
 
-	MapData mapData;
+	
 	SString name;
 	SString path;
+	PathFinding* pathfinding;
 
 private:
-
+	MapData mapData;
 	bool mapLoaded;
+	MapLayer* navigationLayer;
+	int blockedGid = 49;
 };
 
 #endif // __MAP_H__
