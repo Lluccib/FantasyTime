@@ -119,10 +119,12 @@ bool Player::Update(float dt)
 		atacktimer = SDL_GetTicks();
 	}
 	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT && godmode == true) {
-		currentVelocity.y = currentVelocity.y + 0.35;
+		currentVelocity.y = speed * dt;
+		
 	}
 	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && godmode == true) {
-		currentVelocity.y = currentVelocity.y - 0.35;
+		currentVelocity.y = -speed * dt;
+		
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !dead) {
@@ -235,6 +237,7 @@ bool Player::Update(float dt)
 
 		pbody->body->GetFixtureList()->SetSensor(true);
 		pbody->body->SetGravityScale(0);
+
 	}
 	else
 	{
