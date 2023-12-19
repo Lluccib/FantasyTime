@@ -32,6 +32,7 @@ bool Drake::Awake() {
 bool Drake::Start() {
 
 	Run.LoadAnimations("Idle", "drake");
+	Runleft.LoadAnimations("Idleleft", "drake");
 	texture = app->tex->Load(texturePath);
 	pbody = app->physics->CreateCircle(position.x+180, position.y, 20, bodyType::DYNAMIC);
 	pbody->listener = this;
@@ -46,11 +47,11 @@ bool Drake::Start() {
 bool Drake::Update(float dt)
 {
 	/*currentVelocity.y = 0.5f;*/
-	currentAnimation = &Run;
+	currentAnimation = &Runleft;
 
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 16;
-	app->render->DrawTexture(texture, position.x-20, position.y-90, &currentAnimation->GetCurrentFrame());
+	app->render->DrawTexture(texture, position.x-130, position.y-80, &currentAnimation->GetCurrentFrame());
 	currentAnimation->Update();
 
 
