@@ -62,22 +62,28 @@ bool Map::Update(float dt)
 
         if (mapLayerItem->data->properties.GetProperty("Draw") != NULL && mapLayerItem->data->properties.GetProperty("Draw")->value) {
 
-            for (int x = 0; x < mapLayerItem->data->width; x++)
+            iPoint posMapin = WorldToMap(app->scene->player->position.x - 1000, 0);
+            iPoint posMapfi = WorldToMap(app->scene->player->position.x + 1000, 0);
+
+            
+            for (int x = posMapin.x; x < posMapfi.x; x++) 
             {
                 for (int y = 0; y < mapLayerItem->data->height; y++)
                 {
-                    int gid = mapLayerItem->data->Get(x, y);
-                    TileSet* tileset = GetTilesetFromTileId(gid);
+                                    int gid = mapLayerItem->data->Get(x, y);
+                                    TileSet* tileset = GetTilesetFromTileId(gid);
 
-                    SDL_Rect r = tileset->GetTileRect(gid);
-                    iPoint pos = MapToWorld(x, y);
+                                    SDL_Rect r = tileset->GetTileRect(gid);
+                                    iPoint pos = MapToWorld(x, y);
 
-                    app->render->DrawTexture(tileset->texture,
-                        pos.x,
-                        pos.y,
-                        &r);
+                                    app->render->DrawTexture(tileset->texture,
+                                        pos.x,
+                                        pos.y,
+                                        &r);
                 }
             }
+             
+            
         }
         mapLayerItem = mapLayerItem->next;
 
