@@ -2,7 +2,7 @@
 #define __ANIMATION_H__
 
 #include "External/SDL/include/SDL_rect.h"
-#define MAX_FRAMES 400
+#define MAX_FRAMES 800
 
 class Animation {
 
@@ -12,7 +12,7 @@ public:
 	bool loop = true;
 	// Allows the animation to keep going back and forth
 	bool pingpong = false;
-
+	
 
 private:
 	float currentFrame = 0.0f;
@@ -28,6 +28,7 @@ public:
 
 	void Reset() {
 		currentFrame = 0;
+		loopCount = 0;
 	}
 
 	bool HasFinished() {
@@ -52,12 +53,12 @@ public:
 
 		return frames[actualFrame];
 	}
-	void LoadAnimations(const char* name)
+	void LoadAnimations(const char* name, const char* entity)
 	{
 		pugi::xml_document file;
 		pugi::xml_parse_result parseresult = file.load_file("config.xml");
 
-		pugi::xml_node animation_name = file.child("config").child(name);
+		pugi::xml_node animation_name = file.child("config").child(entity).child(name);
 		for (pugi::xml_node animation = animation_name.child("animation"); animation; animation = animation.next_sibling("animation"))
 		{
 			PushBack({ animation.attribute("x").as_int(),

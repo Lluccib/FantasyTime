@@ -30,13 +30,15 @@ bool Player::Awake() {
 
 bool Player::Start() {
 
-	idle.LoadAnimations("idle");
-	Runright.LoadAnimations("Runright");
-	Runleft.LoadAnimations("Runleft");
-	Pray.LoadAnimations("Pray");
-	Atack1.LoadAnimations("Atack1");
-	Death.LoadAnimations("Death");
-	Jump.LoadAnimations("Jump");
+	idle.LoadAnimations("idle","player");
+	idleleft.LoadAnimations("idleleft", "player");
+	Runright.LoadAnimations("Runright","player");
+	Runleft.LoadAnimations("Runleft", "player");
+	Pray.LoadAnimations("Pray", "player");
+	Atack1.LoadAnimations("Atack1", "player");
+	Atack1left.LoadAnimations("Atack1left", "player");
+	Death.LoadAnimations("Death", "player");
+	Jump.LoadAnimations("Jump", "player");
 	
 	
 	texture = app->tex->Load(texturePath);
@@ -62,12 +64,17 @@ bool Player::Update(float dt)
 
 	/*currentVelocity.y = 0.5f;*/
 
-	if (!isWalking, !jump, !dead)
+
+	if (life, !isWalking, !jump, !dead, !atacking)
 	{
 		currentAnimation = &idle;
 		
 	}
-
+	
+	if (!life)
+	{
+		currentAnimation = &Death;
+	}
 
 
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE && app->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE )
@@ -88,7 +95,29 @@ bool Player::Update(float dt)
 		pbody->body->SetLinearVelocity(currentVelocity);
 		
 	}
-	
+
+	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN && !jump && !dead && !godmode && !isWalking) {
+		
+		
+
+		if (right)
+		{
+			atacking = true;
+			currentAnimation = &Atack1;
+			pbody2 = app->physics->CreateRectangleSensor(position.x + 40, position.y + 16, 8, 32, bodyType::STATIC);
+			pbody2->ctype = ColliderType::PLAYERATACK;
+			pbody2->listener = this;
+		}
+		else if (left)
+		{
+			atacking = true;
+			currentAnimation = &Atack1;
+			pbody2 = app->physics->CreateRectangleSensor(position.x - 10, position.y + 16, 8, 32, bodyType::STATIC);
+			pbody2->ctype = ColliderType::PLAYERATACK;
+			pbody2->listener = this;
+		}
+		atacktimer = SDL_GetTicks();
+	}
 	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT && godmode == true) {
 		currentVelocity.y = currentVelocity.y + 0.35;
 	}
@@ -99,23 +128,28 @@ bool Player::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !dead) {
 		currentVelocity.x = -speed * dt;
 		isWalking = true;
-		currentAnimation = &Runleft;
-		
+		currentAnimation = &Runright;
+		atacking = false;
 		float camSpeed = 0.2f;
+		right = false;
+		left = true;
 
 	}
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && !dead) {
 		currentVelocity.x = speed * dt;
 		isWalking = true;
 		currentAnimation = &Runright;
-		
+		atacking = false;
 		float camSpeed = 0.2f;
+		left = false;
+		right = true;
 		
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN && !dead) {
 
 		dead = true;
+		life = false;
 		currentAnimation = &Death;
 		deathtimer = SDL_GetTicks();
 	}
@@ -171,6 +205,30 @@ bool Player::Update(float dt)
 
 
 	}
+	if (destroybody)
+	{
+		destroybody = false;
+		pbody2->body->GetWorld()->DestroyBody(pbody2->body);
+	}
+	if (currentAnimation == &Atack1 && currentAnimation->HasFinished())
+	{
+
+		atacking = false;
+		destroybody = true;
+		currentAnimation->Reset();
+		
+		
+	}
+	else if (currentAnimation == &Atack1left && currentAnimation->HasFinished())
+	{
+
+		atacking = false;
+		destroybody = true;
+		currentAnimation->Reset();
+
+
+	}
+	else
 
 	if (godmode)
 	{
@@ -192,49 +250,54 @@ bool Player::Update(float dt)
 		currentVelocity.y = -GRAVITY_Y	;
 		
 	}
-	if (atacking)
-	{
-		currentTime = SDL_GetTicks();
-		atackduration = currentTime - atacktimer;
-		if (atackduration >= 700) //700
-		{
-			atacking = false;
-			currentAnimation->Reset();
-		}
-	}
+	//if (atacking)
+	//{
+	//	currentTime = SDL_GetTicks();
+	//	atackduration = currentTime - atacktimer;
+	//	if (atackduration >= 700) //700
+	//	{
+	//		atacking = false;
+	//		currentAnimation->Reset();
+	//	}
+	//}
 	if (dead)
 	{
 		currentTime = SDL_GetTicks();
 		deathduration = currentTime - deathtimer;
 		if (deathduration >= 1500) //700
 		{
-			pbody->body->SetTransform({ PIXEL_TO_METERS(32*4), PIXEL_TO_METERS(32*26) }, 0);
+			
+			pbody->body->SetTransform({ PIXEL_TO_METERS(32 * 4), PIXEL_TO_METERS(32 * 26) }, 0);
 			dead = false;
-
+			life = true;
 			app->render->camera.x = 0;
 			app->render->camera.y = -190;
 
 			currentAnimation->Reset();
-
 			
 
 		}
 	}
+	
 
-	if (isFacingRight) {
-		flip = SDL_FLIP_NONE; // No se voltea la textura.
-	}
-	else {
-		flip = SDL_FLIP_HORIZONTAL; // Voltea la textura horizontalmente.
-	}
+	
 
 	pbody->body->SetLinearVelocity(currentVelocity);
 	//Update player position in pixels
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 16;
 
-	app->render->DrawTexture(texture, position.x, position.y, &currentAnimation->GetCurrentFrame());
-	currentAnimation->Update();
+	if (left)
+	{
+		app->render->DrawTexture(texture, position.x, position.y, &currentAnimation->GetCurrentFrame(),SDL_FLIP_HORIZONTAL);
+		currentAnimation->Update();
+	}
+	if (right)
+	{
+		app->render->DrawTexture(texture, position.x-5, position.y, &currentAnimation->GetCurrentFrame());
+		currentAnimation->Update();
+	}
+	
 	
 	//Movimiento de la camara, y bloqueo de la camara
 	if (app->render->camera.x - position.x -100 <= -200 && app->render->camera.x - position.x -100 >= -12850) {
@@ -267,28 +330,51 @@ bool Player::CleanUp()
 
 void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 
-	if (!godmode)
+	if (!godmode && physA->ctype == ColliderType::PLAYER)
 	{
-		switch (physB->ctype)
+		if (life)
 		{
-		case ColliderType::ITEM:
-			LOG("Collision ITEM");
-			/*app->audio->PlayFx(pickCoinFxId);*/
-			break;
-		case ColliderType::PLATFORM:
-			jump = false;
-			LOG("Collision PLATFORM");
-			break;
-		case ColliderType::ENEMY:
-			dead = true;
-			currentAnimation = &Death;
-			deathtimer = SDL_GetTicks();
-			LOG("Collision PLATFORM");
-			break;
-		case ColliderType::UNKNOWN:
-			LOG("Collision UNKNOWN");
-			break;
+			switch (physB->ctype)
+			{
+			case ColliderType::ITEM:
+				LOG("Collision ITEM");
+				/*app->audio->PlayFx(pickCoinFxId);*/
+				break;
+			case ColliderType::PLATFORM:
+				jump = false;
+				LOG("Collision PLATFORM");
+				break;
+
+			case ColliderType::ENEMY:
+				life = false;
+				dead = true;
+				deathtimer = SDL_GetTicks();
+				LOG("Collision PLATFORM");
+				break;
+			case ColliderType::UNKNOWN:
+				LOG("Collision UNKNOWN");
+				break;
+			}
 		}
+		if (dead)
+		{
+			switch (physB->ctype)
+			{
+			case ColliderType::ITEM:
+				LOG("Collision ITEM");
+				/*app->audio->PlayFx(pickCoinFxId);*/
+				break;
+			case ColliderType::PLATFORM:
+				jump = false;
+				LOG("Collision PLATFORM");
+				break;
+			case ColliderType::UNKNOWN:
+				LOG("Collision UNKNOWN");
+				break;
+			}
+		}
+		
+		
 	}
 	if (godmode)
 	{

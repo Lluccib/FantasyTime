@@ -4,6 +4,10 @@
 #include "Module.h"
 #include "Player.h"
 #include "Item.h"
+#include "DinoAzul.h"
+#include "Dragoncin.h"
+#include "NightBringer.h"
+#include "Fantasma.h"
 
 struct SDL_Texture;
 
@@ -34,12 +38,14 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	//player
+	Player* player;
 private:
 	SDL_Texture* img;
 	float textPosX, textPosY = 0;
 	uint texW, texH;
 	uint windowW, windowH;
-	Player* player;
+	
 
 };
 

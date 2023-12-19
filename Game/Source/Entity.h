@@ -12,6 +12,10 @@ enum class EntityType
 {
 	PLAYER,
 	ITEM,
+	BLUE,
+	DRAKE,
+	NIGHTBRINGER,
+	GHOST,
 	UNKNOWN
 };
 

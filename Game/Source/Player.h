@@ -37,6 +37,7 @@ public:
 	bool dead = false;
 	bool isFacingRight = false;
 	bool godmode = false;
+	bool life = true;
 	Uint32 atacktimer = 0;
 	Uint32 deathtimer = 0;
 	Uint32 currentTime = 0;
@@ -46,15 +47,21 @@ public:
 	SDL_Texture* texture = NULL;
 	
 	PhysBody* pbody;
+	PhysBody* pbody2;
 	int pickCoinFxId;
 	bool isWalking = false;
-	
+	bool destroybody = false;
+	bool right = false;
+	bool left = true;
+	int posicionanterior;
 	Animation* currentAnimation = nullptr;
 	Animation idle;
+	Animation idleleft;
 	Animation Runright;
 	Animation Runleft;
 	Animation Pray;
 	Animation Atack1;
+	Animation Atack1left;
 	Animation Death;
 	Animation Jump;
 

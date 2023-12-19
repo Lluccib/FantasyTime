@@ -32,6 +32,27 @@ bool Scene::Awake(pugi::xml_node& config)
 		Item* item = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
 		item->parameters = itemNode;
 	}
+	
+	for (pugi::xml_node BlueNode = config.child("blue"); BlueNode; BlueNode = BlueNode.next_sibling("blue"))
+	{
+		Blue* blue = (Blue*)app->entityManager->CreateEntity(EntityType::BLUE);
+		blue->parameters = BlueNode;
+	}
+	for (pugi::xml_node DrakeNode = config.child("drake"); DrakeNode; DrakeNode = DrakeNode.next_sibling("drake"))
+	{
+		Drake* drake = (Drake*)app->entityManager->CreateEntity(EntityType::DRAKE);
+		drake->parameters = DrakeNode;
+	}
+	for (pugi::xml_node BringerNode = config.child("bringer"); BringerNode; BringerNode = BringerNode.next_sibling("bringer"))
+	{
+		Bringer* bringer = (Bringer*)app->entityManager->CreateEntity(EntityType::NIGHTBRINGER);
+		bringer->parameters = BringerNode;
+	}
+	for (pugi::xml_node GhostNode = config.child("ghost"); GhostNode; GhostNode = GhostNode.next_sibling("Ghost"))
+	{
+		Ghost* ghost = (Ghost*)app->entityManager->CreateEntity(EntityType::GHOST);
+		ghost->parameters = GhostNode;
+	}
 
 	if (config.child("player")) {
 		player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
