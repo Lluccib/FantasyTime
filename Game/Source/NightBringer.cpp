@@ -1,5 +1,6 @@
 #include "NightBringer.h"
 #include "App.h"
+#include "Map.h"
 #include "Textures.h"
 #include "Audio.h"
 #include "Input.h"
@@ -8,6 +9,7 @@
 #include "Log.h"
 #include "Point.h"
 #include "Physics.h"
+
 
 Bringer::Bringer() : Entity(EntityType::NIGHTBRINGER)
 {
@@ -64,9 +66,10 @@ bool Bringer::Update(float dt)
 	else if (dead)
 	{
 		currentAnimation = &death;
+		pbody->body->SetActive(false);
 	}
 
-
+	
 
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 16;
@@ -93,102 +96,115 @@ bool Bringer::Update(float dt)
 		left = false;
 		LOG("CACA2");
 	}*/
-	left = true;
-	right = false;
-	if (app->input->GetKey(SDL_SCANCODE_Y) == KEY_DOWN)
+	if (!dead) 
 	{
-		dead = true;
-		currentAnimation = &death;
-		
+		playerTile = app->map->WorldToMap(app->scene->player->position.x + 50, app->scene->player->position.y + 64);
+		if (app->scene->player->position.x < position.x)
+		{
+			left = true;
+			right = false;
+		}
+		else if (app->scene->player->position.x > position.x)
+		{
+			left = false;
+			right = true;
+		}
 
-	}
-	if (app->scene->player->position.DistanceTo(position) <= 100 && app->scene->player->position.DistanceTo(position) >= 50 && !dead)
-	{
-		isWalking = true;
-		atacking = false;
-		
+		if (app->scene->player->position.DistanceTo(position) <= 100 && app->scene->player->position.DistanceTo(position) >= 50 && !dead)
+		{
+			isWalking = true;
+			atacking = false;
+
 
 			currentAnimation = &walk;
-		
-		
-		
-		LOG("esta caminando");
-	}
-	else if (app->scene->player->position.DistanceTo(position) <= 50 && !dead)
-	{
-		if (!atackcooldown)
+
+
+
+			LOG("esta caminando");
+		}
+		else if (app->scene->player->position.DistanceTo(position) <= 50 && !dead)
 		{
-			atacking = true;
-			isWalking = false;
-			
-			
-			atackTimer = SDL_GetTicks();
-			
-			if (left)
+			if (!atackcooldown)
 			{
-				atackhitbox = app->physics->CreateRectangleSensor(position.x - 50, position.y + 16, 50, 96, bodyType::STATIC);
-				atackhitbox->ctype = ColliderType::ENEMY;
-				atackhitbox->listener = this;
-			}
-			if (right)
-			{
-				
-				atackhitbox = app->physics->CreateRectangleSensor(position.x + 90, position.y + 16, 50, 96, bodyType::STATIC);
-				atackhitbox->ctype = ColliderType::ENEMY;
-				atackhitbox->listener = this;
+
+				atacking = true;
+				isWalking = false;
+				currentAnimation = &atack;
+
+				atackTimer = SDL_GetTicks();
+
+				if (left)
+				{
+					atackhitbox = app->physics->CreateRectangleSensor(position.x - 50, position.y + 16, 50, 96, bodyType::STATIC);
+					atackhitbox->ctype = ColliderType::ENEMY;
+					atackhitbox->listener = this;
+					atackcooldown = true;
+				}
+				if (right)
+				{
+
+					atackhitbox = app->physics->CreateRectangleSensor(position.x + 90, position.y + 16, 50, 96, bodyType::STATIC);
+					atackhitbox->ctype = ColliderType::ENEMY;
+					atackhitbox->listener = this;
+					atackcooldown = true;
+				}
+
+
+
 			}
 
-			currentAnimation = &atack;
+
+
+
+			LOG("esta atacando");
 		}
-		
-		
-		
-		LOG("esta atacando");
-	}
-	else
-	{
-		atacking = false;
-		isWalking = false;
+
+		else
+		{
+			atacking = false;
+			isWalking = false;
+		}
+
+		if (right)
+		{
+			app->render->DrawTexture(texture, position.x - 20, position.y - 50, &currentAnimation->GetCurrentFrame(), SDL_FLIP_HORIZONTAL);
+			currentAnimation->Update();
+		}
+		if (left)
+		{
+			app->render->DrawTexture(texture, position.x - 90, position.y - 50, &currentAnimation->GetCurrentFrame());
+			currentAnimation->Update();
+		}
+
+		if (destroybody)
+		{
+			atackhitbox->body->GetWorld()->DestroyBody(atackhitbox->body);
+			destroybody = false;
+
+		}
+		if (currentAnimation == &atack && currentAnimation->HasFinished() && !destroybody)
+		{
+
+			atacking = true;
+			destroybody = true;
+
+			currentAnimation->Reset();
+
+		}
+		if (atackcooldown)
+		{
+			currentTime = SDL_GetTicks();
+			atackduration = currentTime - atackTimer;
+			if (atackduration >= 2000) //700
+			{
+
+				atackcooldown = false;
+
+
+			}
+		}
 	}
 	
-	if (right)
-	{
-		app->render->DrawTexture(texture, position.x - 20, position.y - 50, &currentAnimation->GetCurrentFrame(), SDL_FLIP_HORIZONTAL);
-		currentAnimation->Update();
-	}
-	if (left)
-	{
-		app->render->DrawTexture(texture, position.x -90, position.y - 50, &currentAnimation->GetCurrentFrame());
-		currentAnimation->Update();
-	}
-		
-	if (destroybody)
-	{
-		atackhitbox->body->GetWorld()->DestroyBody(atackhitbox->body);
-		destroybody = false;
-		
-	}
-	if (currentAnimation == &atack && currentAnimation->HasFinished() && !destroybody)
-	{
-
-		atacking = false;
-		destroybody = true;
-		atackcooldown = true;
-		currentAnimation->Reset();
-
-	}
-	if (atackcooldown)
-	{
-		currentTime = SDL_GetTicks();
-		atackduration = currentTime - atackTimer;
-		if (atackduration >= 2000) //700
-		{
-
-			atackcooldown = false;
-
-
-		}
-	}
 	return true;
 
 

@@ -40,6 +40,10 @@ public:
 	PhysBody* pbody;
 	PhysBody* atackhitbox;
 
+	iPoint playerTile;
+	iPoint skeletonTile;
+	iPoint nextTile;
+
 	bool isWalking = false;
 	bool atacking = false;
 	bool atackcooldown = false;
