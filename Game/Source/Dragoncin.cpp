@@ -37,6 +37,7 @@ bool Drake::Start() {
 	pbody = app->physics->CreateCircle(position.x+180, position.y, 20, bodyType::DYNAMIC);
 	pbody->listener = this;
 	pbody->ctype = ColliderType::ENEMY;
+	pbody->body->SetGravityScale(0);
 
 
 
