@@ -3,6 +3,7 @@
 
 #include "Entity.h"
 #include "Point.h"
+#include "Physics.h"
 #include "SDL/include/SDL.h"
 #include "Animation.h"
 
@@ -26,19 +27,34 @@ public:
 
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 
+	void LoadAnimations();
+
+	void Move(const iPoint& origin, const iPoint& destination);
+
 public:
 	int level;
 	int lives = 10;
 	float speed = 0.2f;
 	float timer = 0.0f;
+	float distance;
+	int initialIdlePosition;
+	b2Vec2 velocity;
 	uint currentTime;
 	uint atackTimer;
 	uint atackduration;
 	const char* texturePath;
 	SDL_Texture* texture = NULL;
+	SDL_Texture* pathTexture;
+
+	iPoint playerTilePos;//posición en tiles del player
+	iPoint NightBringerTilePos;//posición en tiles NightBringer
+	iPoint nextTilePath;//Siguiente posición en tiles.
 
 	PhysBody* pbody;
-	PhysBody* atackhitbox;
+	//PhysBody* enemyPbody;
+	b2Transform initialTransform;
+	PhysBody* atackhitbox = NULL;
+
 
 	bool isWalking = false;
 	bool atacking = false;
@@ -47,6 +63,8 @@ public:
 	bool left = false;
 	bool right = true;
 	bool destroybody = false;
+	bool attackBodyCreated = false;
+	bool destroyAttackBody = false;
 	Animation* currentAnimation = nullptr;
 	Animation idle;
 	Animation idleleft;

@@ -8,6 +8,8 @@
 #include "Log.h"
 #include "Point.h"
 #include "Physics.h"
+#include "EntityManager.h"
+#include "Map.h"
 
 Bringer::Bringer() : Entity(EntityType::NIGHTBRINGER)
 {
@@ -24,191 +26,172 @@ bool Bringer::Awake() {
 	position.x = parameters.attribute("x").as_int();
 	position.y = parameters.attribute("y").as_int();
 	texturePath = parameters.attribute("texturepath").as_string();
+	texturePath = parameters.attribute("texturepath").as_string();
+	speed = parameters.attribute("speed").as_float();
+
 
 	return true;
 }
 
 bool Bringer::Start() {
 
-	idle.LoadAnimations("Idle", "bringer");
-	idleleft.LoadAnimations("Idleleft", "bringer");
-	walk.LoadAnimations("walk", "bringer");
-	walkleft.LoadAnimations("walkleft", "bringer");
-	damageleft.LoadAnimations("damageleft", "bringer");
-	damage.LoadAnimations("damage", "bringer");
-	atack.LoadAnimations("atack", "bringer");
-	atackleft.LoadAnimations("atackleft", "bringer");
-	death.LoadAnimations("death", "bringer");
+	
+	pathTexture = app->tex->Load("Assets/Textures/path.png");
 	texture = app->tex->Load(texturePath);
+
+
 	pbody = app->physics->CreateCircle(position.x + 20, position.y, 16, bodyType::DYNAMIC);
 	pbody->listener = this;
 	pbody->ctype = ColliderType::ENEMY;
 
+	initialTransform = pbody->body->GetTransform();
+	initialIdlePosition = position.x;
 
-
+	LoadAnimations();
 
 	return true;
 }
 
 bool Bringer::Update(float dt)
 {
-	/*currentVelocity.y = 0.5f;*/
-	if (!atacking, !isWalking, !dead)
+
+	//PATHFINDING//
+	if (!dead)
 	{
-		
-			currentAnimation = &idle;
-		
-		
-		/*currentAnimation = &idle;*/
-	}
-	else if (dead)
-	{
-		currentAnimation = &death;
+		playerTilePos = app->map->WorldToMap(app->scene->player->position.x + 50, app->scene->player->position.y + 64);
+		NightBringerTilePos = app->map->WorldToMap(position.x, position.y);
+
+		distance = playerTilePos.DistanceTo(NightBringerTilePos);
+
+		if (destroyAttackBody)
+		{
+			atackhitbox->body->GetWorld()->DestroyBody(atackhitbox->body);
+			atackhitbox = NULL;
+			destroyAttackBody = false;
+		}
+
+		if (distance < 10)
+		{
+			app->map->pathfinding->CreatePath(NightBringerTilePos, playerTilePos);
+
+			if (distance < 3 && !atacking)
+			{
+				atacking = true;
+				currentAnimation = &atack;
+
+				currentAnimation->ResetLoopCount();
+				currentAnimation->Reset();
+				velocity = { 0, -GRAVITY_Y };
+			}
+			else if (distance >= 3 && !atacking)
+			{
+				const DynArray<iPoint>* path = app->map->pathfinding->GetLastPath();
+				if (path->Count() > 1) {
+					nextTilePath = { path->At(1)->x, path->At(1)->y };
+					Move(NightBringerTilePos, nextTilePath);
+				}
+				currentAnimation = &walk;
+			}
+			else if (!atacking)
+			{
+				currentAnimation = &idle;
+				velocity = { 0, -GRAVITY_Y };
+				app->map->pathfinding->ClearLastPath();
+			}
+		}
+		else
+		{
+			const int idleDistance = 3;
+
+			if (position.x >= initialIdlePosition + idleDistance * 32)
+			{
+				right = false;
+			}
+			else if (position.x <= initialIdlePosition - idleDistance * 32)
+			{
+				right = true;
+			}
+
+			velocity.x = right ? 1 : -1;
+			position.x += velocity.x;
+			currentAnimation = &walk;
+		}
+
+		if (atacking)
+		{
+			if (currentAnimation == &atack && currentAnimation->GetCurrentFrameCount() >= 4 && !attackBodyCreated) {
+				if (right) atackhitbox = app->physics->CreateRectangleSensor(position.x + 90, position.y + 16, 50, 96, bodyType::STATIC);
+				else atackhitbox = app->physics->CreateRectangleSensor(position.x - 90, position.y + 16, 50, 96, bodyType::STATIC);
+				atackhitbox->ctype = ColliderType::ENEMY;
+				attackBodyCreated = true;
+			}
+
+			if (currentAnimation == &atack && currentAnimation->GetCurrentFrameCount() >= 9 && attackBodyCreated)
+			{
+				atacking = false;
+				attackBodyCreated = false;
+
+				if (atackhitbox != NULL) destroyAttackBody = true;
+
+			}
+		}
 	}
 
+	if (dead)
+	{
+		currentAnimation = &death;
+		velocity = { 0,0 };
+		dead = true;
+		pbody->body->SetActive(false);
+		/*enemyPbody->body->SetActive(false)*/;
+	}
 
 
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 16;
-	/*if (currentAnimation == &idleleft)
-	{
-		app->render->DrawTexture(texture, position.x , position.y - 50, &currentAnimation->GetCurrentFrame());
-		currentAnimation->Update();
-	}
-	if (currentAnimation == &idle)
-	{
-		app->render->DrawTexture(texture, position.x - 90, position.y - 50, &currentAnimation->GetCurrentFrame());
-		currentAnimation->Update();
-	}*/
-	/*int distancia = app->scene->player->position.x - position.x;
-	if ( distancia < 0)
-	{
-		left = true;
-		right = false;
-		LOG("CACA");
-	}
-	else if(distancia>0);
-	{
-		right = true;
-		left = false;
-		LOG("CACA2");
-	}*/
-	left = true;
-	right = false;
-	if (app->input->GetKey(SDL_SCANCODE_Y) == KEY_DOWN)
-	{
-		dead = true;
-		currentAnimation = &death;
-		
 
-	}
-	if (app->scene->player->position.x < position.x) 
-	{
-		left = true;
-		right = false;
-	}
-	else if (app->scene->player->position.x > position.x) {
-		left = false;
-		right = true;
-	}
-	if (app->scene->player->position.DistanceTo(position) <= 100 && app->scene->player->position.DistanceTo(position) >= 50 && !dead)
-	{
-		isWalking = true;
-		atacking = false;
-		
+	pbody->body->SetLinearVelocity(velocity);
+	/*enemyPbody->body->SetTransform({ pbody->body->GetPosition().x, pbody->body->GetPosition().y - PIXEL_TO_METERS(10) }, 0);*/
 
-			currentAnimation = &walk;
-		
-		
-		
-		LOG("esta caminando");
-	}
-	else if (app->scene->player->position.DistanceTo(position) <= 50 && !dead)
+	SDL_Rect rect = currentAnimation->GetCurrentFrame();
+	if (right) app->render->DrawTexture(texture, position.x - 20, position.y - 50, &rect, SDL_FLIP_HORIZONTAL);
+	else app->render->DrawTexture(texture, position.x - 90, position.y - 50, &rect);
+
+	currentAnimation->Update();
+
+	if (app->physics->debug)
 	{
-		if (!atackcooldown)
+		const DynArray<iPoint>* path = app->map->pathfinding->GetLastPath();
+		for (uint i = 0; i < path->Count(); ++i)
 		{
-			atacking = true;
-			isWalking = false;
-			
-			
-			atackTimer = SDL_GetTicks();
-			
-			if (left)
-			{
-				atackhitbox = app->physics->CreateRectangleSensor(position.x - 50, position.y + 16, 50, 96, bodyType::STATIC);
-				atackhitbox->ctype = ColliderType::ENEMY;
-				atackhitbox->listener = this;
-			}
-			if (right)
-			{
-				
-				atackhitbox = app->physics->CreateRectangleSensor(position.x + 90, position.y + 16, 50, 96, bodyType::STATIC);
-				atackhitbox->ctype = ColliderType::ENEMY;
-				atackhitbox->listener = this;
-			}
-
-			currentAnimation = &atack;
-		}
-		
-		
-		
-		LOG("esta atacando");
-	}
-	else
-	{
-		atacking = false;
-		isWalking = false;
-	}
-	
-	if (right)
-	{
-		app->render->DrawTexture(texture, position.x - 20, position.y - 50, &currentAnimation->GetCurrentFrame(), SDL_FLIP_HORIZONTAL);
-		currentAnimation->Update();
-	}
-	if (left)
-	{
-		app->render->DrawTexture(texture, position.x -90, position.y - 50, &currentAnimation->GetCurrentFrame());
-		currentAnimation->Update();
-	}
-		
-	if (destroybody)
-	{
-		atackhitbox->body->GetWorld()->DestroyBody(atackhitbox->body);
-		destroybody = false;
-		
-	}
-	if (currentAnimation == &atack && currentAnimation->HasFinished() && !destroybody)
-	{
-
-		atacking = false;
-		destroybody = true;
-		atackcooldown = true;
-		currentAnimation->Reset();
-
-	}
-	if (atackcooldown)
-	{
-		currentTime = SDL_GetTicks();
-		atackduration = currentTime - atackTimer;
-		if (atackduration >= 2000) //700
-		{
-
-			atackcooldown = false;
-
-
+			iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
+			app->render->DrawTexture(pathTexture, pos.x, pos.y);
 		}
 	}
+
 	return true;
-
-
-
-
 }
+	
 
 bool Bringer::CleanUp()
 {
 
 	return true;
+}
+
+void Bringer::Move(const iPoint& origin, const iPoint& destination) 
+{
+	float xDiff = destination.x - origin.x;
+	float yDiff = destination.y - origin.y;
+
+	if (app->map->pathfinding->IsWalkable(destination) != 0) 
+	{
+		velocity.x = (xDiff < 0) ? -2 : (xDiff > 0) ? 2 : 0;
+		velocity.y = (yDiff < 0) ? -2 : (yDiff > 0) ? -GRAVITY_Y : 0;
+	}
+	else {
+		velocity = { 0, -GRAVITY_Y };
+	}
 }
 
 void Bringer::OnCollision(PhysBody* physA, PhysBody* physB) {
@@ -229,6 +212,19 @@ void Bringer::OnCollision(PhysBody* physA, PhysBody* physB) {
 		break;
 	}
 
+}
 
+void Bringer::LoadAnimations()
+{
+	idle.LoadAnimations("Idle", "bringer");
+	idleleft.LoadAnimations("Idleleft", "bringer");
+	walk.LoadAnimations("walk", "bringer");
+	walkleft.LoadAnimations("walkleft", "bringer");
+	damageleft.LoadAnimations("damageleft", "bringer");
+	damage.LoadAnimations("damage", "bringer");
+	atack.LoadAnimations("atack", "bringer");
+	atackleft.LoadAnimations("atackleft", "bringer");
+	death.LoadAnimations("death", "bringer");
 
+	currentAnimation = &idle;
 }

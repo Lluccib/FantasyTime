@@ -321,7 +321,7 @@
 			<animation x="2241" y="289" w="147" h="84"/>
 			<animation x="2102" y="289" w="147" h="84"/>
 		</atackleft>
-		<death loop="true" speed="0.2f">
+		<death loop="false" speed="0.2f">
 			<animation x="280" y="289" w="147" h="84"/>
 			<animation x="420" y="289" w="147" h="84"/>
 			<animation x="560" y="289" w="147" h="84"/>
