@@ -67,6 +67,7 @@ public:
 	bool left = false;
 	bool right = true;
 	bool destroybody = false;
+	
 	bool attackBodyCreated = false;
 	bool destroyAttackBody = false;
 	bool hasAtacked = false;
@@ -84,7 +85,9 @@ public:
 	Animation atackleft;
 	Animation death;
 
-	
+	int bringerdeath;
+	int bringeratack;
+	bool deathfx = true;
 
 
 };

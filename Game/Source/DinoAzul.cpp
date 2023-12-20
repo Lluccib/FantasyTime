@@ -34,6 +34,8 @@ bool Blue::Start() {
 	walk.LoadAnimations("walk", "blue");
 	damage.LoadAnimations("damage", "blue");
 	run.LoadAnimations("run", "blue");
+	raptordeath = app->audio->LoadFx(parameters.child("muertebluefx").attribute("path").as_string());
+	raptoratack = app->audio->LoadFx(parameters.child("ataquebluefx").attribute("path").as_string());
 	texture = app->tex->Load(texturePath);
 	pbody = app->physics->CreateCircle(position.x + 20, position.y , 8, bodyType::DYNAMIC);
 	pbody->listener = this;
