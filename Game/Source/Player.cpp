@@ -63,6 +63,8 @@ bool Player::Update(float dt)
 
 	b2Vec2 currentVelocity = pbody->body->GetLinearVelocity();
 
+	/*currentVelocity.y = 0.5f;*/
+
 
 	if (life, !isWalking, !jump, !dead, !atacking)
 	{
@@ -101,7 +103,7 @@ bool Player::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN && !jump && !dead && !godmode && !isWalking) {
 		
 		currentAnimation = &Atack1;
-		
+		app->audio->PlayFx(swordfx);
 		if (right)
 		{
 			atacking = true;
@@ -119,8 +121,6 @@ bool Player::Update(float dt)
 			pbody2->listener = this;
 		}
 		atacktimer = SDL_GetTicks();
-		
-
 	}
 	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT && godmode == true) {
 		currentVelocity.y = speed * dt;

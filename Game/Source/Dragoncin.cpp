@@ -49,7 +49,7 @@ bool Drake::Start() {
 
 bool Drake::Update(float dt)
 {
-	
+	/*currentVelocity.y = 0.5f;*/
 	currentAnimation = &Runleft;
 
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;

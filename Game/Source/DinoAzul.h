@@ -5,7 +5,6 @@
 #include "Point.h"
 #include "SDL/include/SDL.h"
 #include "Animation.h"
-#include "DynArray.h"
 
 struct SDL_Texture;
 
