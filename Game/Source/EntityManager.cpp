@@ -139,3 +139,39 @@ bool EntityManager::Update(float dt)
 
 	return ret;
 }
+void EntityManager::GetBringer(List<Entity*>& bringerList) const
+{
+	// Clear the provided list to ensure it's empty before populating it.
+	bringerList.Clear();
+
+	// Iterate through the list of entities.
+	ListItem<Entity*>* entity;
+
+	for (entity = entities.start; entity != NULL; entity = entity->next)
+	{
+		// Check if the current entity is of type "SLIME".
+		if (entity->data->type == EntityType::NIGHTBRINGER)
+		{
+			// If it is a slime, add it to the provided list.
+			bringerList.Add(entity->data);
+		}
+	}
+}
+void EntityManager::GetGhost(List<Entity*>& ghostList) const
+{
+	// Clear the provided list to ensure it's empty before populating it.
+	ghostList.Clear();
+
+	// Iterate through the list of entities.
+	ListItem<Entity*>* entity;
+
+	for (entity = entities.start; entity != NULL; entity = entity->next)
+	{
+		// Check if the current entity is of type "SLIME".
+		if (entity->data->type == EntityType::GHOST)
+		{
+			// If it is a slime, add it to the provided list.
+			ghostList.Add(entity->data);
+		}
+	}
+}

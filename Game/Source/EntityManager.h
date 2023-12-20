@@ -33,6 +33,9 @@ public:
 
 	void AddEntity(Entity* entity);
 
+	void GetBringer(List<Entity*>& bringerList) const;
+	void GetGhost(List<Entity*>& ghostList) const;
+
 public:
 
 	List<Entity*> entities;

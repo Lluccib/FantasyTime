@@ -14,7 +14,7 @@
 Ghost::Ghost() : Entity(EntityType::GHOST)
 {
 
-	name.Create("ghost");
+	name.Create("ghost2");
 }
 
 Ghost::~Ghost() {
@@ -52,6 +52,11 @@ bool Ghost::Update(float dt)
 	/*currentVelocity.y = 0.5f;*/
 	if (!dead)
 	{
+		if (tp)
+		{
+			tp = false;
+			pbody->body->SetTransform({ PIXEL_TO_METERS(position.x), PIXEL_TO_METERS(position.y) }, 0);
+		}
 		playerPos = app->map->WorldToMap(app->scene->player->position.x, app->scene->player->position.y);
 		ghostPos = app->map->WorldToMap(position.x, position.y);
 
