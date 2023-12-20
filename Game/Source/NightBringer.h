@@ -63,6 +63,7 @@ public:
 	bool left = false;
 	bool right = true;
 	bool destroybody = false;
+	
 	bool attackBodyCreated = false;
 	bool destroyAttackBody = false;
 	Animation* currentAnimation = nullptr;

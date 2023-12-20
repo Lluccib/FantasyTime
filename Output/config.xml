@@ -26,8 +26,8 @@
     <player x="120" y="800" texturepath="Assets/Textures/personaje.png"/>
 	  <!--blue x="240" y="800" texturepath="Assets/Textures/Dino_azul.png"/-->
 	  <drake x="4080" y="700" texturepath="Assets/Textures/drake.png"/>
-	  <bringer x="860" y="850" texturepath="Assets/Textures/bringer.png"/>
-	  <!--ghost x="260" y="800" texturepath="Assets/Textures/ghost.png"/-->
+	  <!--bringer x="860" y="850" texturepath="Assets/Textures/bringer.png"/-->
+	  <ghost x="2500" y="700" texturepath="Assets/Textures/ghost.png"/>
   </scene>
 	<player>
 		<!-- idle -->
@@ -229,14 +229,18 @@
 			<animation x="253" y="0" w="65" h="64"/>
 			<animation x="319" y="0" w="65" h="64"/>
 		</Idle>
-		<Idleleft loop="true" speed="0.2f">
-			<animation x="0" y="64" w="65" h="64"/>
-			<animation x="63" y="64" w="65" h="64"/>
-			<animation x="127" y="64" w="65" h="64"/>
-			<animation x="190" y="64" w="65" h="64"/>
-			<animation x="253" y="64" w="65" h="64"/>
-			<animation x="319" y="64" w="65" h="64"/>
-		</Idleleft>
+		<explosion loop="false" speed="0.2f">
+			<animation x="747" y="148" w="77" h="76"/>
+			<animation x="667" y="148" w="77" h="64"/>
+			<animation x="587" y="148" w="77" h="64"/>
+			<animation x="509" y="148" w="77" h="64"/>
+			<animation x="428" y="148" w="77" h="64"/>
+			<animation x="348" y="148" w="77" h="64"/>
+			<animation x="266" y="148" w="77" h="64"/>
+			<animation x="190" y="148" w="77" h="64"/>
+			<animation x="109" y="148" w="77" h="64"/>
+			<animation x="29" y="148" w="77" h="64"/>
+		</explosion>
 
 	</ghost>
 

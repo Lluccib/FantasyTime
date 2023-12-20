@@ -74,8 +74,9 @@ bool Player::Update(float dt)
 	if (!life)
 	{
 		currentAnimation = &Death;
+		
 	}
-
+	
 
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE && app->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE )
 	{
