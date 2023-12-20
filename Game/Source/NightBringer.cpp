@@ -102,6 +102,15 @@ bool Bringer::Update(float dt)
 		
 
 	}
+	if (app->scene->player->position.x < position.x) 
+	{
+		left = true;
+		right = false;
+	}
+	else if (app->scene->player->position.x > position.x) {
+		left = false;
+		right = true;
+	}
 	if (app->scene->player->position.DistanceTo(position) <= 100 && app->scene->player->position.DistanceTo(position) >= 50 && !dead)
 	{
 		isWalking = true;
