@@ -50,7 +50,10 @@ public:
 	const char* GetArgv(int index) const;
 	const char* GetTitle() const;
 	const char* GetOrganization() const;
-
+	bool LoadRequest();
+	bool SaveRequest();
+	bool LoadFromFile();
+	bool SaveFromFile();
 private:
 
 	// Load config file
@@ -71,6 +74,8 @@ private:
 	// Call modules after each loop iteration
 	bool PostUpdate();
 
+
+	
 public:
 
 	// Modules
@@ -84,7 +89,8 @@ public:
 	Map* map;
 	Physics* physics;
 
-
+	bool saveRequest = false;
+	bool loadRequest = false;
 private:
 
 	int argc;
@@ -118,6 +124,8 @@ private:
 
 	bool vsync = false;
 	bool unlimitFrames = false;
+
+	
 
 };
 

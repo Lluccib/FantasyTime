@@ -68,7 +68,11 @@ bool Bringer::Update(float dt)
 	//PATHFINDING//
 	if (!dead)
 	{
-
+		/*if (tp)
+		{
+			tp = false;
+			pbody->body->SetTransform({ PIXEL_TO_METERS(position.x), PIXEL_TO_METERS(position.y) }, 0);
+		}*/
 		playerTilePos = app->map->WorldToMap(app->scene->player->position.x, app->scene->player->position.y + 64);
 
 		NightBringerTilePos = app->map->WorldToMap(position.x, position.y);
@@ -221,7 +225,7 @@ bool Bringer::Update(float dt)
 			}
 			pbody->body->SetActive(false);
 			if (Path == app->map->pathfinding->GetLastPath()) app->map->pathfinding->ClearLastPath();
-			app->audio->PlayFx(bringerdeath);
+			
 		}
 
 
@@ -288,6 +292,7 @@ void Bringer::OnCollision(PhysBody* physA, PhysBody* physB) {
 		break;
 	case ColliderType::PLAYERATACK:
 		dead = true;
+		
 		LOG("Collision PLATFORM");
 		break;
 	case ColliderType::UNKNOWN:

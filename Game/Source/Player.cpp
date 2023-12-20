@@ -74,9 +74,6 @@ bool Player::Update(float dt)
 	if (!life)
 	{
 		currentAnimation = &Death;
-
-		app->audio->PlayFx(muertefx);
-
 	}
 	
 
@@ -153,13 +150,7 @@ bool Player::Update(float dt)
 		
 	}
 
-	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN && !dead) {
-
-		dead = true;
-		life = false;
-		currentAnimation = &Death;
-		deathtimer = SDL_GetTicks();
-	}
+	
 
 
 
@@ -224,6 +215,7 @@ bool Player::Update(float dt)
 		destroybody = true;
 		currentAnimation->Reset();
 		currentAnimation->loopCount = 0;
+
 	}
 	else if (currentAnimation == &Atack1left && currentAnimation->HasFinished())
 	{
