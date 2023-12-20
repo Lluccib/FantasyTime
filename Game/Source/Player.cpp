@@ -100,10 +100,10 @@ bool Player::Update(float dt)
 		
 	}
 
-	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN && !jump && !dead && !godmode && !isWalking) {
+	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN && !jump && !dead && !godmode && !isWalking && !atacking) {
 		
 		currentAnimation = &Atack1;
-		app->audio->PlayFx(swordfx);
+		
 		if (right)
 		{
 			atacking = true;
@@ -120,7 +120,8 @@ bool Player::Update(float dt)
 			pbody2->ctype = ColliderType::PLAYERATACK;
 			pbody2->listener = this;
 		}
-		atacktimer = SDL_GetTicks();
+		app->audio->PlayFx(swordfx);
+		
 	}
 	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT && godmode == true) {
 		currentVelocity.y = speed * dt;
@@ -223,8 +224,6 @@ bool Player::Update(float dt)
 		atacking = false;
 		destroybody = true;
 		currentAnimation->Reset();
-		
-		
 	}
 	else if (currentAnimation == &Atack1left && currentAnimation->HasFinished())
 	{
