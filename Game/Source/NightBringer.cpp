@@ -210,9 +210,10 @@ bool Bringer::Update(float dt)
 
 			}
 		}
-	}
+
 	
-	else if (dead)
+
+	if (dead)
 	{
 		currentAnimation = &death;
 		velocity = { 0,0 };
