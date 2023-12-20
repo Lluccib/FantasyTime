@@ -63,7 +63,6 @@ bool Player::Update(float dt)
 
 	b2Vec2 currentVelocity = pbody->body->GetLinearVelocity();
 
-	/*currentVelocity.y = 0.5f;*/
 
 
 	if (life, !isWalking, !jump, !dead, !atacking)
@@ -170,18 +169,18 @@ bool Player::Update(float dt)
 
 	}
 
-	//if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) //START FROM SECOND LEVEL
-	//{
-	//	dead = false;
-	//	pbody->body->SetTransform({ PIXEL_TO_METERS(32 * 145), PIXEL_TO_METERS(32 * 16) }, 0);
+	if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) //START FROM SECOND LEVEL
+	{
+		dead = false;
+		pbody->body->SetTransform({ PIXEL_TO_METERS(32 * 228), PIXEL_TO_METERS(32 * 16) }, 0);
 
-	//	level = 2;
+		level = 2;
 
-	//	app->render->camera.x = 0;
-	//	app->render->camera.y = -190;
+		app->render->camera.x = 0;
+		app->render->camera.y = -190;
 
 
-	//}
+	}
 
 	if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
 	{
@@ -192,7 +191,7 @@ bool Player::Update(float dt)
 		}
 		else
 		{
-			pbody->body->SetTransform({ PIXEL_TO_METERS(32 * 145), PIXEL_TO_METERS(32 * 16) }, 0);
+			pbody->body->SetTransform({ PIXEL_TO_METERS(32 * 228), PIXEL_TO_METERS(32 * 16) }, 0);
 		}
 	}
 
@@ -215,7 +214,8 @@ bool Player::Update(float dt)
 		atacking = false;
 		destroybody = true;
 		currentAnimation->Reset();
-		currentAnimation->ResetLoopCount();
+		currentAnimation->loopCount = 0;
+
 	}
 	else if (currentAnimation == &Atack1left && currentAnimation->HasFinished())
 	{
@@ -223,6 +223,7 @@ bool Player::Update(float dt)
 		atacking = false;
 		destroybody = true;
 		currentAnimation->Reset();
+		currentAnimation->loopCount = 0;
 
 
 	}
@@ -304,9 +305,9 @@ bool Player::Update(float dt)
 
 	}
 
-	//if (app->render->camera.x - position.x - 100 <= -12900) {
-	//	app->render->camera.x = -6333;
-	//}
+	if (app->render->camera.x - position.x - 100 <= -12900) {
+		app->render->camera.x = -6333;
+	}
 	
 	printf("\r %i", app->render->camera.x);
 
@@ -380,10 +381,6 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		}
 		
 		
-	}
-	if (godmode)
-	{
-
 	}
 	
 	
