@@ -21,7 +21,6 @@
     <fx volume="128"/>
   </audio>
 
-
 	<scene>
 		<map path="Assets/Maps/" name="mapa.tmx"/>
 		<player x="120" y="800" texturepath="Assets/Textures/personaje.png">
@@ -37,7 +36,7 @@
 			<aleteofx path="Assets/Audio/Fx/aleteo-dragon.wav "/>
 			<muertedragonfx path="Assets/Audio/Fx/muerte-dragon.wav "/>
 		</drake>
-		<bringer x="860" y="800" texturepath="Assets/Textures/bringer.png">
+		<bringer x="1150" y="850" texturepath="Assets/Textures/bringer.png">
 			<bringerdeathfx path ="Assets/Audio/Fx/nightbringer-death.wav "/>
 			<bringeratackfx path ="Assets/Audio/Fx/nightbringer-atack.wav "/>
 		</bringer>

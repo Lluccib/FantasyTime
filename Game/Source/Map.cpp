@@ -62,8 +62,8 @@ bool Map::Update(float dt)
 
         if (mapLayerItem->data->properties.GetProperty("Draw") != NULL && mapLayerItem->data->properties.GetProperty("Draw")->value) {
             //Utilizamos estas dos posiciones para poder cargar unos tiles determinados.
-            iPoint posMapin = WorldToMap(app->scene->player->position.x - 1000, 0);
-            iPoint posMapfi = WorldToMap(app->scene->player->position.x + 1000, 0);
+            iPoint posMapin = WorldToMap(app->scene->player->position.x - 1200, 0);
+            iPoint posMapfi = WorldToMap(app->scene->player->position.x + 1200, 0);
 
             
             for (int x = posMapin.x; x < posMapfi.x; x++) 
@@ -600,9 +600,11 @@ void Map::CreateNavigationMap(int& width, int& height, uchar** buffer) const
 
             //If the gid is a blockedGid is an area that I cannot navigate, so is set in the navigation map as 0, all the other areas can be navigated
             //!!!! make sure that you assign blockedGid according to your map
-            if (gid == blockedGid) navigationMap[i] = 1;
-            else navigationMap[i] = 0;
-            //utilizar más de 
+            if (gid == blockedGid) {
+                navigationMap[i] = 0;
+            }
+
+            else navigationMap[i] = 1;
         }
     }
 

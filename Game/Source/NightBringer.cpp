@@ -68,12 +68,12 @@ bool Bringer::Start() {
 
 bool Bringer::Update(float dt)
 {
-
 	//PATHFINDING//
 	if (!dead)
 	{
 
-		playerTilePos = app->map->WorldToMap(app->scene->player->position.x, app->scene->player->position.y);
+		playerTilePos = app->map->WorldToMap(app->scene->player->position.x, app->scene->player->position.y + 64);
+
 		NightBringerTilePos = app->map->WorldToMap(position.x, position.y);
 
 			
@@ -83,34 +83,72 @@ bool Bringer::Update(float dt)
 
 
 		distance = playerTilePos.DistanceTo(NightBringerTilePos);
+		if (app->scene->player->position.x < position.x) {
+			right = false;
+		}
+		if (app->scene->player->position.x > position.x) {
+			right = true;
+		}
 
 		if (destroyAttackBody)
 		{
-			atackhitbox->body->GetWorld()->DestroyBody(atackhitbox->body);
+			if (atackhitbox != NULL) atackhitbox->body->GetWorld()->DestroyBody(atackhitbox->body);
 			atackhitbox = NULL;
 			destroyAttackBody = false;
 		}
 
 
-		if (distance < 10)
+		if (distance < 8)//SI ESTA DENTRO DEL RANGO DEL JUGADOR
 		{
 			app->map->pathfinding->CreatePath(NightBringerTilePos, playerTilePos);
+			Path = app->map->pathfinding->GetLastPath();
+			
+			agro = true;
 
-
-			if (distance < 3 && !atacking)
-			{
-				atacking = true;
-				currentAnimation = &atack;
-
-				currentAnimation->ResetLoopCount();
-				currentAnimation->Reset();
-				velocity = { 0, -GRAVITY_Y };
+			if (Path->Count() > 1) {
+				nextTilePath = { Path->At(1)->x, Path->At(1)->y };
+				Move(NightBringerTilePos, nextTilePath);
 			}
-			else if (distance >= 3 && !atacking)
+
+
+			if (!atackcooldown) {
+				if (!right) 
+				{
+					if (distance <= 3 && !atacking)
+					{
+						atacking = true;
+						hasAtacked = true;
+						currentAnimation = &atack;
+
+						currentAnimation->ResetLoopCount();
+						currentAnimation->Reset();
+						velocity = { 0, -GRAVITY_Y };
+						atackcooldown = true;
+						atackTimer = SDL_GetTicks();
+					}
+				}
+				else {
+					if (distance <= 3 && !atacking)
+					{
+						atacking = true;
+						hasAtacked = true;
+						currentAnimation = &atack;
+
+						currentAnimation->ResetLoopCount();
+						currentAnimation->Reset();
+						velocity = { 0, -GRAVITY_Y };
+						atackcooldown = true;
+						atackTimer = SDL_GetTicks();
+					}
+				}
+			}
+
+			
+			else if (distance > 3 && !atacking)
 			{
-				const DynArray<iPoint>* path = app->map->pathfinding->GetLastPath();
-				if (path->Count() > 1) {
-					nextTilePath = { path->At(1)->x, path->At(1)->y };
+
+				if (Path->Count() > 1) {
+					nextTilePath = { Path->At(1)->x, Path->At(1)->y };
 					Move(NightBringerTilePos, nextTilePath);
 				}
 				currentAnimation = &walk;
@@ -122,24 +160,28 @@ bool Bringer::Update(float dt)
 				app->map->pathfinding->ClearLastPath();
 			}
 		}
-		else
+		else//SI ESTA FUERA DEL RANGO DEL JUGADOR
 		{
+			agro = false;
+			atacking = false;
 
-			const int idleDistance = 3;
+			const int idleDistance = 10;
 
 			if (position.x >= initialIdlePosition + idleDistance * 32)
 
 			{
-				right = false;
+				bounce = false;
 			}
 			else if (position.x <= initialIdlePosition - idleDistance * 32)
 			{
-				right = true;
+				bounce = true;
 			}
 
-			velocity.x = right ? 1 : -1;
+			velocity.x = bounce ? 1 : -1;
 			position.x += velocity.x;
 			currentAnimation = &walk;
+
+			if (Path == app->map->pathfinding->GetLastPath()) app->map->pathfinding->ClearLastPath();
 		}
 
 		if (atacking)
@@ -147,16 +189,28 @@ bool Bringer::Update(float dt)
 			if (currentAnimation == &atack && currentAnimation->GetCurrentFrameCount() >= 4 && !attackBodyCreated) {
 				if (right) atackhitbox = app->physics->CreateRectangleSensor(position.x + 90, position.y + 16, 50, 96, bodyType::STATIC);
 				else atackhitbox = app->physics->CreateRectangleSensor(position.x - 90, position.y + 16, 50, 96, bodyType::STATIC);
-				atackhitbox->ctype = ColliderType::ENEMY;
+				atackhitbox->ctype = ColliderType::ENEMYATTACK;
 				attackBodyCreated = true;
 			}
 
 			if (currentAnimation == &atack && currentAnimation->GetCurrentFrameCount() >= 9 && attackBodyCreated)
 			{
 				atacking = false;
+				hasAtacked = false;
 				attackBodyCreated = false;
 
-				if (atackhitbox != NULL) destroyAttackBody = true;
+				destroyAttackBody = true;
+
+			}
+		}
+		if (atackcooldown)
+		{
+			currentTime = SDL_GetTicks();
+			atackduration = currentTime - atackTimer;
+			if (atackduration >= 1500) //700
+			{
+
+				atackcooldown = false;
 
 			}
 		}
@@ -166,9 +220,13 @@ bool Bringer::Update(float dt)
 	{
 		currentAnimation = &death;
 		velocity = { 0,0 };
-		dead = true;
+		if (atacking)
+		{
+			atacking = false;
+			destroyAttackBody = true;
+		}
 		pbody->body->SetActive(false);
-		/*enemyPbody->body->SetActive(false)*/;
+		if (Path == app->map->pathfinding->GetLastPath()) app->map->pathfinding->ClearLastPath();
 	}
 
 
@@ -177,10 +235,14 @@ bool Bringer::Update(float dt)
 
 	pbody->body->SetLinearVelocity(velocity);
 	/*enemyPbody->body->SetTransform({ pbody->body->GetPosition().x, pbody->body->GetPosition().y - PIXEL_TO_METERS(10) }, 0);*/
-
-	SDL_Rect rect = currentAnimation->GetCurrentFrame();
-	if (right) app->render->DrawTexture(texture, position.x - 20, position.y - 50, &rect, SDL_FLIP_HORIZONTAL);
-	else app->render->DrawTexture(texture, position.x - 90, position.y - 50, &rect);
+	if (agro) {
+		if (right) app->render->DrawTexture(texture, position.x - 20, position.y - 50, &currentAnimation->GetCurrentFrame(), SDL_FLIP_HORIZONTAL);
+		else app->render->DrawTexture(texture, position.x - 90, position.y - 50, &currentAnimation->GetCurrentFrame());
+	}
+	else {
+		if (bounce) app->render->DrawTexture(texture, position.x - 20, position.y - 50, &currentAnimation->GetCurrentFrame(), SDL_FLIP_HORIZONTAL);
+		else app->render->DrawTexture(texture, position.x - 90, position.y - 50, &currentAnimation->GetCurrentFrame());
+	}
 
 	currentAnimation->Update();
 
@@ -237,6 +299,13 @@ void Bringer::OnCollision(PhysBody* physA, PhysBody* physB) {
 		break;
 	}
 
+}
+
+void Bringer::ResetEntity()
+{
+	
+	dead = false;
+	pbody->body->SetActive(true);
 }
 
 void Bringer::LoadAnimations()

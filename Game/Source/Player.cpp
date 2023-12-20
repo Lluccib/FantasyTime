@@ -130,6 +130,7 @@ bool Player::Update(float dt)
 		currentVelocity.y = -speed * dt;
 		
 	}
+	
 
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !dead) {
 		currentVelocity.x = -speed * dt;
@@ -360,6 +361,12 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 				break;
 			case ColliderType::UNKNOWN:
 				LOG("Collision UNKNOWN");
+				break;
+			case ColliderType::ENEMYATTACK:
+				life = false;
+				dead = true;
+				deathtimer = SDL_GetTicks();
+				LOG("Collision PLATFORM");
 				break;
 			}
 		}

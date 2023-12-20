@@ -6,6 +6,7 @@
 #include "Physics.h"
 #include "SDL/include/SDL.h"
 #include "Animation.h"
+#include "DynArray.h"
 
 struct SDL_Texture;
 
@@ -27,6 +28,8 @@ public:
 
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 
+	void ResetEntity();
+
 	void LoadAnimations();
 
 	void Move(const iPoint& origin, const iPoint& destination);
@@ -38,6 +41,7 @@ public:
 	float timer = 0.0f;
 	float distance;
 	int initialIdlePosition;
+	const DynArray<iPoint>* Path;
 	b2Vec2 velocity;
 	uint currentTime;
 	uint atackTimer;
@@ -66,6 +70,10 @@ public:
 	
 	bool attackBodyCreated = false;
 	bool destroyAttackBody = false;
+	bool hasAtacked = false;
+	bool bounce;
+	bool agro = false;
+
 	Animation* currentAnimation = nullptr;
 	Animation idle;
 	Animation idleleft;
