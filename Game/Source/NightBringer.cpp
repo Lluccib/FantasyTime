@@ -39,6 +39,8 @@ bool Bringer::Start() {
 	atack.LoadAnimations("atack", "bringer");
 	atackleft.LoadAnimations("atackleft", "bringer");
 	death.LoadAnimations("death", "bringer");
+	bringerdeath = app->audio->LoadFx(parameters.child("bringerdeathfx").attribute("path").as_string());
+	bringeratack = app->audio->LoadFx(parameters.child("bringeratackfx").attribute("path").as_string());
 	texture = app->tex->Load(texturePath);
 	pbody = app->physics->CreateCircle(position.x + 20, position.y, 16, bodyType::DYNAMIC);
 	pbody->listener = this;
@@ -64,6 +66,11 @@ bool Bringer::Update(float dt)
 	else if (dead)
 	{
 		currentAnimation = &death;
+		
+		app->audio->PlayFx(bringerdeath);
+			
+		
+		
 	}
 
 
@@ -98,7 +105,6 @@ bool Bringer::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_Y) == KEY_DOWN)
 	{
 		dead = true;
-		currentAnimation = &death;
 		
 
 	}
@@ -121,7 +127,7 @@ bool Bringer::Update(float dt)
 			atacking = true;
 			isWalking = false;
 			
-			
+			app->audio->PlayFx(bringeratack);
 			atackTimer = SDL_GetTicks();
 			
 			if (left)

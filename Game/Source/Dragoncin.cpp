@@ -33,6 +33,8 @@ bool Drake::Start() {
 
 	Run.LoadAnimations("Idle", "drake");
 	Runleft.LoadAnimations("Idleleft", "drake");
+	aleteofx = app->audio->LoadFx(parameters.child("aleteo").attribute("path").as_string());
+	muertedragonfx = app->audio->LoadFx(parameters.child("muertedragonfx").attribute("path").as_string());
 	texture = app->tex->Load(texturePath);
 	pbody = app->physics->CreateCircle(position.x+180, position.y, 20, bodyType::DYNAMIC);
 	pbody->listener = this;

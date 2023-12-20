@@ -52,6 +52,9 @@ public:
 	Animation run;
 	Animation runleft;
 
+	int raptoratack;
+	int raptordeath;
+
 
 };
 

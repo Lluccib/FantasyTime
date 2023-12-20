@@ -43,6 +43,9 @@ public:
 	Animation Run;
 	Animation Runleft;
 
+	int aleteofx;
+	int muertedragonfx;
+
 
 };
 
