@@ -185,8 +185,7 @@ public:
 	MapData mapData;
 	bool mapLoaded;
 	MapLayer* navigationLayer;
-	int blockedGid = 49;
-	//9188
+	int blockedGid = 9188;
 };
 
 #endif // __MAP_H__

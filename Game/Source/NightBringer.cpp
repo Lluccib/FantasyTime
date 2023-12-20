@@ -141,6 +141,8 @@ bool Bringer::Update(float dt)
 		else//SI ESTA FUERA DEL RANGO DEL JUGADOR
 		{
 			agro = false;
+			atacking = false;
+
 			const int idleDistance = 10;
 
 			if (position.x >= initialIdlePosition + idleDistance * 32)
@@ -174,7 +176,7 @@ bool Bringer::Update(float dt)
 				hasAtacked = false;
 				attackBodyCreated = false;
 
-				if (atackhitbox != NULL) destroyAttackBody = true;
+				destroyAttackBody = true;
 
 			}
 		}

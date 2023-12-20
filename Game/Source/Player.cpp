@@ -126,6 +126,7 @@ bool Player::Update(float dt)
 		currentVelocity.y = -speed * dt;
 		
 	}
+	
 
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !dead) {
 		currentVelocity.x = -speed * dt;
