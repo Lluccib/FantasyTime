@@ -62,8 +62,8 @@ bool Map::Update(float dt)
 
         if (mapLayerItem->data->properties.GetProperty("Draw") != NULL && mapLayerItem->data->properties.GetProperty("Draw")->value) {
             //Utilizamos estas dos posiciones para poder cargar unos tiles determinados.
-            iPoint posMapin = WorldToMap(app->scene->player->position.x - 1000, 0);
-            iPoint posMapfi = WorldToMap(app->scene->player->position.x + 1000, 0);
+            iPoint posMapin = WorldToMap(app->scene->player->position.x - 1200, 0);
+            iPoint posMapfi = WorldToMap(app->scene->player->position.x + 1200, 0);
 
             
             for (int x = posMapin.x; x < posMapfi.x; x++) 
