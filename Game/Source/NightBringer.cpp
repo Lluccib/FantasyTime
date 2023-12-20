@@ -3,7 +3,7 @@
 #include "Textures.h"
 #include "Audio.h"
 #include "Input.h"
-#include "Render.h"
+#include "Render.h"a
 #include "Scene.h"
 #include "Log.h"
 #include "Point.h"
@@ -211,8 +211,7 @@ bool Bringer::Update(float dt)
 			}
 		}
 
-	
-
+	}
 	if (dead)
 	{
 		currentAnimation = &death;
@@ -252,8 +251,8 @@ bool Bringer::Update(float dt)
 			iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
 			app->render->DrawTexture(pathTexture, pos.x, pos.y);
 		}
-	}
 
+	}
 	return true;
 }
 	

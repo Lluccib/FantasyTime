@@ -49,7 +49,7 @@ bool Ghost::Start() {
 
 bool Ghost::Update(float dt)
 {
-	/*currentVelocity.y = 0.5f;*/
+	
 	if (!dead)
 	{
 		playerPos = app->map->WorldToMap(app->scene->player->position.x, app->scene->player->position.y);
