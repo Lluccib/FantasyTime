@@ -50,7 +50,7 @@ bool Bringer::Start() {
 	death.LoadAnimations("death", "bringer");
 	bringerdeath = app->audio->LoadFx(parameters.child("bringerdeathfx").attribute("path").as_string());
 	bringeratack = app->audio->LoadFx(parameters.child("bringeratackfx").attribute("path").as_string());
-  pathTexture = app->tex->Load("Assets/Textures/path.png");
+	pathTexture = app->tex->Load("Assets/Textures/path.png");
 	texture = app->tex->Load(texturePath);
 
 
@@ -214,7 +214,7 @@ bool Bringer::Update(float dt)
 
 			}
 		}
-	}
+	
 
 	if (dead)
 	{
