@@ -357,6 +357,12 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			case ColliderType::UNKNOWN:
 				LOG("Collision UNKNOWN");
 				break;
+			case ColliderType::ENEMYATTACK:
+				life = false;
+				dead = true;
+				deathtimer = SDL_GetTicks();
+				LOG("Collision PLATFORM");
+				break;
 			}
 		}
 		if (dead)

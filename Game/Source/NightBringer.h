@@ -70,6 +70,9 @@ public:
 	bool attackBodyCreated = false;
 	bool destroyAttackBody = false;
 	bool hasAtacked = false;
+	bool bounce;
+	bool agro = false;
+
 	Animation* currentAnimation = nullptr;
 	Animation idle;
 	Animation idleleft;

@@ -54,14 +54,19 @@ bool Bringer::Start() {
 
 bool Bringer::Update(float dt)
 {
-
 	//PATHFINDING//
 	if (!dead)
 	{
-		playerTilePos = app->map->WorldToMap(app->scene->player->position.x, app->scene->player->position.y + 20);
+		playerTilePos = app->map->WorldToMap(app->scene->player->position.x + 50, app->scene->player->position.y + 64);
 		NightBringerTilePos = app->map->WorldToMap(position.x, position.y);
 
 		distance = playerTilePos.DistanceTo(NightBringerTilePos);
+		if (app->scene->player->position.x < position.x) {
+			right = false;
+		}
+		if (app->scene->player->position.x > position.x) {
+			right = true;
+		}
 
 		if (destroyAttackBody)
 		{
@@ -70,27 +75,54 @@ bool Bringer::Update(float dt)
 			destroyAttackBody = false;
 		}
 
-		if (distance < 6)
+		if (distance < 8)//SI ESTA DENTRO DEL RANGO DEL JUGADOR
 		{
 			app->map->pathfinding->CreatePath(NightBringerTilePos, playerTilePos);
 			Path = app->map->pathfinding->GetLastPath();
+			
+			agro = true;
+
+			if (Path->Count() > 1) {
+				nextTilePath = { Path->At(1)->x, Path->At(1)->y };
+				Move(NightBringerTilePos, nextTilePath);
+			}
+
 
 			if (!atackcooldown) {
-				if (distance < 3 && !atacking)
+				if (!right) 
 				{
-					atacking = true;
-					hasAtacked = true;
-					currentAnimation = &atack;
+					if (distance < 3 && !atacking)
+					{
+						atacking = true;
+						hasAtacked = true;
+						currentAnimation = &atack;
 
-					currentAnimation->ResetLoopCount();
-					currentAnimation->Reset();
-					velocity = { 0, -GRAVITY_Y };
-					atackcooldown = true;
-					atackTimer = SDL_GetTicks();
+						currentAnimation->ResetLoopCount();
+						currentAnimation->Reset();
+						velocity = { 0, -GRAVITY_Y };
+						atackcooldown = true;
+						atackTimer = SDL_GetTicks();
+					}
 				}
+				else {
+					if (distance < 6 && !atacking)
+					{
+						atacking = true;
+						hasAtacked = true;
+						currentAnimation = &atack;
+
+						currentAnimation->ResetLoopCount();
+						currentAnimation->Reset();
+						velocity = { 0, -GRAVITY_Y };
+						atackcooldown = true;
+						atackTimer = SDL_GetTicks();
+					}
+				}
+
 			}
+
 			
-			else if (distance >= 3 && !atacking)
+			else if (distance > 3 && !atacking)
 			{
 
 				if (Path->Count() > 1) {
@@ -106,20 +138,21 @@ bool Bringer::Update(float dt)
 				app->map->pathfinding->ClearLastPath();
 			}
 		}
-		else
+		else//SI ESTA FUERA DEL RANGO DEL JUGADOR
 		{
+			agro = false;
 			const int idleDistance = 10;
 
 			if (position.x >= initialIdlePosition + idleDistance * 32)
 			{
-				right = false;
+				bounce = false;
 			}
 			else if (position.x <= initialIdlePosition - idleDistance * 32)
 			{
-				right = true;
+				bounce = true;
 			}
 
-			velocity.x = right ? 1 : -1;
+			velocity.x = bounce ? 1 : -1;
 			position.x += velocity.x;
 			currentAnimation = &walk;
 
@@ -131,7 +164,7 @@ bool Bringer::Update(float dt)
 			if (currentAnimation == &atack && currentAnimation->GetCurrentFrameCount() >= 4 && !attackBodyCreated) {
 				if (right) atackhitbox = app->physics->CreateRectangleSensor(position.x + 90, position.y + 16, 50, 96, bodyType::STATIC);
 				else atackhitbox = app->physics->CreateRectangleSensor(position.x - 90, position.y + 16, 50, 96, bodyType::STATIC);
-				atackhitbox->ctype = ColliderType::ENEMY;
+				atackhitbox->ctype = ColliderType::ENEMYATTACK;
 				attackBodyCreated = true;
 			}
 
@@ -177,10 +210,14 @@ bool Bringer::Update(float dt)
 
 	pbody->body->SetLinearVelocity(velocity);
 	/*enemyPbody->body->SetTransform({ pbody->body->GetPosition().x, pbody->body->GetPosition().y - PIXEL_TO_METERS(10) }, 0);*/
-
-	SDL_Rect rect = currentAnimation->GetCurrentFrame();
-	if (right) app->render->DrawTexture(texture, position.x - 20, position.y - 50, &rect, SDL_FLIP_HORIZONTAL);
-	else app->render->DrawTexture(texture, position.x - 90, position.y - 50, &rect);
+	if (agro) {
+		if (right) app->render->DrawTexture(texture, position.x - 20, position.y - 50, &currentAnimation->GetCurrentFrame(), SDL_FLIP_HORIZONTAL);
+		else app->render->DrawTexture(texture, position.x - 90, position.y - 50, &currentAnimation->GetCurrentFrame());
+	}
+	else {
+		if (bounce) app->render->DrawTexture(texture, position.x - 20, position.y - 50, &currentAnimation->GetCurrentFrame(), SDL_FLIP_HORIZONTAL);
+		else app->render->DrawTexture(texture, position.x - 90, position.y - 50, &currentAnimation->GetCurrentFrame());
+	}
 
 	currentAnimation->Update();
 
