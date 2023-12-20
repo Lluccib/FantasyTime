@@ -58,7 +58,7 @@ bool Bringer::Update(float dt)
 	//PATHFINDING//
 	if (!dead)
 	{
-		playerTilePos = app->map->WorldToMap(app->scene->player->position.x + 50, app->scene->player->position.y + 64);
+		playerTilePos = app->map->WorldToMap(app->scene->player->position.x, app->scene->player->position.y);
 		NightBringerTilePos = app->map->WorldToMap(position.x, position.y);
 
 		distance = playerTilePos.DistanceTo(NightBringerTilePos);
