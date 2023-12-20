@@ -58,7 +58,7 @@ public:
 	Animation idle;
 	Animation atack;
 
-
+	int muertefantasma;
 };
 
 #endif // __PLAYER_H__

@@ -50,7 +50,7 @@ bool Bringer::Start() {
 	death.LoadAnimations("death", "bringer");
 	bringerdeath = app->audio->LoadFx(parameters.child("bringerdeathfx").attribute("path").as_string());
 	bringeratack = app->audio->LoadFx(parameters.child("bringeratackfx").attribute("path").as_string());
-  pathTexture = app->tex->Load("Assets/Textures/path.png");
+	pathTexture = app->tex->Load("Assets/Textures/path.png");
 	texture = app->tex->Load(texturePath);
 
 
@@ -75,11 +75,6 @@ bool Bringer::Update(float dt)
 		playerTilePos = app->map->WorldToMap(app->scene->player->position.x, app->scene->player->position.y + 64);
 
 		NightBringerTilePos = app->map->WorldToMap(position.x, position.y);
-
-			
-		
-		
-	}
 
 
 		distance = playerTilePos.DistanceTo(NightBringerTilePos);
@@ -119,7 +114,7 @@ bool Bringer::Update(float dt)
 						atacking = true;
 						hasAtacked = true;
 						currentAnimation = &atack;
-
+						app->audio->PlayFx(bringeratack);
 						currentAnimation->ResetLoopCount();
 						currentAnimation->Reset();
 						velocity = { 0, -GRAVITY_Y };
@@ -188,9 +183,10 @@ bool Bringer::Update(float dt)
 		{
 			if (currentAnimation == &atack && currentAnimation->GetCurrentFrameCount() >= 4 && !attackBodyCreated) {
 				if (right) atackhitbox = app->physics->CreateRectangleSensor(position.x + 90, position.y + 16, 50, 96, bodyType::STATIC);
-				else atackhitbox = app->physics->CreateRectangleSensor(position.x - 90, position.y + 16, 50, 96, bodyType::STATIC);
+				else atackhitbox = app->physics->CreateRectangleSensor(position.x - 50, position.y + 16, 50, 96, bodyType::STATIC);
 				atackhitbox->ctype = ColliderType::ENEMYATTACK;
 				attackBodyCreated = true;
+				
 			}
 
 			if (currentAnimation == &atack && currentAnimation->GetCurrentFrameCount() >= 9 && attackBodyCreated)
@@ -207,7 +203,7 @@ bool Bringer::Update(float dt)
 		{
 			currentTime = SDL_GetTicks();
 			atackduration = currentTime - atackTimer;
-			if (atackduration >= 1500) //700
+			if (atackduration >= 2000) //700
 			{
 
 				atackcooldown = false;
@@ -215,8 +211,8 @@ bool Bringer::Update(float dt)
 			}
 		}
 	}
-
-	if (dead)
+	
+	else if (dead)
 	{
 		currentAnimation = &death;
 		velocity = { 0,0 };
@@ -227,6 +223,7 @@ bool Bringer::Update(float dt)
 		}
 		pbody->body->SetActive(false);
 		if (Path == app->map->pathfinding->GetLastPath()) app->map->pathfinding->ClearLastPath();
+		app->audio->PlayFx(bringerdeath);
 	}
 
 

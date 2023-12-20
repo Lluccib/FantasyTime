@@ -35,6 +35,7 @@ bool Ghost::Start() {
 	idle.LoadAnimations("Idle", "ghost");
 	atack.LoadAnimations("explosion", "ghost");
 	pathTexture = app->tex->Load("Assets/Textures/path.png");
+	muertefantasma = app->audio->LoadFx(parameters.child("muertefantasma").attribute("path").as_string());
 	texture = app->tex->Load(texturePath);
 	pbody = app->physics->CreateCircle(position.x + 20, position.y, 12, bodyType::DYNAMIC);
 	pbody->listener = this;
@@ -108,8 +109,10 @@ bool Ghost::Update(float dt)
 		}
 		if (currentAnimation == &atack && currentAnimation->HasFinished())
 		{
+			
 			explosion = false;
 			currentAnimation = &idle;
+			currentAnimation->Reset();
 		}
 
 		
@@ -121,6 +124,7 @@ bool Ghost::Update(float dt)
 		velocity = { 0,0 };
 		dead = true;
 		pbody->body->SetActive(false);
+		app->audio->PlayFx(muertefantasma);
 		/*enemyPbody->body->SetActive(false)*/;
 	}
 
