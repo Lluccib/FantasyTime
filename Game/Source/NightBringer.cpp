@@ -35,8 +35,22 @@ bool Bringer::Awake() {
 
 bool Bringer::Start() {
 
+
 	
-	pathTexture = app->tex->Load("Assets/Textures/path.png");
+	
+
+	idle.LoadAnimations("Idle", "bringer");
+	idleleft.LoadAnimations("Idleleft", "bringer");
+	walk.LoadAnimations("walk", "bringer");
+	walkleft.LoadAnimations("walkleft", "bringer");
+	damageleft.LoadAnimations("damageleft", "bringer");
+	damage.LoadAnimations("damage", "bringer");
+	atack.LoadAnimations("atack", "bringer");
+	atackleft.LoadAnimations("atackleft", "bringer");
+	death.LoadAnimations("death", "bringer");
+	bringerdeath = app->audio->LoadFx(parameters.child("bringerdeathfx").attribute("path").as_string());
+	bringeratack = app->audio->LoadFx(parameters.child("bringeratackfx").attribute("path").as_string());
+  pathTexture = app->tex->Load("Assets/Textures/path.png");
 	texture = app->tex->Load(texturePath);
 
 
@@ -58,8 +72,15 @@ bool Bringer::Update(float dt)
 	//PATHFINDING//
 	if (!dead)
 	{
+
 		playerTilePos = app->map->WorldToMap(app->scene->player->position.x, app->scene->player->position.y);
 		NightBringerTilePos = app->map->WorldToMap(position.x, position.y);
+
+			
+		
+		
+	}
+
 
 		distance = playerTilePos.DistanceTo(NightBringerTilePos);
 
@@ -70,9 +91,11 @@ bool Bringer::Update(float dt)
 			destroyAttackBody = false;
 		}
 
+
 		if (distance < 10)
 		{
 			app->map->pathfinding->CreatePath(NightBringerTilePos, playerTilePos);
+
 
 			if (distance < 3 && !atacking)
 			{
@@ -101,9 +124,11 @@ bool Bringer::Update(float dt)
 		}
 		else
 		{
+
 			const int idleDistance = 3;
 
 			if (position.x >= initialIdlePosition + idleDistance * 32)
+
 			{
 				right = false;
 			}

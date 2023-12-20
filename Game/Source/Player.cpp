@@ -39,8 +39,9 @@ bool Player::Start() {
 	Atack1left.LoadAnimations("Atack1left", "player");
 	Death.LoadAnimations("Death", "player");
 	Jump.LoadAnimations("Jump", "player");
-	
-	
+	swordfx = app->audio->LoadFx(parameters.child("swordfx").attribute("path").as_string());
+	saltofx = app->audio->LoadFx(parameters.child("saltofx").attribute("path").as_string());
+	muertefx = app->audio->LoadFx(parameters.child("muerteplayerfx").attribute("path").as_string());
 	texture = app->tex->Load(texturePath);
 	currentAnimation = &idle;
 
@@ -49,7 +50,7 @@ bool Player::Start() {
 	pbody->listener = this;
 	pbody->ctype = ColliderType::PLAYER;
 
-	pickCoinFxId = app->audio->LoadFx("Assets/Audio/Fx/retro-video-game-coin-pickup-38299.ogg");
+	
 
 
 	return true;
@@ -74,7 +75,9 @@ bool Player::Update(float dt)
 	if (!life)
 	{
 		currentAnimation = &Death;
-		
+
+		app->audio->PlayFx(muertefx);
+
 	}
 	
 
@@ -90,7 +93,7 @@ bool Player::Update(float dt)
 
 	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && !jump && !dead && !godmode) {
 		jump = true;
-
+		app->audio->PlayFx(saltofx);
 		currentAnimation = &Jump;
 		currentVelocity.y = -0.35 * dt;
 		pbody->body->SetLinearVelocity(currentVelocity);
@@ -99,12 +102,12 @@ bool Player::Update(float dt)
 
 	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN && !jump && !dead && !godmode && !isWalking) {
 		
-		
-
+		currentAnimation = &Atack1;
+		app->audio->PlayFx(swordfx);
 		if (right)
 		{
 			atacking = true;
-			currentAnimation = &Atack1;
+			
 			pbody2 = app->physics->CreateRectangleSensor(position.x + 40, position.y + 16, 8, 32, bodyType::STATIC);
 			pbody2->ctype = ColliderType::PLAYERATACK;
 			pbody2->listener = this;
@@ -112,7 +115,7 @@ bool Player::Update(float dt)
 		else if (left)
 		{
 			atacking = true;
-			currentAnimation = &Atack1;
+			
 			pbody2 = app->physics->CreateRectangleSensor(position.x - 10, position.y + 16, 8, 32, bodyType::STATIC);
 			pbody2->ctype = ColliderType::PLAYERATACK;
 			pbody2->listener = this;

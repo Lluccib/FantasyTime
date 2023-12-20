@@ -93,6 +93,7 @@ bool Scene::Start()
 		app->map->mapData.tileHeight,
 		app->map->mapData.tilesets.Count());
 
+	app->audio->PlayMusic("Assets/Audio/Music/tema_principal.ogg", 0.0f);
 	return true;
 }
 

@@ -77,7 +77,9 @@ public:
 	Animation atackleft;
 	Animation death;
 
-	
+	int bringerdeath;
+	int bringeratack;
+	bool deathfx = true;
 
 
 };

@@ -50,6 +50,10 @@ public:
 	PhysBody* pbody;
 	PhysBody* pbody2;
 	int pickCoinFxId;
+	int swordfx;
+	int saltofx;
+	int muertefx;
+	int hello;
 	bool isWalking = false;
 	bool destroyplayer = false;
 	bool right = false;
