@@ -38,6 +38,7 @@ public:
 	bool isFacingRight = false;
 	bool godmode = false;
 	bool life = true;
+	bool destroybody;
 	Uint32 atacktimer = 0;
 	Uint32 deathtimer = 0;
 	Uint32 currentTime = 0;
@@ -54,7 +55,7 @@ public:
 	int muertefx;
 	int hello;
 	bool isWalking = false;
-	bool destroybody = false;
+	bool destroyplayer = false;
 	bool right = false;
 	bool left = true;
 	int posicionanterior;

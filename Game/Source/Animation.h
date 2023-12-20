@@ -1,6 +1,7 @@
 #ifndef __ANIMATION_H__
 #define __ANIMATION_H__
 
+#include "App.h"
 #include "External/SDL/include/SDL_rect.h"
 #define MAX_FRAMES 800
 
@@ -12,13 +13,16 @@ public:
 	bool loop = true;
 	// Allows the animation to keep going back and forth
 	bool pingpong = false;
+	bool flip = false;
+	int loopCount = 0;
 	
 
 private:
 	float currentFrame = 0.0f;
 	int totalFrames = 0;
-	int loopCount = 0;
 	int pingpongDirection = 1;
+
+
 
 
 public:
@@ -28,6 +32,10 @@ public:
 
 	void Reset() {
 		currentFrame = 0;
+	}
+
+	void ResetLoopCount()
+	{
 		loopCount = 0;
 	}
 
@@ -53,6 +61,20 @@ public:
 
 		return frames[actualFrame];
 	}
+
+	int GetLoopCount() const
+	{
+		return loopCount;
+	}
+
+	float GetCurrentFrameCount() const
+	{
+		return currentFrame;
+	}
+
+
+
+
 	void LoadAnimations(const char* name, const char* entity)
 	{
 		pugi::xml_document file;

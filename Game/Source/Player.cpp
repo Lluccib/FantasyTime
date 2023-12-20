@@ -75,9 +75,11 @@ bool Player::Update(float dt)
 	if (!life)
 	{
 		currentAnimation = &Death;
-		app->audio->PlayFx(muertefx);
-	}
 
+		app->audio->PlayFx(muertefx);
+
+	}
+	
 
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE && app->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE )
 	{
