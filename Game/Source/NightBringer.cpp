@@ -58,36 +58,43 @@ bool Bringer::Update(float dt)
 	//PATHFINDING//
 	if (!dead)
 	{
-		playerTilePos = app->map->WorldToMap(app->scene->player->position.x, app->scene->player->position.y);
+		playerTilePos = app->map->WorldToMap(app->scene->player->position.x, app->scene->player->position.y + 20);
 		NightBringerTilePos = app->map->WorldToMap(position.x, position.y);
 
 		distance = playerTilePos.DistanceTo(NightBringerTilePos);
 
 		if (destroyAttackBody)
 		{
-			atackhitbox->body->GetWorld()->DestroyBody(atackhitbox->body);
+			if (atackhitbox != NULL) atackhitbox->body->GetWorld()->DestroyBody(atackhitbox->body);
 			atackhitbox = NULL;
 			destroyAttackBody = false;
 		}
 
-		if (distance < 10)
+		if (distance < 6)
 		{
 			app->map->pathfinding->CreatePath(NightBringerTilePos, playerTilePos);
+			Path = app->map->pathfinding->GetLastPath();
 
-			if (distance < 3 && !atacking)
-			{
-				atacking = true;
-				currentAnimation = &atack;
+			if (!atackcooldown) {
+				if (distance < 3 && !atacking)
+				{
+					atacking = true;
+					hasAtacked = true;
+					currentAnimation = &atack;
 
-				currentAnimation->ResetLoopCount();
-				currentAnimation->Reset();
-				velocity = { 0, -GRAVITY_Y };
+					currentAnimation->ResetLoopCount();
+					currentAnimation->Reset();
+					velocity = { 0, -GRAVITY_Y };
+					atackcooldown = true;
+					atackTimer = SDL_GetTicks();
+				}
 			}
+			
 			else if (distance >= 3 && !atacking)
 			{
-				const DynArray<iPoint>* path = app->map->pathfinding->GetLastPath();
-				if (path->Count() > 1) {
-					nextTilePath = { path->At(1)->x, path->At(1)->y };
+
+				if (Path->Count() > 1) {
+					nextTilePath = { Path->At(1)->x, Path->At(1)->y };
 					Move(NightBringerTilePos, nextTilePath);
 				}
 				currentAnimation = &walk;
@@ -101,7 +108,7 @@ bool Bringer::Update(float dt)
 		}
 		else
 		{
-			const int idleDistance = 3;
+			const int idleDistance = 10;
 
 			if (position.x >= initialIdlePosition + idleDistance * 32)
 			{
@@ -115,6 +122,8 @@ bool Bringer::Update(float dt)
 			velocity.x = right ? 1 : -1;
 			position.x += velocity.x;
 			currentAnimation = &walk;
+
+			if (Path == app->map->pathfinding->GetLastPath()) app->map->pathfinding->ClearLastPath();
 		}
 
 		if (atacking)
@@ -129,9 +138,21 @@ bool Bringer::Update(float dt)
 			if (currentAnimation == &atack && currentAnimation->GetCurrentFrameCount() >= 9 && attackBodyCreated)
 			{
 				atacking = false;
+				hasAtacked = false;
 				attackBodyCreated = false;
 
 				if (atackhitbox != NULL) destroyAttackBody = true;
+
+			}
+		}
+		if (atackcooldown)
+		{
+			currentTime = SDL_GetTicks();
+			atackduration = currentTime - atackTimer;
+			if (atackduration >= 1500) //700
+			{
+
+				atackcooldown = false;
 
 			}
 		}
@@ -141,9 +162,13 @@ bool Bringer::Update(float dt)
 	{
 		currentAnimation = &death;
 		velocity = { 0,0 };
-		dead = true;
+		if (atacking)
+		{
+			atacking = false;
+			destroyAttackBody = true;
+		}
 		pbody->body->SetActive(false);
-		/*enemyPbody->body->SetActive(false)*/;
+		if (Path == app->map->pathfinding->GetLastPath()) app->map->pathfinding->ClearLastPath();
 	}
 
 
@@ -212,6 +237,13 @@ void Bringer::OnCollision(PhysBody* physA, PhysBody* physB) {
 		break;
 	}
 
+}
+
+void Bringer::ResetEntity()
+{
+	
+	dead = false;
+	pbody->body->SetActive(true);
 }
 
 void Bringer::LoadAnimations()

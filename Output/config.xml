@@ -26,7 +26,7 @@
     <player x="120" y="800" texturepath="Assets/Textures/personaje.png"/>
 	  <!--blue x="240" y="800" texturepath="Assets/Textures/Dino_azul.png"/-->
 	  <drake x="4080" y="700" texturepath="Assets/Textures/drake.png"/>
-	  <bringer x="860" y="850" texturepath="Assets/Textures/bringer.png"/>
+	  <bringer x="1160" y="850" texturepath="Assets/Textures/bringer.png"/>
 	  <!--ghost x="260" y="800" texturepath="Assets/Textures/ghost.png"/-->
   </scene>
 	<player>
