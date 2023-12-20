@@ -30,8 +30,6 @@ public:
 
 	void ResetEntity();
 
-	void LoadAnimations();
-
 	void Move(const iPoint& origin, const iPoint& destination);
 
 public:

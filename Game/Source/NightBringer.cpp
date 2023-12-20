@@ -34,9 +34,6 @@ bool Bringer::Awake() {
 }
 
 bool Bringer::Start() {
-
-
-	
 	
 
 	idle.LoadAnimations("Idle", "bringer");
@@ -61,7 +58,7 @@ bool Bringer::Start() {
 	initialTransform = pbody->body->GetTransform();
 	initialIdlePosition = position.x;
 
-	LoadAnimations();
+	
 
 	return true;
 }
@@ -97,7 +94,7 @@ bool Bringer::Update(float dt)
 		{
 			app->map->pathfinding->CreatePath(NightBringerTilePos, playerTilePos);
 			Path = app->map->pathfinding->GetLastPath();
-			
+
 			agro = true;
 
 			if (Path->Count() > 1) {
@@ -107,7 +104,7 @@ bool Bringer::Update(float dt)
 
 
 			if (!atackcooldown) {
-				if (!right) 
+				if (!right)
 				{
 					if (distance <= 3 && !atacking)
 					{
@@ -138,7 +135,7 @@ bool Bringer::Update(float dt)
 				}
 			}
 
-			
+
 			else if (distance > 3 && !atacking)
 			{
 
@@ -186,7 +183,7 @@ bool Bringer::Update(float dt)
 				else atackhitbox = app->physics->CreateRectangleSensor(position.x - 50, position.y + 16, 50, 96, bodyType::STATIC);
 				atackhitbox->ctype = ColliderType::ENEMYATTACK;
 				attackBodyCreated = true;
-				
+
 			}
 
 			if (currentAnimation == &atack && currentAnimation->GetCurrentFrameCount() >= 9 && attackBodyCreated)
@@ -211,52 +208,53 @@ bool Bringer::Update(float dt)
 			}
 		}
 
-	
 
-	if (dead)
-	{
-		currentAnimation = &death;
-		velocity = { 0,0 };
-		if (atacking)
+
+		if (dead)
 		{
-			atacking = false;
-			destroyAttackBody = true;
+			currentAnimation = &death;
+			velocity = { 0,0 };
+			if (atacking)
+			{
+				atacking = false;
+				destroyAttackBody = true;
+			}
+			pbody->body->SetActive(false);
+			if (Path == app->map->pathfinding->GetLastPath()) app->map->pathfinding->ClearLastPath();
+			app->audio->PlayFx(bringerdeath);
 		}
-		pbody->body->SetActive(false);
-		if (Path == app->map->pathfinding->GetLastPath()) app->map->pathfinding->ClearLastPath();
-		app->audio->PlayFx(bringerdeath);
-	}
 
 
-	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
-	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 16;
+		position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
+		position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 16;
 
-	pbody->body->SetLinearVelocity(velocity);
-	/*enemyPbody->body->SetTransform({ pbody->body->GetPosition().x, pbody->body->GetPosition().y - PIXEL_TO_METERS(10) }, 0);*/
-	if (agro) {
-		if (right) app->render->DrawTexture(texture, position.x - 20, position.y - 50, &currentAnimation->GetCurrentFrame(), SDL_FLIP_HORIZONTAL);
-		else app->render->DrawTexture(texture, position.x - 90, position.y - 50, &currentAnimation->GetCurrentFrame());
-	}
-	else {
-		if (bounce) app->render->DrawTexture(texture, position.x - 20, position.y - 50, &currentAnimation->GetCurrentFrame(), SDL_FLIP_HORIZONTAL);
-		else app->render->DrawTexture(texture, position.x - 90, position.y - 50, &currentAnimation->GetCurrentFrame());
-	}
+		pbody->body->SetLinearVelocity(velocity);
+		/*enemyPbody->body->SetTransform({ pbody->body->GetPosition().x, pbody->body->GetPosition().y - PIXEL_TO_METERS(10) }, 0);*/
+		if (agro) {
+			if (right) app->render->DrawTexture(texture, position.x - 20, position.y - 50, &currentAnimation->GetCurrentFrame(), SDL_FLIP_HORIZONTAL);
+			else app->render->DrawTexture(texture, position.x - 90, position.y - 50, &currentAnimation->GetCurrentFrame());
+		}
+		else {
+			if (bounce) app->render->DrawTexture(texture, position.x - 20, position.y - 50, &currentAnimation->GetCurrentFrame(), SDL_FLIP_HORIZONTAL);
+			else app->render->DrawTexture(texture, position.x - 90, position.y - 50, &currentAnimation->GetCurrentFrame());
+		}
 
-	currentAnimation->Update();
+		currentAnimation->Update();
 
-	if (app->physics->debug)
-	{
-		const DynArray<iPoint>* path = app->map->pathfinding->GetLastPath();
-		for (uint i = 0; i < path->Count(); ++i)
+		if (app->physics->debug)
 		{
-			iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
-			app->render->DrawTexture(pathTexture, pos.x, pos.y);
+			const DynArray<iPoint>* path = app->map->pathfinding->GetLastPath();
+			for (uint i = 0; i < path->Count(); ++i)
+			{
+				iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
+				app->render->DrawTexture(pathTexture, pos.x, pos.y);
+			}
 		}
+
+		return true;
 	}
 
-	return true;
 }
-	
 
 bool Bringer::CleanUp()
 {
@@ -306,17 +304,3 @@ void Bringer::ResetEntity()
 	pbody->body->SetActive(true);
 }
 
-void Bringer::LoadAnimations()
-{
-	idle.LoadAnimations("Idle", "bringer");
-	idleleft.LoadAnimations("Idleleft", "bringer");
-	walk.LoadAnimations("walk", "bringer");
-	walkleft.LoadAnimations("walkleft", "bringer");
-	damageleft.LoadAnimations("damageleft", "bringer");
-	damage.LoadAnimations("damage", "bringer");
-	atack.LoadAnimations("atack", "bringer");
-	atackleft.LoadAnimations("atackleft", "bringer");
-	death.LoadAnimations("death", "bringer");
-
-	currentAnimation = &idle;
-}
