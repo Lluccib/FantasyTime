@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="230" height="30" tilewidth="32" tileheight="32" infinite="0" nextlayerid="22" nextobjectid="22">
  <properties>
-  <property name="Draw" type="bool" value="true"/>
+  <property name="Draw" type="bool" value="false"/>
  </properties>
  <tileset firstgid="1" name="terreno" tilewidth="32" tileheight="32" tilecount="576" columns="36">
   <image source="tileset.png" width="1170" height="514"/>
@@ -96721,7 +96721,7 @@
  </layer>
  <layer id="20" name="Navigation_earth" width="230" height="30">
   <properties>
-   <property name="Draw" type="bool" value="true"/>
+   <property name="Draw" type="bool" value="false"/>
    <property name="Navigation" type="bool" value="true"/>
   </properties>
   <data>
