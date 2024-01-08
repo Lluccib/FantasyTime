@@ -86,13 +86,7 @@ bool Bringer::Update(float dt)
 			right = true;
 		}
 
-		if (destroyAttackBody)
-		{
-			if (atackhitbox != NULL) atackhitbox->body->GetWorld()->DestroyBody(atackhitbox->body);
-			atackhitbox = NULL;
-			destroyAttackBody = false;
-		}
-
+		
 
 		if (distance < 8)//SI ESTA DENTRO DEL RANGO DEL JUGADOR
 		{
@@ -212,22 +206,12 @@ bool Bringer::Update(float dt)
 			}
 		}
 
-
-
-		if (dead)
+		if (destroyAttackBody)
 		{
-			currentAnimation = &death;
-			velocity = { 0,0 };
-			if (atacking)
-			{
-				atacking = false;
-				destroyAttackBody = true;
-			}
-			pbody->body->SetActive(false);
-			if (Path == app->map->pathfinding->GetLastPath()) app->map->pathfinding->ClearLastPath();
-			
+			if (atackhitbox != NULL) atackhitbox->body->GetWorld()->DestroyBody(atackhitbox->body);
+			atackhitbox = NULL;
+			destroyAttackBody = false;
 		}
-
 
 		position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
 		position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 16;
@@ -255,9 +239,30 @@ bool Bringer::Update(float dt)
 			}
 		}
 
-		return true;
+		
+	}
+	if (dead)
+	{
+		LOG("Esta muerto00");
+		currentAnimation = &death;
+		velocity = { 0,0 };
+		if (atacking)
+		{
+			atacking = false;
+			destroyAttackBody = true;
+		}
+		pbody->body->SetActive(false);
+		if (Path == app->map->pathfinding->GetLastPath()) app->map->pathfinding->ClearLastPath();
+
 	}
 
+	if (destroyAttackBody)
+	{
+		if (atackhitbox != NULL) atackhitbox->body->GetWorld()->DestroyBody(atackhitbox->body);
+		atackhitbox = NULL;
+		destroyAttackBody = false;
+	}
+	return true;
 }
 
 bool Bringer::CleanUp()
@@ -292,7 +297,7 @@ void Bringer::OnCollision(PhysBody* physA, PhysBody* physB) {
 		break;
 	case ColliderType::PLAYERATACK:
 		dead = true;
-		
+
 		LOG("Collision PLATFORM");
 		break;
 	case ColliderType::UNKNOWN:
