@@ -73,7 +73,7 @@ bool Player::Update(float dt)
 	
 	if (!life)
 	{
-		currentAnimation = &Death;
+	currentAnimation = &Death;
 	}
 	
 

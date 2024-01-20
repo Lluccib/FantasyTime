@@ -99,6 +99,9 @@ Entity* EntityManager::CreateEntity(EntityType type)
 	case EntityType::GHOST:
 		entity = new Ghost();
 		break;
+	case EntityType::GOLEM:
+		entity = new Golem();
+		break;
 	default:
 		break;
 	}

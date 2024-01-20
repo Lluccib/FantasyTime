@@ -42,6 +42,9 @@
 		<ghost x="400" y="750" texturepath="Assets/Textures/ghost.png">
 			<muertefantasma path="Assets/Audio/Fx/muerte-dragon.wav "/>
 		</ghost>
+
+		<Golem x="1150" y="850" texturepath="Assets/Textures/Frost_golem.png">
+		</Golem>
 	</scene>
 
 	<player>
@@ -357,4 +360,71 @@
 		</death>
 
 	</bringer>
+	<Golem>
+		<Idle loop="true" speed="0.2f">
+			<animation x="0" y="0" w="192" h="114"/>
+			<animation x="194" y="0" w="192" h="114"/>
+			<animation x="385" y="0" w="192" h="114"/>
+			<animation x="573" y="0" w="192" h="114"/>
+			<animation x="771" y="0" w="192" h="114"/>
+			<animation x="936" y="0" w="192" h="114"/>
+		</Idle>
+
+		<walk loop="true" speed="0.2f">
+			<animation x="0" y="126" w="192" h="114"/>
+			<animation x="188" y="126" w="192" h="114"/>
+			<animation x="382" y="126" w="192" h="114"/>
+			<animation x="578" y="126" w="192" h="114"/>
+			<animation x="772" y="126" w="192" h="114"/>
+			<animation x="962" y="126" w="192" h="114"/>
+			<animation x="1154" y="126" w="192" h="114"/>
+			<animation x="1345" y="126" w="192" h="114"/>
+			<animation x="1537" y="126" w="192" h="114"/>
+			<animation x="1732" y="126" w="192" h="114"/>
+		</walk>
+		<atack loop="true" speed="0.2f">
+			<animation x="0" y="254" w="192" h="114"/>
+			<animation x="190" y="254" w="192" h="114"/>
+			<animation x="383" y="254" w="192" h="114"/>
+			<animation x="574" y="254" w="192" h="114"/>
+			<animation x="771" y="254" w="192" h="114"/>
+			<animation x="961" y="254" w="192" h="114"/>
+			<animation x="1149" y="254" w="192" h="114"/>
+			<animation x="1345" y="254" w="192" h="114"/>
+			<animation x="1533" y="254" w="192" h="114"/>
+			<animation x="1732" y="254" w="192" h="114"/>
+			<animation x="1921" y="254" w="192" h="114"/>
+			<animation x="2112" y="254" w="192" h="114"/>
+			<animation x="2310" y="254" w="192" h="114"/>
+			<animation x="2499" y="254" w="192" h="114"/>
+		</atack>
+		<damage loop="true" speed="0.2f">
+			<animation x="0" y="382" w="192" h="114"/>
+			<animation x="190" y="382" w="192" h="114"/>
+			<animation x="383" y="382" w="192" h="114"/>
+			<animation x="574" y="382" w="192" h="114"/>
+			<animation x="771" y="382" w="192" h="114"/>
+			<animation x="961" y="382" w="192" h="114"/>
+			<animation x="1149" y="382" w="192" h="114"/>
+			
+		</damage>
+		<death loop="true" speed="0.2f">
+			<animation x="0" y="510" w="192" h="114"/>
+			<animation x="190" y="510" w="192" h="114"/>
+			<animation x="383" y="510" w="192" h="114"/>
+			<animation x="574" y="510" w="192" h="114"/>
+			<animation x="771" y="510" w="192" h="114"/>
+			<animation x="961" y="510" w="192" h="114"/>
+			<animation x="1149" y="510" w="192" h="114"/>
+			<animation x="1345" y="510" w="192" h="114"/>
+			<animation x="1533" y="510" w="192" h="114"/>
+			<animation x="1732" y="510" w="192" h="114"/>
+			<animation x="1921" y="510" w="192" h="114"/>
+			<animation x="2112" y="510" w="192" h="114"/>
+			<animation x="2310" y="510" w="192" h="114"/>
+			<animation x="2499" y="510" w="192" h="114"/>
+			<animation x="2791" y="510" w="192" h="114"/>
+		</death>
+		
+	</Golem>
 </config>

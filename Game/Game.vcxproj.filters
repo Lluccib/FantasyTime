@@ -27,6 +27,7 @@
     <ClCompile Include="Source\Dragoncin.cpp" />
     <ClCompile Include="Source\NightBringer.cpp" />
     <ClCompile Include="Source\Fantasma.cpp" />
+    <ClCompile Include="Source\Boss_Golem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -81,6 +82,7 @@
     <ClInclude Include="Source\Dragoncin.h" />
     <ClInclude Include="Source\NightBringer.h" />
     <ClInclude Include="Source\Fantasma.h" />
+    <ClInclude Include="Source\Boss_Golem.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

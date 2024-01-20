@@ -21,7 +21,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -95,6 +95,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Boss_Golem.cpp" />
     <ClCompile Include="Source\DinoAzul.cpp" />
     <ClCompile Include="Source\Dragoncin.cpp" />
     <ClCompile Include="Source\EntityManager.cpp" />
@@ -116,6 +117,7 @@
     <ClCompile Include="Source\Timer.cpp" />
     <ClCompile Include="Source\Window.cpp" />
     <ClInclude Include="Source\Animation.h" />
+    <ClInclude Include="Source\Boss_Golem.h" />
     <ClInclude Include="Source\DinoAzul.h" />
     <ClInclude Include="Source\Dragoncin.h" />
     <ClInclude Include="Source\Entity.h" />
