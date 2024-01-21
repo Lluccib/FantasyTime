@@ -4,6 +4,7 @@
 #include "Render.h"
 #include "Textures.h"
 #include "Audio.h"
+#include "SceneIntro.h"
 #include "Scene.h"
 #include "Map.h"
 #include "Physics.h"
@@ -31,6 +32,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	audio = new Audio();
 	physics = new Physics();
 	scene = new Scene();
+	sceneintro = new SceneIntro();
 	map = new Map();
 	entityManager = new EntityManager();
 
@@ -42,6 +44,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(tex);
 	AddModule(audio);
 	AddModule(physics);
+	AddModule(sceneintro);
 	AddModule(scene);
 	AddModule(map);
 	AddModule(entityManager);
