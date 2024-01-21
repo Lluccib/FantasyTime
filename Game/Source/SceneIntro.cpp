@@ -15,7 +15,7 @@
 #include "Defs.h"
 #include "Log.h"
 
-SceneIntro::SceneIntro() : Module()
+SceneIntro::SceneIntro(App* app, bool start_enabled) : Module(app, start_enabled)
 {
 	name.Create("scene");
 }
@@ -37,6 +37,11 @@ bool SceneIntro::Awake(pugi::xml_node& config)
 bool SceneIntro::Start()
 {
 	
+	LOG("Loading SceneIntro assets");
+	bool ret = true;
+
+	
+	torrentepoderoso = app->tex->Load("Assets/Textures/Torrente.png");
 
 	//Get the size of the window
 	app->win->GetWindowSize(windowW, windowH);
@@ -62,6 +67,10 @@ bool SceneIntro::PreUpdate()
 // Called each loop iteration
 bool SceneIntro::Update(float dt)
 {
+	//dibujamos
+	SDL_Rect Recttorrentepoderoso{ 0, 0, windowW, windowH };
+	app->render->DrawTexture(torrentepoderoso, 0, 0, NULL, SDL_FLIP_NONE, 0);
+	
 
 	return true;
 }

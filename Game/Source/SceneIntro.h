@@ -9,7 +9,7 @@ class SceneIntro : public Module
 {
 public:
 
-	SceneIntro();
+	SceneIntro(App* app, bool start_enabled = true);
 
 	// Destructor
 	virtual ~SceneIntro();
@@ -35,6 +35,7 @@ public:
 
 private:
 	
+	SDL_Texture* torrentepoderoso;
 	float textPosX, textPosY = 0;
 	uint texW, texH;
 	uint windowW, windowH;

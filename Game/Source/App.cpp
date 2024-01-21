@@ -25,16 +25,16 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 
 	frames = 0;
 
-	win = new Window();
-	input = new Input();
-	render = new Render();
-	tex = new Textures();
-	audio = new Audio();
-	physics = new Physics();
-	scene = new Scene();
-	sceneintro = new SceneIntro();
-	map = new Map();
-	entityManager = new EntityManager();
+	win = new Window(this);
+	input = new Input(this);
+	render = new Render(this, true);
+	tex = new Textures(this);
+	audio = new Audio(this);
+	physics = new Physics(this);
+	scene = new Scene(this, false);
+	sceneintro = new SceneIntro(this, true);
+	map = new Map(this, false);
+	entityManager = new EntityManager(this, false);
 
 
 	// Ordered for awake / Start / Update
@@ -44,11 +44,14 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(tex);
 	AddModule(audio);
 	AddModule(physics);
-	AddModule(sceneintro);
+	
 	AddModule(scene);
 	AddModule(map);
+	AddModule(sceneintro);
+	
 	AddModule(entityManager);
-
+	
+	
 	// Render last to swap buffer
 	AddModule(render);
 
@@ -119,6 +122,10 @@ bool App::Start()
 
 	while(item != NULL && ret == true)
 	{
+		if (!item->data->active) {
+			item = item->next;
+			continue;
+		}
 		ret = item->data->Start();
 		item = item->next;
 	}
@@ -317,6 +324,10 @@ bool App::CleanUp()
 
 	while(item != NULL && ret == true)
 	{
+		if (!item->data->active) {
+			item = item->prev;
+			continue;
+		}
 		ret = item->data->CleanUp();
 		item = item->prev;
 	}
