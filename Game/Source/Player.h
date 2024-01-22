@@ -28,6 +28,7 @@ public:
 
 public:
 	int level;
+	int lives = 5;
 	float speed = 0.2f;
 	float speedy = 0.5f;//el programa pasa de metros a píxeles
 	float timer = 0.0f;

@@ -73,7 +73,7 @@ bool Player::Update(float dt)
 	
 	if (!life)
 	{
-	currentAnimation = &Death;
+		currentAnimation = &Death;
 	}
 	
 
@@ -266,14 +266,17 @@ bool Player::Update(float dt)
 		deathduration = currentTime - deathtimer;
 		if (deathduration >= 1500) //700
 		{
-			
-			pbody->body->SetTransform({ PIXEL_TO_METERS(32 * 4), PIXEL_TO_METERS(32 * 26) }, 0);
-			dead = false;
-			life = true;
-			app->render->camera.x = 0;
-			app->render->camera.y = -190;
+			if (lives >= 0)
+			{
+				pbody->body->SetTransform({ PIXEL_TO_METERS(32 * 4), PIXEL_TO_METERS(32 * 26) }, 0);
+				dead = false;
+				life = true;
+				app->render->camera.x = 0;
+				app->render->camera.y = -190;
 
-			currentAnimation->Reset();
+				currentAnimation->Reset();
+			}
+			
 			
 
 		}
@@ -348,6 +351,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			case ColliderType::ENEMY:
 				life = false;
 				dead = true;
+				lives--;
 				deathtimer = SDL_GetTicks();
 				LOG("Collision PLATFORM");
 				break;
@@ -357,6 +361,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			case ColliderType::ENEMYATTACK:
 				life = false;
 				dead = true;
+				lives--;
 				deathtimer = SDL_GetTicks();
 				LOG("Collision PLATFORM");
 				break;
