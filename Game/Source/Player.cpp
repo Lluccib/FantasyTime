@@ -39,6 +39,9 @@ bool Player::Start() {
 	Atack1left.LoadAnimations("Atack1left", "player");
 	Death.LoadAnimations("Death", "player");
 	Jump.LoadAnimations("Jump", "player");
+	nightidle.LoadAnimations("nightidle", "player");
+	nightrun.LoadAnimations("nightrun", "player");
+	nightatack.LoadAnimations("nightatack", "player");
 	swordfx = app->audio->LoadFx(parameters.child("swordfx").attribute("path").as_string());
 	saltofx = app->audio->LoadFx(parameters.child("saltofx").attribute("path").as_string());
 	muertefx = app->audio->LoadFx(parameters.child("muerteplayerfx").attribute("path").as_string());
@@ -64,13 +67,19 @@ bool Player::Update(float dt)
 	b2Vec2 currentVelocity = pbody->body->GetLinearVelocity();
 
 
-
 	if (life, !isWalking, !jump, !dead, !atacking)
 	{
-		currentAnimation = &idle;
+		if (nightborne)
+		{
+			currentAnimation = &nightidle;
+		}
+		else
+		{
+			currentAnimation = &idle;
+		}
 		
-	}
-	
+
+	}	
 	if (!life)
 	{
 		currentAnimation = &Death;
@@ -85,7 +94,14 @@ bool Player::Update(float dt)
 		
 
 	}
+	if (app->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN)
+	{
+		nightborne = !nightborne;
 
+
+
+
+	}
 
 	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && !jump && !dead && !godmode) {
 		jump = true;
@@ -98,7 +114,14 @@ bool Player::Update(float dt)
 
 	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN && !jump && !dead && !godmode && !isWalking && !atacking) {
 		
-		currentAnimation = &Atack1;
+		if (nightborne)
+		{
+			currentAnimation = &nightatack;
+		}
+		else
+		{
+			currentAnimation = &Atack1;
+		}
 		
 		if (right)
 		{
@@ -132,7 +155,14 @@ bool Player::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !dead) {
 		currentVelocity.x = -speed * dt;
 		isWalking = true;
-		currentAnimation = &Runright;
+		if (nightborne)
+		{
+			currentAnimation = &nightrun;
+		}
+		else
+		{
+			currentAnimation = &Runright;
+		}
 		atacking = false;
 		float camSpeed = 0.2f;
 		right = false;
@@ -142,7 +172,14 @@ bool Player::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && !dead) {
 		currentVelocity.x = speed * dt;
 		isWalking = true;
-		currentAnimation = &Runright;
+		if (nightborne)
+		{
+			currentAnimation = &nightrun;
+		}
+		else
+		{
+			currentAnimation = &Runright;
+		}
 		atacking = false;
 		float camSpeed = 0.2f;
 		left = false;
@@ -217,7 +254,7 @@ bool Player::Update(float dt)
 		currentAnimation->loopCount = 0;
 
 	}
-	else if (currentAnimation == &Atack1left && currentAnimation->HasFinished())
+	else if (currentAnimation == &Atack1left || currentAnimation == &nightatack && currentAnimation->HasFinished())
 	{
 
 		atacking = false;
@@ -271,6 +308,7 @@ bool Player::Update(float dt)
 				pbody->body->SetTransform({ PIXEL_TO_METERS(32 * 4), PIXEL_TO_METERS(32 * 26) }, 0);
 				dead = false;
 				life = true;
+				nightborne = false;
 				app->render->camera.x = 0;
 				app->render->camera.y = -190;
 
@@ -290,17 +328,36 @@ bool Player::Update(float dt)
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 16;
 
-	if (left)
+	if (!nightborne)
 	{
-		app->render->DrawTexture(texture, position.x, position.y, &currentAnimation->GetCurrentFrame(),SDL_FLIP_HORIZONTAL);
-		currentAnimation->Update();
+		speed = 0.2f;
+		damage = 1;
+		if (left)
+		{
+			app->render->DrawTexture(texture, position.x, position.y, &currentAnimation->GetCurrentFrame(), SDL_FLIP_HORIZONTAL);
+			currentAnimation->Update();
+		}
+		if (right)
+		{
+			app->render->DrawTexture(texture, position.x - 5, position.y, &currentAnimation->GetCurrentFrame());
+			currentAnimation->Update();
+		}
 	}
-	if (right)
+	else if (nightborne)
 	{
-		app->render->DrawTexture(texture, position.x-5, position.y, &currentAnimation->GetCurrentFrame());
-		currentAnimation->Update();
+		speed = 0.3f;
+		damage = 3;
+		if (left)
+		{
+			app->render->DrawTexture(texture, position.x - 30, position.y - 30, &currentAnimation->GetCurrentFrame(), SDL_FLIP_HORIZONTAL);
+			currentAnimation->Update();
+		}
+		if (right)
+		{
+			app->render->DrawTexture(texture, position.x - 30, position.y - 30, &currentAnimation->GetCurrentFrame());
+			currentAnimation->Update();
+		}
 	}
-	
 	
 	//Movimiento de la camara, y bloqueo de la camara
 	if (app->render->camera.x - position.x -100 <= -200 && app->render->camera.x - position.x -100 >= -12850) {
