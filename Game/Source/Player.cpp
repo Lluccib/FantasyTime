@@ -39,6 +39,9 @@ bool Player::Start() {
 	Atack1left.LoadAnimations("Atack1left", "player");
 	Death.LoadAnimations("Death", "player");
 	Jump.LoadAnimations("Jump", "player");
+	nightidle.LoadAnimations("nightidle", "player");
+	nightrun.LoadAnimations("nightrun", "player");
+	nightatack.LoadAnimations("nightatack", "player");
 	swordfx = app->audio->LoadFx(parameters.child("swordfx").attribute("path").as_string());
 	saltofx = app->audio->LoadFx(parameters.child("saltofx").attribute("path").as_string());
 	muertefx = app->audio->LoadFx(parameters.child("muerteplayerfx").attribute("path").as_string());
@@ -65,12 +68,15 @@ bool Player::Update(float dt)
 
 
 
-	if (life, !isWalking, !jump, !dead, !atacking)
+	if (life, !isWalking, !jump, !dead, !atacking, !nightborne)
 	{
-		currentAnimation = &idle;
+			currentAnimation = &idle;
 		
 	}
-	
+	else if (life, !isWalking, !jump, !dead, !atacking, nightborne)
+	{
+		currentAnimation = &nightidle;
+	}
 	if (!life)
 	{
 		currentAnimation = &Death;
@@ -85,8 +91,14 @@ bool Player::Update(float dt)
 		
 
 	}
+	if (app->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN)
+	{
+		nightborne = !nightborne;
+
+		
 
 
+	}
 	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && !jump && !dead && !godmode) {
 		jump = true;
 		app->audio->PlayFx(saltofx);
@@ -98,7 +110,6 @@ bool Player::Update(float dt)
 
 	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN && !jump && !dead && !godmode && !isWalking && !atacking) {
 		
-		currentAnimation = &Atack1;
 		
 		if (right)
 		{
@@ -116,6 +127,14 @@ bool Player::Update(float dt)
 			pbody2->ctype = ColliderType::PLAYERATACK;
 			pbody2->listener = this;
 		}
+		if (nightborne)
+		{
+			currentAnimation = &nightatack;
+		}
+		else
+		{
+			currentAnimation = &Atack1;
+		}
 		app->audio->PlayFx(swordfx);
 		
 	}
@@ -132,7 +151,14 @@ bool Player::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !dead) {
 		currentVelocity.x = -speed * dt;
 		isWalking = true;
-		currentAnimation = &Runright;
+		if (nightborne)
+		{
+			currentAnimation = &nightrun;
+		}
+		else
+		{
+			currentAnimation = &Runright;
+		}
 		atacking = false;
 		float camSpeed = 0.2f;
 		right = false;
@@ -142,7 +168,14 @@ bool Player::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && !dead) {
 		currentVelocity.x = speed * dt;
 		isWalking = true;
-		currentAnimation = &Runright;
+		if (nightborne)
+		{
+			currentAnimation = &nightrun;
+		}
+		else
+		{
+			currentAnimation = &Runright;
+		}
 		atacking = false;
 		float camSpeed = 0.2f;
 		left = false;
@@ -286,16 +319,32 @@ bool Player::Update(float dt)
 	//Update player position in pixels
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 16;
-
-	if (left)
+	if (!nightborne)
 	{
-		app->render->DrawTexture(texture, position.x, position.y, &currentAnimation->GetCurrentFrame(),SDL_FLIP_HORIZONTAL);
-		currentAnimation->Update();
+		if (left)
+		{
+			app->render->DrawTexture(texture, position.x, position.y, &currentAnimation->GetCurrentFrame(), SDL_FLIP_HORIZONTAL);
+			currentAnimation->Update();
+		}
+		if (right)
+		{
+			app->render->DrawTexture(texture, position.x - 5, position.y, &currentAnimation->GetCurrentFrame());
+			currentAnimation->Update();
+		}
 	}
-	if (right)
+	else if (nightborne)
 	{
-		app->render->DrawTexture(texture, position.x-5, position.y, &currentAnimation->GetCurrentFrame());
-		currentAnimation->Update();
+
+		if (left)
+		{
+			app->render->DrawTexture(texture, position.x-30, position.y-30, &currentAnimation->GetCurrentFrame(), SDL_FLIP_HORIZONTAL);
+			currentAnimation->Update();
+		}
+		if (right)
+		{
+			app->render->DrawTexture(texture, position.x - 30, position.y-30, &currentAnimation->GetCurrentFrame());
+			currentAnimation->Update();
+		}
 	}
 	
 	

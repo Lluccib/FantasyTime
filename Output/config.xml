@@ -144,6 +144,40 @@
 			<animation x="642" y="206" w="44" h="52"/>
 			<animation x="772" y="206" w="44" h="52"/>
 		</Jump>
+
+		<nightidle loop="true" speed="0.1f">
+			<animation x="20" y="925" w="86" h="76"/>
+			<animation x="125" y="925" w="86" h="76"/>
+			<animation x="230" y="925" w="86" h="76"/>
+			<animation x="335" y="925" w="86" h="76"/>
+			<animation x="440" y="925" w="86" h="76"/>
+			<animation x="545" y="925" w="86" h="76"/>
+			<animation x="650" y="925" w="86" h="76"/>
+			<animation x="755" y="925" w="86" h="76"/>
+		</nightidle>
+		
+		<nightrun loop="true" speed="0.1f">
+			<animation x="20" y="1030" w="86" h="76"/>
+			<animation x="125" y="1030" w="86" h="76"/>
+			<animation x="230" y="1030" w="86" h="76"/>
+			<animation x="335" y="1030" w="86" h="76"/>
+			<animation x="440" y="1030" w="86" h="76"/>
+			
+		</nightrun>
+
+		<nightatack loop="false" speed="0.2f">
+			<animation x="20" y="1135" w="86" h="76"/>
+			<animation x="125" y="1135" w="86" h="76"/>
+			<animation x="230" y="1135" w="86" h="76"/>
+			<animation x="335" y="1135" w="86" h="76"/>
+			<animation x="440" y="1135" w="86" h="76"/>
+			<animation x="545" y="1135" w="86" h="76"/>
+			<animation x="650" y="1135" w="86" h="76"/>
+			<animation x="755" y="1135" w="86" h="76"/>
+			<animation x="860" y="1135" w="86" h="76"/>
+			<animation x="965" y="1135" w="86" h="76"/>
+			<animation x="1070" y="1135" w="86" h="76"/>
+		</nightatack>
 	</player>
 	<blue>
 		<Idle loop="true" speed="0.1f">

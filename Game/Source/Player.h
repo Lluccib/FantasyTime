@@ -39,6 +39,7 @@ public:
 	bool godmode = false;
 	bool life = true;
 	bool destroybody;
+	bool nightborne = false;
 	Uint32 atacktimer = 0;
 	Uint32 deathtimer = 0;
 	Uint32 currentTime = 0;
@@ -69,6 +70,11 @@ public:
 	Animation Atack1left;
 	Animation Death;
 	Animation Jump;
+	Animation nightidle;
+	Animation nightrun;
+	Animation nightatack;
+	Animation nighttdamage;
+	Animation nightdeath;
 
 
 };
