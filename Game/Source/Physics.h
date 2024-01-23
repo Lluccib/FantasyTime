@@ -34,6 +34,8 @@ enum class ColliderType {
 	TREE,
 	SENSOR,
 	ENEMYATTACK,
+	CHECKPOINT,
+	CHECKPOINT2,
 	
 	// ..
 };

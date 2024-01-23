@@ -42,6 +42,10 @@ public:
 	bool life = true;
 	bool destroybody;
 	bool nightborne = false;
+	bool check1 = false;
+	bool check2 = false;
+	bool level1 = true;
+	bool level2 = false;
 	Uint32 atacktimer = 0;
 	Uint32 deathtimer = 0;
 	Uint32 currentTime = 0;

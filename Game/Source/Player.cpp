@@ -313,7 +313,18 @@ bool Player::Update(float dt)
 		{
 			if (lives >= 0)
 			{
-				pbody->body->SetTransform({ PIXEL_TO_METERS(32 * 4), PIXEL_TO_METERS(32 * 26) }, 0);
+				if (!check1 && !check2)
+				{
+					pbody->body->SetTransform({ PIXEL_TO_METERS(32 * 4), PIXEL_TO_METERS(32 * 26) }, 0);
+				}
+				else if (check1)
+				{
+					pbody->body->SetTransform({ PIXEL_TO_METERS(32 * 109), PIXEL_TO_METERS(32 * 26) }, 0);
+				}
+				else if (check2)
+				{
+					pbody->body->SetTransform({ PIXEL_TO_METERS(32 * 4), PIXEL_TO_METERS(32 * 363) }, 0);
+				}
 				dead = false;
 				life = true;
 				nightborne = false;
@@ -431,6 +442,19 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 				lives--;
 				deathtimer = SDL_GetTicks();
 				LOG("Collision PLATFORM");
+				break;
+			case ColliderType::CHECKPOINT:
+				check1 = true;
+				level1 = false;
+				LOG("Collision CHECKPONT");
+				/*app->audio->PlayFx(pickCoinFxId);*/
+				break;
+			case ColliderType::CHECKPOINT2:
+				check2 = true;
+				check1 = false;
+				level2 = false;
+				LOG("Collision CHECKPONT");
+				/*app->audio->PlayFx(pickCoinFxId);*/
 				break;
 			}
 		}
