@@ -102,6 +102,9 @@ Entity* EntityManager::CreateEntity(EntityType type)
 	case EntityType::GOLEM:
 		entity = new Golem();
 		break;
+	case EntityType::DRAGON:
+		entity = new Dragon();
+		break;
 	default:
 		break;
 	}

@@ -28,6 +28,8 @@ public:
 
 public:
 	int level;
+	int lives = 5;
+	int damage = 1;
 	float speed = 0.2f;
 	float speedy = 0.5f;//el programa pasa de metros a píxeles
 	float timer = 0.0f;
@@ -39,6 +41,7 @@ public:
 	bool godmode = false;
 	bool life = true;
 	bool destroybody;
+	bool nightborne = false;
 	Uint32 atacktimer = 0;
 	Uint32 deathtimer = 0;
 	Uint32 currentTime = 0;
@@ -69,7 +72,11 @@ public:
 	Animation Atack1left;
 	Animation Death;
 	Animation Jump;
-
+	Animation nightidle;
+	Animation nightrun;
+	Animation nightatack;
+	Animation nighttdamage;
+	Animation nightdeath;
 
 };
 

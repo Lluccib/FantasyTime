@@ -1,25 +1,25 @@
 <config>
-  <app>
-    <title>Game Development template</title>
-    <maxFrameDuration value="16"/>
-  </app>
+	<app>
+		<title>Game Development template</title>
+		<maxFrameDuration value="16"/>
+	</app>
 
-  <renderer>
-    <vsync value="false"/>
-  </renderer>
+	<renderer>
+		<vsync value="false"/>
+	</renderer>
 
-  <window>
-    <resolution width="1024" height="768" scale="1"/>
-    <fullscreen value="false"/>
-    <borderless value="false"/>
-    <resizable value="false"/>
-    <fullscreen_window value="false"/>
-  </window>
+	<window>
+		<resolution width="1024" height="768" scale="1"/>
+		<fullscreen value="false"/>
+		<borderless value="false"/>
+		<resizable value="false"/>
+		<fullscreen_window value="false"/>
+	</window>
 
-  <audio>
-    <music volume="128"/>
-    <fx volume="128"/>
-  </audio>
+	<audio>
+		<music volume="128"/>
+		<fx volume="128"/>
+	</audio>
 
 	<scene>
 		<map path="Assets/Maps/" name="mapa.tmx"/>
@@ -39,12 +39,11 @@
 		<ghost x="2700" y="700" texturepath="Assets/Textures/ghost.png">
 			<muertefantasma path="Assets/Audio/Fx/muerte-dragon.wav "/>
 		</ghost>
-		<ghost x="400" y="750" texturepath="Assets/Textures/ghost.png">
-			<muertefantasma path="Assets/Audio/Fx/muerte-dragon.wav "/>
-		</ghost>
 
-		<Golem x="1150" y="850" texturepath="Assets/Textures/Frost_golem.png">
+		<Golem x="3000" y="850" texturepath="Assets/Textures/Frost_golem.png">
 		</Golem>
+		<dragon x="3000" y="850" texturepath="Assets/Textures/dragon.png">
+		</dragon>
 	</scene>
 
 	<player>
@@ -59,7 +58,7 @@
 			<animation x="47" y="208" w="30" h="49"/>
 			<animation x="175" y="208" w="30" h="49"/>
 		</idle>
-		
+
 		<idleleft loop="true" speed="0.1f">
 			<animation x="46" y="655" w="30" h="49"/>
 			<animation x="174" y="655" w="30" h="49"/>
@@ -115,19 +114,6 @@
 			<animation x="43" y="383" w="59" h="54"/>
 			<animation x="167" y="383" w="59" h="54"/>
 		</Atack1>
-		<Atack1left loop="false" speed="0.3f">
-			<animation x="539" y="446" w="59" h="54"/>
-			<animation x="666" y="446" w="59" h="54"/>
-			<animation x="795" y="446" w="59" h="54"/>
-			<animation x="920" y="446" w="59" h="54"/>
-			<animation x="22" y="510" w="59" h="54"/>
-			<animation x="153" y="510" w="59" h="54"/>
-			<animation x="281" y="510" w="59" h="54"/>
-			<animation x="409" y="510" w="59" h="54"/>
-			<animation x="538" y="510" w="59" h="54"/>
-			<animation x="668" y="510" w="59" h="54"/>
-		</Atack1left>
-
 		<!-- Death -->
 		<Death loop="false" speed="0.2f">
 			<animation x="1415" y="343" w="60" h="50"/>
@@ -147,6 +133,63 @@
 			<animation x="642" y="206" w="44" h="52"/>
 			<animation x="772" y="206" w="44" h="52"/>
 		</Jump>
+
+		<nightidle loop="true" speed="0.1f">
+			<animation x="20" y="925" w="86" h="76"/>
+			<animation x="125" y="925" w="86" h="76"/>
+			<animation x="230" y="925" w="86" h="76"/>
+			<animation x="335" y="925" w="86" h="76"/>
+			<animation x="440" y="925" w="86" h="76"/>
+			<animation x="545" y="925" w="86" h="76"/>
+			<animation x="650" y="925" w="86" h="76"/>
+			<animation x="755" y="925" w="86" h="76"/>
+		</nightidle>
+
+		<nightrun loop="true" speed="0.1f">
+			<animation x="20" y="1030" w="86" h="76"/>
+			<animation x="125" y="1030" w="86" h="76"/>
+			<animation x="230" y="1030" w="86" h="76"/>
+			<animation x="335" y="1030" w="86" h="76"/>
+			<animation x="440" y="1030" w="86" h="76"/>
+
+		</nightrun>
+
+		<nightatack loop="false" speed="0.4f">
+			<animation x="20" y="1135" w="86" h="76"/>
+			<animation x="125" y="1135" w="86" h="76"/>
+			<animation x="230" y="1135" w="86" h="76"/>
+			<animation x="335" y="1135" w="86" h="76"/>
+			<animation x="440" y="1135" w="86" h="76"/>
+			<animation x="545" y="1135" w="86" h="76"/>
+			<animation x="650" y="1135" w="86" h="76"/>
+			<animation x="755" y="1135" w="86" h="76"/>
+			<animation x="860" y="1135" w="86" h="76"/>
+			<animation x="965" y="1135" w="86" h="76"/>
+			<animation x="1070" y="1135" w="86" h="76"/>
+		</nightatack>
+
+		<nightdeath loop="false" speed="0.4f">
+			<animation x="20" y="1349" w="86" h="76"/>
+			<animation x="125" y="1349" w="86" h="76"/>
+			<animation x="230" y="1349" w="86" h="76"/>
+			<animation x="335" y="1349" w="86" h="76"/>
+			<animation x="440" y="1349" w="86" h="76"/>
+			<animation x="545" y="1349" w="86" h="76"/>
+			<animation x="650" y="1349" w="86" h="76"/>
+			<animation x="755" y="1349" w="86" h="76"/>
+			<animation x="860" y="1349" w="86" h="76"/>
+			<animation x="965" y="1349" w="86" h="76"/>
+			<animation x="1070" y="1349" w="86" h="76"/>
+			<animation x="1175" y="1349" w="86" h="76"/>
+			<animation x="1280" y="1349" w="86" h="76"/>
+			<animation x="1385" y="1349" w="86" h="76"/>
+			<animation x="1490" y="1349" w="86" h="76"/>
+			<animation x="1595" y="1349" w="86" h="76"/>
+			<animation x="1700" y="1349" w="86" h="76"/>
+			<animation x="1805" y="1349" w="86" h="76"/>
+			<animation x="1910" y="1349" w="86" h="76"/>
+			<animation x="2015" y="1349" w="86" h="76"/>
+		</nightdeath>
 	</player>
 	<blue>
 		<Idle loop="true" speed="0.1f">
@@ -211,7 +254,7 @@
 			<animation x="22" y="0" w="24" h="24"/>
 			<animation x="0" y="0" w="24" h="24"/>
 		</runleft>
-		
+
 	</blue>
 	<drake>
 		<Idle loop="true" speed="0.2f">
@@ -308,8 +351,8 @@
 			<animation x="420" y="289" w="147" h="84"/>
 			<animation x="280" y="289" w="147" h="84"/>
 			<animation x="420" y="289" w="147" h="84"/>
-			
-		
+
+
 		</damage>
 		<damageleft loop="false" speed="0.1f">
 			<animation x="2102" y="289" w="147" h="84"/>
@@ -363,26 +406,26 @@
 	<Golem>
 		<Idle loop="true" speed="0.2f">
 			<animation x="0" y="0" w="192" h="114"/>
-			<animation x="194" y="0" w="192" h="114"/>
-			<animation x="385" y="0" w="192" h="114"/>
-			<animation x="573" y="0" w="192" h="114"/>
-			<animation x="771" y="0" w="192" h="114"/>
-			<animation x="936" y="0" w="192" h="114"/>
+			<animation x="190" y="0" w="192" h="114"/>
+			<animation x="383" y="0" w="192" h="114"/>
+			<animation x="574" y="0" w="192" h="114"/>
+			<animation x="768" y="0" w="192" h="114"/>
+			<animation x="960" y="0" w="192" h="114"/>
 		</Idle>
 
 		<walk loop="true" speed="0.2f">
 			<animation x="0" y="126" w="192" h="114"/>
-			<animation x="188" y="126" w="192" h="114"/>
-			<animation x="382" y="126" w="192" h="114"/>
-			<animation x="578" y="126" w="192" h="114"/>
-			<animation x="772" y="126" w="192" h="114"/>
-			<animation x="962" y="126" w="192" h="114"/>
-			<animation x="1154" y="126" w="192" h="114"/>
+			<animation x="191" y="126" w="192" h="114"/>
+			<animation x="383" y="126" w="192" h="114"/>
+			<animation x="574" y="126" w="192" h="114"/>
+			<animation x="771" y="126" w="192" h="114"/>
+			<animation x="961" y="126" w="192" h="114"/>
+			<animation x="1149" y="126" w="192" h="114"/>
 			<animation x="1345" y="126" w="192" h="114"/>
-			<animation x="1537" y="126" w="192" h="114"/>
+			<animation x="1533" y="126" w="192" h="114"/>
 			<animation x="1732" y="126" w="192" h="114"/>
 		</walk>
-		<atack loop="true" speed="0.2f">
+		<atack loop="false" speed="0.2f">
 			<animation x="0" y="254" w="192" h="114"/>
 			<animation x="190" y="254" w="192" h="114"/>
 			<animation x="383" y="254" w="192" h="114"/>
@@ -398,7 +441,7 @@
 			<animation x="2310" y="254" w="192" h="114"/>
 			<animation x="2499" y="254" w="192" h="114"/>
 		</atack>
-		<damage loop="true" speed="0.2f">
+		<damage loop="false" speed="0.2f">
 			<animation x="0" y="382" w="192" h="114"/>
 			<animation x="190" y="382" w="192" h="114"/>
 			<animation x="383" y="382" w="192" h="114"/>
@@ -406,9 +449,9 @@
 			<animation x="771" y="382" w="192" h="114"/>
 			<animation x="961" y="382" w="192" h="114"/>
 			<animation x="1149" y="382" w="192" h="114"/>
-			
+
 		</damage>
-		<death loop="true" speed="0.2f">
+		<death loop="false" speed="0.2f">
 			<animation x="0" y="510" w="192" h="114"/>
 			<animation x="190" y="510" w="192" h="114"/>
 			<animation x="383" y="510" w="192" h="114"/>
@@ -425,6 +468,27 @@
 			<animation x="2499" y="510" w="192" h="114"/>
 			<animation x="2791" y="510" w="192" h="114"/>
 		</death>
-		
+
 	</Golem>
+
+	<dragon>
+		<Idle loop="true" speed="0.08f">
+			<animation x="29" y="16" w="160" h="79"/>
+			<animation x="228" y="16" w="160" h="79"/>
+			<animation x="425" y="16" w="160" h="79"/>
+			<animation x="626" y="16" w="160" h="79"/>
+			<animation x="831" y="16" w="160" h="79"/>
+			<animation x="1035" y="16" w="160" h="79"/>
+		</Idle>
+
+		<atack loop="false" speed="0.2f">
+			<animation x="29" y="195" w="160" h="79"/>
+			<animation x="228" y="195" w="160" h="79"/>
+			<animation x="425" y="195" w="160" h="79"/>
+			<animation x="626" y="195" w="160" h="79"/>
+			<animation x="831" y="195" w="160" h="79"/>
+			<animation x="1035" y="195" w="160" h="79"/>
+			<animation x="1233" y="195" w="160" h="79"/>
+		</atack>
+	</dragon>
 </config>

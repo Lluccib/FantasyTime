@@ -8,6 +8,8 @@
 #include "Map.h"
 #include "NightBringer.h"
 #include "Fantasma.h"
+#include "Boss_Golem.h"
+#include "Red_dragon.h"
 #include <string.h>
 #include <string>
 #include <iostream>
@@ -54,12 +56,21 @@ bool Scene::Awake(pugi::xml_node& config)
 		Bringer* bringer = (Bringer*)app->entityManager->CreateEntity(EntityType::NIGHTBRINGER);
 		bringer->parameters = BringerNode;
 	}
-	for (pugi::xml_node GhostNode = config.child("ghost"); GhostNode; GhostNode = GhostNode.next_sibling("Ghost"))
+	for (pugi::xml_node GhostNode = config.child("ghost"); GhostNode; GhostNode = GhostNode.next_sibling("ghost"))
 	{
 		Ghost* ghost = (Ghost*)app->entityManager->CreateEntity(EntityType::GHOST);
 		ghost->parameters = GhostNode;
 	}
-
+	for (pugi::xml_node GhostNode = config.child("Golem"); GhostNode; GhostNode = GhostNode.next_sibling("Golem"))
+	{
+		Golem* golem = (Golem*)app->entityManager->CreateEntity(EntityType::GOLEM);
+		golem->parameters = GhostNode;
+	}
+	for (pugi::xml_node GhostNode = config.child("dragon"); GhostNode; GhostNode = GhostNode.next_sibling("dragon"))
+	{
+		Dragon* dragon = (Dragon*)app->entityManager->CreateEntity(EntityType::DRAGON);
+		dragon->parameters = GhostNode;
+	}
 	if (config.child("player")) {
 		player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
 		player->parameters = config.child("player");

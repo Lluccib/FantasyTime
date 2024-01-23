@@ -1,5 +1,5 @@
-#ifndef __BOSSGOLEM_H__
-#define __BOSSGOLEM_H__
+#ifndef __REDDRAGON_H__
+#define __REDDRAGON_H__
 
 #include "Entity.h"
 #include "Point.h"
@@ -10,13 +10,13 @@
 
 struct SDL_Texture;
 
-class Golem : public Entity
+class Dragon : public Entity
 {
 public:
 
-	Golem();
+	Dragon();
 
-	virtual ~Golem();
+	virtual ~Dragon();
 
 	bool Awake();
 
@@ -49,7 +49,7 @@ public:
 	SDL_Texture* pathTexture;
 
 	iPoint playerTilePos;//posición en tiles del player
-	iPoint GolemTilePos;//posición en tiles NightBringer
+	iPoint DragonTilePos;//posición en tiles NightBringer
 	iPoint nextTilePath;//Siguiente posición en tiles.
 
 	PhysBody* pbody;
@@ -74,14 +74,11 @@ public:
 
 	Animation* currentAnimation = nullptr;
 	Animation idle;
-	Animation walk;
-	Animation walkleft;
-	Animation damage;
 	Animation atack;
 	Animation death;
 
-	int golemdeath;
-	int golematack;
+	int dragondeath;
+	int dragonatack;
 	bool deathfx = true;
 
 
