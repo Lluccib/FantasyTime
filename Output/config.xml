@@ -42,7 +42,7 @@
 
 		<Golem x="3000" y="850" texturepath="Assets/Textures/Frost_golem.png">
 		</Golem>
-		<dragon x="3000" y="850" texturepath="Assets/Textures/dragon.png">
+		<dragon x="450" y="850" texturepath="Assets/Textures/dragon.png">
 		</dragon>
 	</scene>
 
