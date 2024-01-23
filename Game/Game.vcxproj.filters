@@ -28,6 +28,8 @@
     <ClCompile Include="Source\NightBringer.cpp" />
     <ClCompile Include="Source\Fantasma.cpp" />
     <ClCompile Include="Source\Boss_Golem.cpp" />
+    <ClCompile Include="Source\Red_dragon.cpp" />
+    <ClCompile Include="piranha_plant.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -83,6 +85,8 @@
     <ClInclude Include="Source\NightBringer.h" />
     <ClInclude Include="Source\Fantasma.h" />
     <ClInclude Include="Source\Boss_Golem.h" />
+    <ClInclude Include="Source\Red_dragon.h" />
+    <ClInclude Include="piranha_plant.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

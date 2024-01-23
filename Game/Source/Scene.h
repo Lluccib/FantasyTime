@@ -9,6 +9,7 @@
 #include "NightBringer.h"
 #include "Fantasma.h"
 #include "Boss_Golem.h"
+#include "Red_dragon.h"
 
 struct SDL_Texture;
 

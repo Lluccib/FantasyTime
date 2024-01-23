@@ -1,4 +1,4 @@
-#include "Boss_Golem.h"
+#include "Red_dragon.h"
 #include "App.h"
 #include "Textures.h"
 #include "Audio.h"
@@ -11,17 +11,17 @@
 #include "EntityManager.h"
 #include "Map.h"
 
-Golem::Golem() : Entity(EntityType::GOLEM)
+Dragon::Dragon() : Entity(EntityType::DRAGON)
 {
 
-	name.Create("Golem");
+	name.Create("dragon");
 }
 
-Golem::~Golem() {
+Dragon::~Dragon() {
 
 }
 
-bool Golem::Awake() {
+bool Dragon::Awake() {
 
 	position.x = parameters.attribute("x").as_int();
 	position.y = parameters.attribute("y").as_int();
@@ -33,16 +33,15 @@ bool Golem::Awake() {
 	return true;
 }
 
-bool Golem::Start() {
+bool Dragon::Start() {
 
 
-	idle.LoadAnimations("Idle", "Golem");
-	walk.LoadAnimations("walk", "Golem");
-	atack.LoadAnimations("atack", "Golem");
+	idle.LoadAnimations("Idle", "dragon");
+	atack.LoadAnimations("atack", "dragon");
 	death.LoadAnimations("death", "Golem");
-	damage.LoadAnimations("damage", "Golem");
-	golemdeath = app->audio->LoadFx(parameters.child("bringerdeathfx").attribute("path").as_string());
-	golematack = app->audio->LoadFx(parameters.child("bringeratackfx").attribute("path").as_string());
+	
+	//dragondeath = app->audio->LoadFx(parameters.child("bringerdeathfx").attribute("path").as_string());
+	//dragonatack = app->audio->LoadFx(parameters.child("bringeratackfx").attribute("path").as_string());
 	pathTexture = app->tex->Load("Assets/Textures/path.png");
 	texture = app->tex->Load(texturePath);
 
@@ -59,7 +58,7 @@ bool Golem::Start() {
 	return true;
 }
 
-bool Golem::Update(float dt)
+bool Dragon::Update(float dt)
 {
 	//PATHFINDING//
 	if (!dead)
@@ -71,10 +70,10 @@ bool Golem::Update(float dt)
 		}*/
 		playerTilePos = app->map->WorldToMap(app->scene->player->position.x, app->scene->player->position.y + 64);
 
-		GolemTilePos = app->map->WorldToMap(position.x, position.y);
+		DragonTilePos = app->map->WorldToMap(position.x, position.y);
 
 
-		distance = playerTilePos.DistanceTo(GolemTilePos);
+		distance = playerTilePos.DistanceTo(DragonTilePos);
 		if (app->scene->player->position.x < position.x) {
 			right = false;
 		}
@@ -87,49 +86,27 @@ bool Golem::Update(float dt)
 		{
 			currentAnimation = &idle;
 		}
-		else if (distance < 8)//SI ESTA DENTRO DEL RANGO DEL JUGADOR
+		else if (distance < 3)//SI ESTA DENTRO DEL RANGO DEL JUGADOR
 		{
-			app->map->pathfinding->CreatePath(GolemTilePos, playerTilePos);
+			app->map->pathfinding->CreatePath(DragonTilePos, playerTilePos);
 			Path = app->map->pathfinding->GetLastPath();
-
 			agro = true;
 
-			if (Path->Count() > 1) {
-				nextTilePath = { Path->At(1)->x, Path->At(1)->y };
-				Move(GolemTilePos, nextTilePath);
-			}
-
-
 			if (!atackcooldown) {
-				if (!right)
-				{
+				
 					if (distance <= 3 && !atacking)
 					{
 						atacking = true;
 						hasAtacked = true;
 						currentAnimation = &atack;
-						app->audio->PlayFx(golematack);
+						/*app->audio->PlayFx(dragonatack);*/
 						currentAnimation->ResetLoopCount();
 						currentAnimation->Reset();
 						velocity = { 0, -GRAVITY_Y };
 						atackcooldown = true;
 						atackTimer = SDL_GetTicks();
 					}
-				}
-				else {
-					if (distance <= 3 && !atacking)
-					{
-						atacking = true;
-						hasAtacked = true;
-						currentAnimation = &atack;
-
-						currentAnimation->ResetLoopCount();
-						currentAnimation->Reset();
-						velocity = { 0, -GRAVITY_Y };
-						atackcooldown = true;
-						atackTimer = SDL_GetTicks();
-					}
-				}
+			
 			}
 
 
@@ -138,9 +115,9 @@ bool Golem::Update(float dt)
 
 				if (Path->Count() > 1) {
 					nextTilePath = { Path->At(1)->x, Path->At(1)->y };
-					Move(GolemTilePos, nextTilePath);
+					Move(DragonTilePos, nextTilePath);
 				}
-				currentAnimation = &walk;
+				
 			}
 			else if (!atacking)
 			{
@@ -166,24 +143,23 @@ bool Golem::Update(float dt)
 				bounce = true;
 			}
 
-			velocity.x = bounce ? 1 : -1;
+			velocity.x = 0;
 			position.x += velocity.x;
-			currentAnimation = &walk;
 
 			if (Path == app->map->pathfinding->GetLastPath()) app->map->pathfinding->ClearLastPath();
 		}
 
 		if (atacking)
 		{
-			if (currentAnimation == &atack && currentAnimation->GetCurrentFrameCount() >= 4 && !attackBodyCreated) {
-				if (right) atackhitbox = app->physics->CreateRectangleSensor(position.x + 90, position.y + 16, 50, 96, bodyType::STATIC);
-				else atackhitbox = app->physics->CreateRectangleSensor(position.x - 50, position.y + 16, 50, 96, bodyType::STATIC);
+			if (currentAnimation == &atack && currentAnimation->GetCurrentFrameCount() >= 5 && !attackBodyCreated) {
+				if (right) atackhitbox = app->physics->CreateRectangleSensor(position.x +70 , position.y +20, 50, 30, bodyType::STATIC);
+				else atackhitbox = app->physics->CreateRectangleSensor(position.x-50 , position.y +20 , 50, 30, bodyType::STATIC);
 				atackhitbox->ctype = ColliderType::ENEMYATTACK;
 				attackBodyCreated = true;
 
 			}
 
-			if (currentAnimation == &atack && currentAnimation->GetCurrentFrameCount() >= 9 && attackBodyCreated)
+			if (currentAnimation == &atack && currentAnimation->GetCurrentFrameCount() >= 6 && attackBodyCreated)
 			{
 				atacking = false;
 				hasAtacked = false;
@@ -218,12 +194,12 @@ bool Golem::Update(float dt)
 		pbody->body->SetLinearVelocity(velocity);
 		/*enemyPbody->body->SetTransform({ pbody->body->GetPosition().x, pbody->body->GetPosition().y - PIXEL_TO_METERS(10) }, 0);*/
 		if (agro) {
-			if (right) app->render->DrawTexture(texture, position.x - 20, position.y - 50, &currentAnimation->GetCurrentFrame(), SDL_FLIP_HORIZONTAL);
-			else app->render->DrawTexture(texture, position.x - 90, position.y - 50, &currentAnimation->GetCurrentFrame());
+			if (right) app->render->DrawTexture(texture, position.x - 20, position.y - 40, &currentAnimation->GetCurrentFrame(), SDL_FLIP_HORIZONTAL);
+			else app->render->DrawTexture(texture, position.x - 90, position.y - 40, &currentAnimation->GetCurrentFrame());
 		}
 		else {
-			if (bounce) app->render->DrawTexture(texture, position.x - 20, position.y - 50, &currentAnimation->GetCurrentFrame(), SDL_FLIP_HORIZONTAL);
-			else app->render->DrawTexture(texture, position.x - 90, position.y - 50, &currentAnimation->GetCurrentFrame());
+			if (bounce) app->render->DrawTexture(texture, position.x - 20, position.y - 40, &currentAnimation->GetCurrentFrame(), SDL_FLIP_HORIZONTAL);
+			else app->render->DrawTexture(texture, position.x - 90, position.y - 40, &currentAnimation->GetCurrentFrame());
 		}
 
 		currentAnimation->Update();
@@ -262,17 +238,17 @@ bool Golem::Update(float dt)
 		destroyAttackBody = false;
 	}
 
-	
+
 	return true;
 }
 
-bool Golem::CleanUp()
+bool Dragon::CleanUp()
 {
 
 	return true;
 }
 
-void Golem::Move(const iPoint& origin, const iPoint& destination)
+void Dragon::Move(const iPoint& origin, const iPoint& destination)
 {
 	float xDiff = destination.x - origin.x;
 	float yDiff = destination.y - origin.y;
@@ -287,7 +263,7 @@ void Golem::Move(const iPoint& origin, const iPoint& destination)
 	}
 }
 
-void Golem::OnCollision(PhysBody* physA, PhysBody* physB) {
+void Dragon::OnCollision(PhysBody* physA, PhysBody* physB) {
 
 
 	switch (physB->ctype)
@@ -308,7 +284,7 @@ void Golem::OnCollision(PhysBody* physA, PhysBody* physB) {
 
 }
 
-void Golem::ResetEntity()
+void Dragon::ResetEntity()
 {
 
 	dead = false;

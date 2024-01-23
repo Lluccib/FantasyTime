@@ -42,6 +42,7 @@ bool Player::Start() {
 	nightidle.LoadAnimations("nightidle", "player");
 	nightrun.LoadAnimations("nightrun", "player");
 	nightatack.LoadAnimations("nightatack", "player");
+	nightdeath.LoadAnimations("nightdeath", "player");
 	swordfx = app->audio->LoadFx(parameters.child("swordfx").attribute("path").as_string());
 	saltofx = app->audio->LoadFx(parameters.child("saltofx").attribute("path").as_string());
 	muertefx = app->audio->LoadFx(parameters.child("muerteplayerfx").attribute("path").as_string());
@@ -82,7 +83,14 @@ bool Player::Update(float dt)
 	}	
 	if (!life)
 	{
-		currentAnimation = &Death;
+		if (nightborne)
+		{
+			currentAnimation = &nightdeath;
+		}
+		else
+		{
+			currentAnimation = &Death;
+		}
 	}
 	
 
@@ -332,6 +340,7 @@ bool Player::Update(float dt)
 	{
 		speed = 0.2f;
 		damage = 1;
+		speedy = 0.5f;
 		if (left)
 		{
 			app->render->DrawTexture(texture, position.x, position.y, &currentAnimation->GetCurrentFrame(), SDL_FLIP_HORIZONTAL);
@@ -347,6 +356,7 @@ bool Player::Update(float dt)
 	{
 		speed = 0.3f;
 		damage = 3;
+		speedy = 0.7f;
 		if (left)
 		{
 			app->render->DrawTexture(texture, position.x - 30, position.y - 30, &currentAnimation->GetCurrentFrame(), SDL_FLIP_HORIZONTAL);
