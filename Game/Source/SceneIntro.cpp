@@ -41,7 +41,7 @@ bool SceneIntro::Start()
 	bool ret = true;
 
 	
-	torrentepoderoso = app->tex->Load("Assets/Textures/Torrente.png");
+	titlescreen = app->tex->Load("Assets/Textures/Titlescreen.png");
 
 	//Get the size of the window
 	app->win->GetWindowSize(windowW, windowH);
@@ -68,10 +68,13 @@ bool SceneIntro::PreUpdate()
 bool SceneIntro::Update(float dt)
 {
 	//dibujamos
-	SDL_Rect Recttorrentepoderoso{ 0, 0, windowW, windowH };
-	app->render->DrawTexture(torrentepoderoso, 0, 0, NULL, SDL_FLIP_NONE, 0);
+	SDL_Rect Recttitlescreen{ 0, 0, windowW, windowH };
+	app->render->DrawTexture(titlescreen, 0, 0, NULL, SDL_FLIP_NONE, 0);
 	
-
+	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+	{
+		app->
+	}
 	return true;
 }
 

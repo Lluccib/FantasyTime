@@ -35,7 +35,7 @@ public:
 
 private:
 	
-	SDL_Texture* torrentepoderoso;
+	SDL_Texture* titlescreen;
 	float textPosX, textPosY = 0;
 	uint texW, texH;
 	uint windowW, windowH;
