@@ -15,10 +15,12 @@ class Input;
 class Render;
 class Textures;
 class Audio;
+class SceneIntro;
 class Scene;
 class EntityManager;
 class Map;
 class Physics;
+class ModuleFadeToBlack;
 
 class App
 {
@@ -84,10 +86,12 @@ public:
 	Render* render;
 	Textures* tex;
 	Audio* audio;
+	SceneIntro* sceneintro;
 	Scene* scene;
 	EntityManager* entityManager;
 	Map* map;
 	Physics* physics;
+	ModuleFadeToBlack* fade;
 
 	bool saveRequest = false;
 	bool loadRequest = false;

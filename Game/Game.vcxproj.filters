@@ -27,6 +27,8 @@
     <ClCompile Include="Source\Dragoncin.cpp" />
     <ClCompile Include="Source\NightBringer.cpp" />
     <ClCompile Include="Source\Fantasma.cpp" />
+    <ClCompile Include="Source\SceneIntro.cpp" />
+    <ClCompile Include="Source\ModuleFadeToBlack.cpp" />
     <ClCompile Include="Source\Boss_Golem.cpp" />
     <ClCompile Include="Source\Red_dragon.cpp" />
     <ClCompile Include="piranha_plant.cpp" />
@@ -84,9 +86,12 @@
     <ClInclude Include="Source\Dragoncin.h" />
     <ClInclude Include="Source\NightBringer.h" />
     <ClInclude Include="Source\Fantasma.h" />
+    <ClInclude Include="Source\SceneIntro.h" />
+    <ClInclude Include="Source\ModuleFadeToBlack.h" />
     <ClInclude Include="Source\Boss_Golem.h" />
     <ClInclude Include="Source\Red_dragon.h" />
     <ClInclude Include="piranha_plant.h" />
+
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
