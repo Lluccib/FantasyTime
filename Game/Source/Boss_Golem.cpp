@@ -175,9 +175,9 @@ bool Golem::Update(float dt)
 
 		if (atacking)
 		{
-			if (currentAnimation == &atack && currentAnimation->GetCurrentFrameCount() >= 4 && !attackBodyCreated) {
-				if (right) atackhitbox = app->physics->CreateRectangleSensor(position.x + 90, position.y + 16, 50, 96, bodyType::STATIC);
-				else atackhitbox = app->physics->CreateRectangleSensor(position.x - 50, position.y + 16, 50, 96, bodyType::STATIC);
+			if (currentAnimation == &atack && currentAnimation->GetCurrentFrameCount() >= 6 && !attackBodyCreated) {
+				if (right) atackhitbox = app->physics->CreateRectangleSensor(position.x + 90, position.y + 16, 50, 40, bodyType::STATIC);
+				else atackhitbox = app->physics->CreateRectangleSensor(position.x - 50, position.y + 16, 50, 40, bodyType::STATIC);
 				atackhitbox->ctype = ColliderType::ENEMYATTACK;
 				attackBodyCreated = true;
 
@@ -197,7 +197,7 @@ bool Golem::Update(float dt)
 		{
 			currentTime = SDL_GetTicks();
 			atackduration = currentTime - atackTimer;
-			if (atackduration >= 2000) //700
+			if (atackduration >= 3000) //700
 			{
 
 				atackcooldown = false;
@@ -218,12 +218,12 @@ bool Golem::Update(float dt)
 		pbody->body->SetLinearVelocity(velocity);
 		/*enemyPbody->body->SetTransform({ pbody->body->GetPosition().x, pbody->body->GetPosition().y - PIXEL_TO_METERS(10) }, 0);*/
 		if (agro) {
-			if (right) app->render->DrawTexture(texture, position.x - 20, position.y - 50, &currentAnimation->GetCurrentFrame(), SDL_FLIP_HORIZONTAL);
-			else app->render->DrawTexture(texture, position.x - 90, position.y - 50, &currentAnimation->GetCurrentFrame());
+			if (right) app->render->DrawTexture(texture, position.x - 80, position.y - 70, &currentAnimation->GetCurrentFrame(), SDL_FLIP_HORIZONTAL);
+			else app->render->DrawTexture(texture, position.x - 90, position.y - 70, &currentAnimation->GetCurrentFrame());
 		}
 		else {
-			if (bounce) app->render->DrawTexture(texture, position.x - 20, position.y - 50, &currentAnimation->GetCurrentFrame(), SDL_FLIP_HORIZONTAL);
-			else app->render->DrawTexture(texture, position.x - 90, position.y - 50, &currentAnimation->GetCurrentFrame());
+			if (bounce) app->render->DrawTexture(texture, position.x - 90, position.y - 70, &currentAnimation->GetCurrentFrame(), SDL_FLIP_HORIZONTAL);
+			else app->render->DrawTexture(texture, position.x - 90, position.y - 70, &currentAnimation->GetCurrentFrame());
 		}
 
 		currentAnimation->Update();
@@ -297,7 +297,7 @@ void Golem::OnCollision(PhysBody* physA, PhysBody* physB) {
 		LOG("Collision PLATFORM");
 		break;
 	case ColliderType::PLAYERATACK:
-		dead = true;
+		lives = lives - app->scene->player->damage;
 
 		LOG("Collision PLATFORM");
 		break;

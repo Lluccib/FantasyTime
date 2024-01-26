@@ -33,22 +33,50 @@
 			<bringerdeathfx path ="Assets/Audio/Fx/nightbringer-death.wav "/>
 			<bringeratackfx path ="Assets/Audio/Fx/nightbringer-atack.wav "/>
 		</bringer>
+		<bringer x="10720" y="850" texturepath="Assets/Textures/bringer.png">
+			<bringerdeathfx path ="Assets/Audio/Fx/nightbringer-death.wav "/>
+			<bringeratackfx path ="Assets/Audio/Fx/nightbringer-atack.wav "/>
+		</bringer>
+		<blue x="1150" y="850" texturepath="Assets/Textures/Dino_azul.png">
+			<raptordeathfx path ="Assets/Audio/Fx/nightbringer-death.wav "/>
+			<raptoratackfx path ="Assets/Audio/Fx/nightbringer-atack.wav "/>
+		</blue>
 		<bringer x="5660" y="850" texturepath="Assets/Textures/bringer.png">
 			<bringerdeathfx path ="Assets/Audio/Fx/nightbringer-death.wav "/>
 			<bringeratackfx path ="Assets/Audio/Fx/nightbringer-atack.wav "/>
 		</bringer>
+		
 		<ghost x="2700" y="700" texturepath="Assets/Textures/ghost.png">
 			<muertefantasma path="Assets/Audio/Fx/muerte-dragon.wav "/>
 		</ghost>
-
-		<Golem x="3000" y="850" texturepath="Assets/Textures/Frost_golem.png">
+		<ghost x="12128" y="576" texturepath="Assets/Textures/ghost.png">
+			<muertefantasma path="Assets/Audio/Fx/muerte-dragon.wav "/>
+		</ghost>
+		<ghost x="11904" y="576" texturepath="Assets/Textures/ghost.png">
+			<muertefantasma path="Assets/Audio/Fx/muerte-dragon.wav "/>
+		</ghost>
+		<Golem x="13280" y="850" texturepath="Assets/Textures/Frost_golem.png">
 		</Golem>
-		<dragon x="3000" y="850" texturepath="Assets/Textures/dragon.png">
+		<dragon x="12128" y="384" texturepath="Assets/Textures/dragon.png">
+		</dragon>
+		<dragon x="3872" y="608" texturepath="Assets/Textures/dragon.png">
 		</dragon>
 		<Coin x="450" y="750" texturepath="Assets/Textures/coin.png">
 			<coinfx path ="Assets/Audio/Fx/retro-video-game-coin-pickup-38299.wav"/>
 		</Coin>
-		<Heal x="450" y="850" texturepath="Assets/Textures/cruzifijo.png">
+		<Coin x="3520" y="672" texturepath="Assets/Textures/coin.png">
+			<coinfx path ="Assets/Audio/Fx/retro-video-game-coin-pickup-38299.wav"/>
+		</Coin>
+		<Coin x="12288" y="480" texturepath="Assets/Textures/coin.png">
+			<coinfx path ="Assets/Audio/Fx/retro-video-game-coin-pickup-38299.wav"/>
+		</Coin>
+		<Heal x="2496" y="320" texturepath="Assets/Textures/cruzifijo.png">
+			<coinfx path ="Assets/Audio/Fx/retro-video-game-coin-pickup-38299.wav"/>
+		</Heal>
+		<Heal x="6784" y="608" texturepath="Assets/Textures/cruzifijo.png">
+			<coinfx path ="Assets/Audio/Fx/retro-video-game-coin-pickup-38299.wav"/>
+		</Heal>
+		<Heal x="12492" y="504" texturepath="Assets/Textures/cruzifijo.png">
 			<coinfx path ="Assets/Audio/Fx/retro-video-game-coin-pickup-38299.wav"/>
 		</Heal>
 	</scene>
