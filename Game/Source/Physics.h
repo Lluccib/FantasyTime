@@ -37,6 +37,8 @@ enum class ColliderType {
 	CHECKPOINT,
 	CHECKPOINT2,
 	LEVELEND,
+	COIN,
+	HEAL,
 	
 	// ..
 };

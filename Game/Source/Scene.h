@@ -10,6 +10,8 @@
 #include "Fantasma.h"
 #include "Boss_Golem.h"
 #include "Red_dragon.h"
+#include "coins.h"
+#include "heals.h"
 
 struct SDL_Texture;
 
