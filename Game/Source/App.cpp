@@ -10,6 +10,8 @@
 #include "Physics.h"
 #include "ModuleFadeToBlack.h"
 #include "SceneTitle.h"
+#include "HUD.h"
+#include "DeathScreen.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -39,6 +41,9 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	entityManager = new EntityManager(this, false);
 	fade = new ModuleFadeToBlack(this, true);
 	sceneTitle = new SceneTitle(this, false);
+	hud = new HUD(this, false);
+	deathScreen = new DeathScreen(this, false);
+
 
 
 	// Ordered for awake / Start / Update
@@ -52,9 +57,12 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 
 	
 	AddModule(sceneintro);
+
 	AddModule(scene);
 	AddModule(map);
+	AddModule(hud);
 	AddModule(sceneTitle);
+	AddModule(deathScreen);
 	
 	AddModule(entityManager);
 	

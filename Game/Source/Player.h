@@ -28,7 +28,9 @@ public:
 
 public:
 	int level;
-	int lives = 5;
+	int lives = 1;
+	int curas = 5;
+	int monedas = 5;
 	int damage = 1;
 	float speed = 0.2f;
 	float speedy = 0.5f;//el programa pasa de metros a píxeles

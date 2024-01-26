@@ -97,10 +97,12 @@
   <ItemGroup>
     <ClCompile Include="piranha_plant.cpp" />
     <ClCompile Include="Source\Boss_Golem.cpp" />
+    <ClCompile Include="Source\DeathScreen.cpp" />
     <ClCompile Include="Source\DinoAzul.cpp" />
     <ClCompile Include="Source\Dragoncin.cpp" />
     <ClCompile Include="Source\EntityManager.cpp" />
     <ClCompile Include="Source\Fantasma.cpp" />
+    <ClCompile Include="Source\HUD.cpp" />
     <ClCompile Include="Source\Item.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\App.cpp" />
@@ -124,11 +126,13 @@
     <ClInclude Include="piranha_plant.h" />
     <ClInclude Include="Source\Animation.h" />
     <ClInclude Include="Source\Boss_Golem.h" />
+    <ClInclude Include="Source\DeathScreen.h" />
     <ClInclude Include="Source\DinoAzul.h" />
     <ClInclude Include="Source\Dragoncin.h" />
     <ClInclude Include="Source\Entity.h" />
     <ClInclude Include="Source\EntityManager.h" />
     <ClInclude Include="Source\Fantasma.h" />
+    <ClInclude Include="Source\HUD.h" />
     <ClInclude Include="Source\Item.h" />
     <ClInclude Include="Source\Map.h" />
     <ClInclude Include="Source\ModuleFadeToBlack.h" />
