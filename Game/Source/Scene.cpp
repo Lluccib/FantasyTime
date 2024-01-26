@@ -16,6 +16,9 @@
 #include <sstream>
 #include "ModuleFadeToBlack.h"
 #include "SceneIntro.h"
+#include "HUD.h"
+#include "SceneTitle.h"
+#include "DeathScreen.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -90,10 +93,15 @@ bool Scene::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool Scene::Start()
 {
+	
 	app->sceneintro->Disable();
+	app->sceneTitle->Disable();
+	app->deathScreen->Disable();
+
 	app->physics->Enable();
 	app->map->Enable();
 	app->entityManager->Enable();
+	app->hud->Enable();
 	
 	
 
@@ -149,6 +157,10 @@ bool Scene::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 	{
 		app->SaveRequest();
+	}
+
+	if (player->lives == 0) {
+		app->fade->FadeToBlack(this, (Module*)app->deathScreen, 60.0f);
 	}
 
 	app->render->DrawTexture(img, (int)textPosX, (int)textPosY);

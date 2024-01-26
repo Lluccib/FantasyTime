@@ -22,6 +22,8 @@ class Map;
 class Physics;
 class ModuleFadeToBlack;
 class SceneTitle;
+class HUD;
+class DeathScreen;
 
 
 class App
@@ -95,6 +97,8 @@ public:
 	Physics* physics;
 	ModuleFadeToBlack* fade;
 	SceneTitle* sceneTitle;
+	HUD* hud;
+	DeathScreen* deathScreen;
 
 	bool saveRequest = false;
 	bool loadRequest = false;
