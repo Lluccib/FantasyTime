@@ -19,6 +19,7 @@ Adéntrate en un emocionante viaje a través de un mágico reino lleno de desaf�
  - SPACE -> jump
  - Q -> attack
  - E -> heal
+ - V -> power up
 ## Debug
  - F1/F2 Start from the first/second level
  - F3 Start from the beginning of the current level
