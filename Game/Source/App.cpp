@@ -12,6 +12,7 @@
 #include "SceneTitle.h"
 #include "HUD.h"
 #include "DeathScreen.h"
+#include "GuiManager.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -43,6 +44,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	sceneTitle = new SceneTitle(this, false);
 	hud = new HUD(this, false);
 	deathScreen = new DeathScreen(this, false);
+	guiManager = new GuiManager(this, true);
+
 
 
 
@@ -53,8 +56,9 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(tex);
 	AddModule(audio);
 	AddModule(physics);
-	AddModule(fade);
 
+	
+	
 	
 	AddModule(sceneintro);
 
@@ -65,8 +69,9 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(deathScreen);
 	
 	AddModule(entityManager);
-	
-	
+	AddModule(guiManager);
+
+	AddModule(fade);
 	// Render last to swap buffer
 	AddModule(render);
 

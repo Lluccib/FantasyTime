@@ -35,6 +35,8 @@
     <ClCompile Include="Source\SceneTitle.cpp" />
     <ClCompile Include="Source\HUD.cpp" />
     <ClCompile Include="Source\DeathScreen.cpp" />
+    <ClCompile Include="Source\GuiControlButton.cpp" />
+    <ClCompile Include="Source\GuiManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -97,6 +99,9 @@
     <ClInclude Include="Source\SceneTitle.h" />
     <ClInclude Include="Source\HUD.h" />
     <ClInclude Include="Source\DeathScreen.h" />
+    <ClInclude Include="Source\GuiControl.h" />
+    <ClInclude Include="Source\GuiControlButton.h" />
+    <ClInclude Include="Source\GuiManager.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

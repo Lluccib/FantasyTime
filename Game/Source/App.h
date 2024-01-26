@@ -24,6 +24,8 @@ class ModuleFadeToBlack;
 class SceneTitle;
 class HUD;
 class DeathScreen;
+class GuiManager;
+
 
 
 class App
@@ -99,6 +101,7 @@ public:
 	SceneTitle* sceneTitle;
 	HUD* hud;
 	DeathScreen* deathScreen;
+	GuiManager* guiManager;
 
 	bool saveRequest = false;
 	bool loadRequest = false;

@@ -6,7 +6,7 @@
 #include "PugiXml/src/pugixml.hpp"
 
 class App;
-
+class GuiControl;
 class Module
 {
 public:
@@ -81,6 +81,15 @@ public:
 			active = false;
 			CleanUp();
 		}
+	}
+
+	inline bool isEnabled() {
+		return active;
+	}
+
+	virtual bool OnGuiMouseClickEvent(GuiControl* control)
+	{
+		return true;
 	}
 public:
 
