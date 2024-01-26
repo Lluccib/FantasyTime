@@ -48,6 +48,9 @@ public:
 	bool check2 = false;
 	bool level1 = true;
 	bool level2 = false;
+	bool cam1 = true;
+	bool cam2 = false;
+	bool tp2 = false;
 	Uint32 atacktimer = 0;
 	Uint32 deathtimer = 0;
 	Uint32 currentTime = 0;

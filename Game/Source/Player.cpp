@@ -202,14 +202,15 @@ bool Player::Update(float dt)
 
 	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) //START FROM FIRST LEVEL
 	{
-		dead = false;
-		pbody->body->SetTransform({ PIXEL_TO_METERS(32 * 4), PIXEL_TO_METERS(32 * 26) }, 0);
-
+		cam1 = true;
+		level1 = true;
+		cam2 = false;
+		level2 = false;
+		check1 = false;
+		check2 = false;
 		level = 1;
-
-		app->render->camera.x = 0;
-		app->render->camera.y = -190;
-
+		pbody->body->SetTransform({ PIXEL_TO_METERS(32 * 4), PIXEL_TO_METERS(32 * 26) }, 0);
+		
 		
 		
 
@@ -217,13 +218,15 @@ bool Player::Update(float dt)
 
 	if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) //START FROM SECOND LEVEL
 	{
-		dead = false;
-		pbody->body->SetTransform({ PIXEL_TO_METERS(32 * 228), PIXEL_TO_METERS(32 * 16) }, 0);
-
+		cam1 = false;
+		level1 = false;
+		cam2 = true;
+		level2 = true;
+		check1 = false;
+		check2 = false;
 		level = 2;
+		pbody->body->SetTransform({ PIXEL_TO_METERS(32 * 273), PIXEL_TO_METERS(32 * 26) }, 0);
 
-		app->render->camera.x = 0;
-		app->render->camera.y = -190;
 
 
 	}
@@ -235,9 +238,29 @@ bool Player::Update(float dt)
 		{
 			pbody->body->SetTransform({ PIXEL_TO_METERS(32 * 4), PIXEL_TO_METERS(32 * 26) }, 0);
 		}
-		else
+		else if (level == 2 )
 		{
-			pbody->body->SetTransform({ PIXEL_TO_METERS(32 * 228), PIXEL_TO_METERS(32 * 16) }, 0);
+			cam2 = true;
+			level2 = true;
+			pbody->body->SetTransform({ PIXEL_TO_METERS(32 * 273), PIXEL_TO_METERS(32 * 26) }, 0);
+		}
+	}
+
+	if (app->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN)
+	{
+		dead = false;
+		if (!check1 || check2)
+		{
+			cam1 = true;       
+			pbody->body->SetTransform({ PIXEL_TO_METERS(32 * 109), PIXEL_TO_METERS(32 * 26) }, 0);
+		}
+		else if (check1 &&!check2)
+		{
+			cam2 = true;
+			cam1 = false;
+			level1 = false;
+			level2 = true;
+			pbody->body->SetTransform({ PIXEL_TO_METERS(32 * 362), PIXEL_TO_METERS(32 * 12) }, 0);
 		}
 	}
 
@@ -314,7 +337,7 @@ bool Player::Update(float dt)
 		{
 			if (lives >= 0)
 			{
-				if (!check1 && !check2)
+				if (!check1 || !check2 || !level2)
 				{
 					pbody->body->SetTransform({ PIXEL_TO_METERS(32 * 4), PIXEL_TO_METERS(32 * 26) }, 0);
 				}
@@ -324,13 +347,16 @@ bool Player::Update(float dt)
 				}
 				else if (check2)
 				{
-					pbody->body->SetTransform({ PIXEL_TO_METERS(32 * 4), PIXEL_TO_METERS(32 * 363) }, 0);
+					pbody->body->SetTransform({ PIXEL_TO_METERS(32 * 362), PIXEL_TO_METERS(32 * 12) }, 0);
+				}
+				else if (level2)
+				{
+					pbody->body->SetTransform({ PIXEL_TO_METERS(32 * 273), PIXEL_TO_METERS(32 * 26) }, 0);
 				}
 				dead = false;
 				life = true;
 				nightborne = false;
-				app->render->camera.x = 0;
-				app->render->camera.y = -190;
+				
 
 				currentAnimation->Reset();
 			}
@@ -382,17 +408,36 @@ bool Player::Update(float dt)
 	}
 	
 	//Movimiento de la camara, y bloqueo de la camara
-	if (app->render->camera.x - position.x -100 <= -200 && app->render->camera.x - position.x -100 >= -12850) {
-		app->render->camera.x = -(position.x - 100);
+	if (cam1)
+	{
+		if (app->render->camera.x - position.x - 100 <= -200 && app->render->camera.x - position.x - 100 >= -12850) {
+			app->render->camera.x = -(position.x - 100);
 
+		}
+
+		if (app->render->camera.x - position.x - 100 <= -12900) {
+			app->render->camera.x = -6333;
+		}
 	}
+	else if (cam2)
+	{
+		if (app->render->camera.x - position.x - 100 <= -200 && app->render->camera.x - position.x - 100 >= -30000) {
+			app->render->camera.x = -(position.x - 100);
 
-	if (app->render->camera.x - position.x - 100 <= -12900) {
-		app->render->camera.x = -6333;
+		}
+
+		if (app->render->camera.x - position.x - 100 <= -30000) {
+			app->render->camera.x = -6333;
+		}
 	}
 	
+	
 	printf("\r %i", app->render->camera.x);
-
+	if (tp2)
+	{
+		pbody->body->SetTransform({ PIXEL_TO_METERS(32 * 273), PIXEL_TO_METERS(32 * 26) }, 0);
+		tp2 = false;
+	}
 
 	
 
@@ -470,6 +515,20 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 					LOG("Collision CHECKPONT");
 					
 				}
+				LOG("Collision CHECKPONT");
+				/*app->audio->PlayFx(pickCoinFxId);*/
+				break;
+			case ColliderType::LEVELEND:
+				
+					
+					check1 = false;
+					check2 = false;
+					level1 = false;
+					level2 = true;
+					cam1 = false;
+					cam2 = true;
+					tp2 = true;
+					//c
 				LOG("Collision CHECKPONT");
 				/*app->audio->PlayFx(pickCoinFxId);*/
 				break;
