@@ -43,8 +43,14 @@
 
 		<Golem x="3000" y="850" texturepath="Assets/Textures/Frost_golem.png">
 		</Golem>
-		<dragon x="450" y="850" texturepath="Assets/Textures/dragon.png">
+		<dragon x="3000" y="850" texturepath="Assets/Textures/dragon.png">
 		</dragon>
+		<Coin x="450" y="750" texturepath="Assets/Textures/coin.png">
+			<coinfx path ="Assets/Audio/Fx/retro-video-game-coin-pickup-38299.wav"/>
+		</Coin>
+		<Heal x="450" y="850" texturepath="Assets/Textures/cruzifijo.png">
+			<coinfx path ="Assets/Audio/Fx/retro-video-game-coin-pickup-38299.wav"/>
+		</Heal>
 	</scene>
 
 	<player>
@@ -492,4 +498,17 @@
 			<animation x="1233" y="195" w="160" h="79"/>
 		</atack>
 	</dragon>
+
+	<Coin>
+		<idle loop="true" speed="0.2f">
+			<animation x="0" y="0" w="32" h="32"/>
+			<animation x="32" y="0" w="32" h="32"/>
+			<animation x="64" y="0" w="32" h="32"/>
+			<animation x="96" y="0" w="32" h="32"/>
+			<animation x="128" y="0" w="32" h="32"/>
+			<animation x="160" y="0" w="32" h="32"/>
+			<animation x="192" y="0" w="32" h="32"/>
+		</idle>
+		
+	</Coin>
 </config>

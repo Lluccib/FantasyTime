@@ -111,7 +111,12 @@ bool Player::Update(float dt)
 
 
 	}
+	if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN && lives < 5 && curas>0)
+	{
+		curas--;
+		lives++;
 
+	}
 	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && !jump && !dead && !godmode) {
 		jump = true;
 		app->audio->PlayFx(saltofx);
@@ -531,6 +536,19 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 					//c
 				LOG("Collision CHECKPONT");
 				/*app->audio->PlayFx(pickCoinFxId);*/
+				break;
+			case ColliderType::COIN:
+				LOG("Collision ITEM");
+				app->audio->PlayFx(pickCoinFxId);
+				break;
+			case ColliderType::HEAL:
+				LOG("Collision ITEM");
+				app->audio->PlayFx(pickCoinFxId);
+				if (curas < 5)
+				{
+					curas++;
+				}
+				
 				break;
 			}
 		}

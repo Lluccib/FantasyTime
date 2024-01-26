@@ -105,6 +105,12 @@ Entity* EntityManager::CreateEntity(EntityType type)
 	case EntityType::DRAGON:
 		entity = new Dragon();
 		break;
+	case EntityType::COIN:
+		entity = new Coin();
+		break;
+	case EntityType::HEAL:
+		entity = new Heal();
+		break;
 	default:
 		break;
 	}

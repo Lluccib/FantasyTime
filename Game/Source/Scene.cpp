@@ -66,15 +66,25 @@ bool Scene::Awake(pugi::xml_node& config)
 		Ghost* ghost = (Ghost*)app->entityManager->CreateEntity(EntityType::GHOST);
 		ghost->parameters = GhostNode;
 	}
-	for (pugi::xml_node GhostNode = config.child("Golem"); GhostNode; GhostNode = GhostNode.next_sibling("Golem"))
+	for (pugi::xml_node GolemNode = config.child("Golem"); GolemNode; GolemNode = GolemNode.next_sibling("Golem"))
 	{
 		Golem* golem = (Golem*)app->entityManager->CreateEntity(EntityType::GOLEM);
-		golem->parameters = GhostNode;
+		golem->parameters = GolemNode;
 	}
-	for (pugi::xml_node GhostNode = config.child("dragon"); GhostNode; GhostNode = GhostNode.next_sibling("dragon"))
+	for (pugi::xml_node DragonNode = config.child("dragon"); DragonNode; DragonNode = DragonNode.next_sibling("dragon"))
 	{
 		Dragon* dragon = (Dragon*)app->entityManager->CreateEntity(EntityType::DRAGON);
-		dragon->parameters = GhostNode;
+		dragon->parameters = DragonNode;
+	}
+	for (pugi::xml_node CoinNode = config.child("Coin"); CoinNode; CoinNode = CoinNode.next_sibling("Coin"))
+	{
+		Coin* coin = (Coin*)app->entityManager->CreateEntity(EntityType::COIN);
+		coin->parameters = CoinNode;
+	}
+	for (pugi::xml_node HealNode = config.child("Heal"); HealNode; HealNode = HealNode.next_sibling("Heal"))
+	{
+		Heal* heal = (Heal*)app->entityManager->CreateEntity(EntityType::HEAL);
+		heal->parameters = HealNode;
 	}
 	if (config.child("player")) {
 		player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);

@@ -18,6 +18,8 @@ enum class EntityType
 	GHOST,
 	GOLEM,
 	DRAGON,
+	COIN,
+	HEAL,
 	UNKNOWN
 };
 
