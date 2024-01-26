@@ -16,6 +16,7 @@
 #include <sstream>
 #include "ModuleFadeToBlack.h"
 #include "SceneIntro.h"
+#include "HUD.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -94,6 +95,7 @@ bool Scene::Start()
 	app->physics->Enable();
 	app->map->Enable();
 	app->entityManager->Enable();
+	app->hud->Enable();
 	
 	
 
