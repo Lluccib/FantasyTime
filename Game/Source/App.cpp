@@ -9,6 +9,7 @@
 #include "Map.h"
 #include "Physics.h"
 #include "ModuleFadeToBlack.h"
+#include "SceneTitle.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -37,6 +38,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	map = new Map(this, false);
 	entityManager = new EntityManager(this, false);
 	fade = new ModuleFadeToBlack(this, true);
+	sceneTitle = new SceneTitle(this, false);
 
 
 	// Ordered for awake / Start / Update
@@ -47,10 +49,12 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(audio);
 	AddModule(physics);
 	AddModule(fade);
+
 	
+	AddModule(sceneintro);
 	AddModule(scene);
 	AddModule(map);
-	AddModule(sceneintro);
+	AddModule(sceneTitle);
 	
 	AddModule(entityManager);
 	

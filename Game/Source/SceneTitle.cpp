@@ -1,4 +1,4 @@
-#include "SceneIntro.h"
+#include "SceneTitle.h"
 #include "App.h"
 #include "Input.h"
 #include "Textures.h"
@@ -16,33 +16,33 @@
 #include "Defs.h"
 #include "Log.h"
 
-SceneIntro::SceneIntro(App* app, bool start_enabled) : Module(app, start_enabled)
+SceneTitle::SceneTitle(App* app, bool start_enabled) : Module(app, start_enabled)
 {
 	name.Create("scene");
 }
 
 // Destructor
-SceneIntro::~SceneIntro()
+SceneTitle::~SceneTitle()
 {}
 
 // Called before render is available
-bool SceneIntro::Awake(pugi::xml_node& config)
+bool SceneTitle::Awake(pugi::xml_node& config)
 {
-	LOG("Loading SceneIntro");
+	LOG("Loading SceneTitle");
 	bool ret = true;
 
 
 	return ret;
 }
 
-bool SceneIntro::Start()
+bool SceneTitle::Start()
 {
-	
-	LOG("Loading SceneIntro assets");
+
+	LOG("Loading SceneTitle assets");
 	bool ret = true;
 
-	
-	logo = app->tex->Load("Assets/Textures/DreamSphere.png");
+
+	titlescreen = app->tex->Load("Assets/Textures/Titlescreen.png");
 
 	//Get the size of the window
 	app->win->GetWindowSize(windowW, windowH);
@@ -52,36 +52,36 @@ bool SceneIntro::Start()
 	textPosX = (float)windowW / 2 - (float)texW / 2;
 	textPosY = (float)windowH / 2 - (float)texH / 2;
 
-	
+
 
 	/*app->audio->PlayMusic("Assets/Audio/Music/tema_principal.ogg", 0.0f);*/
 	return true;
 }
 
 // Called each loop iteration
-bool SceneIntro::PreUpdate()
+bool SceneTitle::PreUpdate()
 {
 	return true;
 }
 
 
 // Called each loop iteration
-bool SceneIntro::Update(float dt)
+bool SceneTitle::Update(float dt)
 {
 	//dibujamos
 	SDL_Rect Recttitlescreen{ 0, 0, windowW, windowH };
-	app->render->DrawTexture(logo, 0, 0, NULL, SDL_FLIP_NONE, 0);
-	
+	app->render->DrawTexture(titlescreen, 0, 0, NULL, SDL_FLIP_NONE, 0);
+
 	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 	{
-		app->fade->FadeToBlack(this, (Module*)app->sceneTitle, 60.0f);
-		
+		app->fade->FadeToBlack(this, (Module*)app->scene, 60.0f);
+
 	}
 	return true;
 }
 
 // Called each loop iteration
-bool SceneIntro::PostUpdate()
+bool SceneTitle::PostUpdate()
 {
 	bool ret = true;
 
@@ -92,11 +92,11 @@ bool SceneIntro::PostUpdate()
 }
 
 // Called before quitting
-bool SceneIntro::CleanUp()
+bool SceneTitle::CleanUp()
 {
 	LOG("Freeing scene");
 
-	app->tex->UnLoad(logo);
+	app->tex->UnLoad(titlescreen);
 
 	return true;
 }
