@@ -246,19 +246,21 @@ bool Player::Update(float dt)
 		}
 	}
 
-	if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN)
 	{
 		dead = false;
-		if (!check1, !check2)
+		if (!check1 || check2)
 		{
 			cam1 = true;       
-			pbody->body->SetTransform({ PIXEL_TO_METERS(32 * 4), PIXEL_TO_METERS(32 * 26) }, 0);
+			pbody->body->SetTransform({ PIXEL_TO_METERS(32 * 109), PIXEL_TO_METERS(32 * 26) }, 0);
 		}
-		else if (level == 2)
+		else if (check1 &&!check2)
 		{
 			cam2 = true;
-			
-			pbody->body->SetTransform({ PIXEL_TO_METERS(32 * 273), PIXEL_TO_METERS(32 * 26) }, 0);
+			cam1 = false;
+			level1 = false;
+			level2 = true;
+			pbody->body->SetTransform({ PIXEL_TO_METERS(32 * 362), PIXEL_TO_METERS(32 * 12) }, 0);
 		}
 	}
 
