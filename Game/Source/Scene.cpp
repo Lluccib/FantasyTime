@@ -110,7 +110,8 @@ bool Scene::Start()
 		app->map->mapData.tileHeight,
 		app->map->mapData.tilesets.Count());
 
-	app->audio->PlayMusic("Assets/Audio/Music/tema_principal.ogg", 0.0f);
+	//app->audio->PlayMusic("Assets/Audio/Music/tema_principal.ogg", 0.0f);
+	hoguera = app->tex->Load("Assets/Textures/checkpoint.png");
 	return true;
 }
 
@@ -138,7 +139,7 @@ bool Scene::Update(float dt)
 	}
 
 	app->render->DrawTexture(img, (int)textPosX, (int)textPosY);
-
+	
 	return true; 
 }
 
@@ -149,7 +150,7 @@ bool Scene::PostUpdate()
 
 	if(app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
-
+	app->render->DrawTexture(hoguera, 109*32, 26*32, NULL, SDL_FLIP_NONE);
 	return ret;
 }
 

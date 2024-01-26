@@ -46,6 +46,7 @@ bool Player::Start() {
 	swordfx = app->audio->LoadFx(parameters.child("swordfx").attribute("path").as_string());
 	saltofx = app->audio->LoadFx(parameters.child("saltofx").attribute("path").as_string());
 	muertefx = app->audio->LoadFx(parameters.child("muerteplayerfx").attribute("path").as_string());
+	checkpointfx = app->audio->LoadFx(parameters.child("checkpointfx").attribute("path").as_string());
 	texture = app->tex->Load(texturePath);
 	currentAnimation = &idle;
 
@@ -444,15 +445,31 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 				LOG("Collision PLATFORM");
 				break;
 			case ColliderType::CHECKPOINT:
-				check1 = true;
-				level1 = false;
+				if (!check1)
+				{
+					app->audio->PlayFx(checkpointfx);
+					check1 = true;
+					check2 = false;
+					level1 = false;
+					level2 = false;
+					LOG("Collision CHECKPONT");
+					
+				}
+				
 				LOG("Collision CHECKPONT");
 				/*app->audio->PlayFx(pickCoinFxId);*/
 				break;
 			case ColliderType::CHECKPOINT2:
-				check2 = true;
-				check1 = false;
-				level2 = false;
+				if (!check2)
+				{
+					app->audio->PlayFx(checkpointfx);
+					check1 = false;
+					check2 = true;
+					level1 = false;
+					level2 = false;
+					LOG("Collision CHECKPONT");
+					
+				}
 				LOG("Collision CHECKPONT");
 				/*app->audio->PlayFx(pickCoinFxId);*/
 				break;

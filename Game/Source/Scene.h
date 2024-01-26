@@ -53,6 +53,7 @@ public:
 	virtual bool SaveState(pugi::xml_node node);
 private:
 	SDL_Texture* img;
+	SDL_Texture* hoguera;
 	float textPosX, textPosY = 0;
 	uint texW, texH;
 	uint windowW, windowH;

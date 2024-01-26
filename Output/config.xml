@@ -27,6 +27,7 @@
 			<swordfx path ="Assets/Audio/Fx/tajo-espada.wav"/>
 			<muerteplayerfx path="Assets/Audio/Fx/muerte-player.wav "/>
 			<saltofx path="Assets/Audio/Fx/salto.wav"/>
+			<checkpointfx path="Assets/Audio/Fx/checkpont_hoguera.wav"/>
 		</player>
 		<bringer x="1150" y="850" texturepath="Assets/Textures/bringer.png">
 			<bringerdeathfx path ="Assets/Audio/Fx/nightbringer-death.wav "/>
