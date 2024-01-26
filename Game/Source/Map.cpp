@@ -72,7 +72,7 @@ bool Map::Update(float dt)
             {
                 posMapfi.x = 0;
             }
-            
+
             for (int x = posMapin.x; x < posMapfi.x; x++) 
             {
                 for (int y = 0; y < mapLayerItem->data->height; y++)
@@ -120,81 +120,81 @@ bool Map::LoadColliders(pugi::xml_node& layerNode) {
                 int x = tileIndex % mapData.width;
                 int y = tileIndex / mapData.width;
 
-                // Crear un collider para el tile rojo en la posici髇 (x, y)
+                // Crear un collider para el tile rojo en la posici贸n (x, y)
                 PhysBody* collider = app->physics->CreateRectangle(x * mapData.tileWidth + 16.1f, y * mapData.tileHeight + 16, mapData.tileWidth, mapData.tileHeight, STATIC);
-                collider->ctype = ColliderType::PLATFORM; // Define el tipo de collider seg鷑 tu necesidad
+                collider->ctype = ColliderType::PLATFORM; // Define el tipo de collider seg煤n tu necesidad
             }
             else if (gid == 9183) {
                 // Calcular las coordenadas del tile en el mundo del juego
                 int x = tileIndex % mapData.width;
                 int y = tileIndex / mapData.width;
 
-                // Crear un collider para el tile rojo en la posici髇 (x, y)
+                // Crear un collider para el tile rojo en la posici贸n (x, y)
                 PhysBody* collider = app->physics->CreateRectangle(x * mapData.tileWidth + 16, y * mapData.tileHeight + 16, mapData.tileWidth, mapData.tileHeight, STATIC);
-                collider->ctype = ColliderType::ENEMY; // Define el tipo de collider seg鷑 tu necesidad
+                collider->ctype = ColliderType::ENEMY; // Define el tipo de collider seg煤n tu necesidad
             }
             else if (gid == 9184) {
                 // Calcular las coordenadas del tile en el mundo del juego
                 int x = tileIndex % mapData.width;
                 int y = tileIndex / mapData.width;
 
-                // Crear un collider para el tile rojo en la posici髇 (x, y)
+                // Crear un collider para el tile rojo en la posici贸n (x, y)
                 PhysBody* collider = app->physics->CreateRectangle(x * mapData.tileWidth + 16, y * mapData.tileHeight + 16, mapData.tileWidth + 1, mapData.tileHeight, STATIC);
-                collider->ctype = ColliderType::WALL; // Define el tipo de collider seg鷑 tu necesidad
+                collider->ctype = ColliderType::WALL; // Define el tipo de collider seg煤n tu necesidad
             }
             else if (gid == 9185) {
                 // Calcular las coordenadas del tile en el mundo del juego
                 int x = tileIndex % mapData.width;
                 int y = tileIndex / mapData.width;
 
-                // Crear un collider para el tile rojo en la posici髇 (x, y)
+                // Crear un collider para el tile rojo en la posici贸n (x, y)
                 PhysBody* collider = app->physics->CreateRectangle(x * mapData.tileWidth + 16, y * mapData.tileHeight + 32, mapData.tileWidth, mapData.tileHeight , STATIC);
-                collider->ctype = ColliderType::PLATFORM; // Define el tipo de collider seg鷑 tu necesidad
+                collider->ctype = ColliderType::PLATFORM; // Define el tipo de collider seg煤n tu necesidad
             }
             else if (gid == 9186) {
                 // Calcular las coordenadas del tile en el mundo del juego
                 int x = tileIndex % mapData.width;
                 int y = tileIndex / mapData.width;
 
-                // Crear un collider para el tile rojo en la posici髇 (x, y)
+                // Crear un collider para el tile rojo en la posici贸n (x, y)
                 PhysBody* collider = app->physics->CreateRectangle(x * mapData.tileWidth + 16, y * mapData.tileHeight + 1, mapData.tileWidth, 2, STATIC);
-                collider->ctype = ColliderType::PLATFORM; // Define el tipo de collider seg鷑 tu necesidad
+                collider->ctype = ColliderType::PLATFORM; // Define el tipo de collider seg煤n tu necesidad
             }
             else if (gid == 9187) {
                 // Calcular las coordenadas del tile en el mundo del juego
                 int x = tileIndex % mapData.width;
                 int y = tileIndex / mapData.width;
 
-                // Crear un collider para el tile rojo en la posici髇 (x, y)
+                // Crear un collider para el tile rojo en la posici贸n (x, y)
                 PhysBody* collider = app->physics->CreateRectangle(x * mapData.tileWidth + 30, y * mapData.tileHeight + 1, mapData.tileWidth / 2, 2, STATIC);
-                collider->ctype = ColliderType::PLATFORM; // Define el tipo de collider seg鷑 tu necesidad
+                collider->ctype = ColliderType::PLATFORM; // Define el tipo de collider seg煤n tu necesidad
             }
             else if (gid == 9189) {
                 // Calcular las coordenadas del tile en el mundo del juego
                 int x = tileIndex % mapData.width;
                 int y = tileIndex / mapData.width;
 
-                // Crear un collider para el tile rojo en la posici髇 (x, y)
+                // Crear un collider para el tile rojo en la posici贸n (x, y)
                 PhysBody* collider = app->physics->CreateRectangleSensor(x * mapData.tileWidth + 16.1f, y * mapData.tileHeight + 16, mapData.tileWidth, mapData.tileHeight, STATIC);
-                collider->ctype = ColliderType::LEVELEND; // Define el tipo de collider seg鷑 tu necesidad
+                collider->ctype = ColliderType::LEVELEND; // Define el tipo de collider seg煤n tu necesidad
             }
             else if (gid == 9191) {
                 // Calcular las coordenadas del tile en el mundo del juego
                 int x = tileIndex % mapData.width;
                 int y = tileIndex / mapData.width;
 
-                // Crear un collider para el tile rojo en la posici髇 (x, y)
+                // Crear un collider para el tile rojo en la posici贸n (x, y)
                 PhysBody* collider = app->physics->CreateRectangleSensor(x * mapData.tileWidth + 16.1f, y * mapData.tileHeight + 16, mapData.tileWidth, mapData.tileHeight, STATIC);
-                collider->ctype = ColliderType::CHECKPOINT; // Define el tipo de collider seg鷑 tu necesidad
+                collider->ctype = ColliderType::CHECKPOINT; // Define el tipo de collider seg煤n tu necesidad
             }
             else if (gid == 9192) {
                 // Calcular las coordenadas del tile en el mundo del juego
                 int x = tileIndex % mapData.width;
                 int y = tileIndex / mapData.width;
 
-                // Crear un collider para el tile rojo en la posici髇 (x, y)
+                // Crear un collider para el tile rojo en la posici贸n (x, y)
                 PhysBody* collider = app->physics->CreateRectangleSensor(x * mapData.tileWidth + 16.1f, y * mapData.tileHeight + 16, mapData.tileWidth, mapData.tileHeight, STATIC);
-                collider->ctype = ColliderType::CHECKPOINT2; // Define el tipo de collider seg鷑 tu necesidad
+                collider->ctype = ColliderType::CHECKPOINT2; // Define el tipo de collider seg煤n tu necesidad
             }
 
             tileIndex++;
@@ -407,12 +407,12 @@ bool Map::Load(SString mapFileName)
             }
         }
 
-        //Busca el mapa de navegaci髇
+        //Busca el mapa de navegaci贸n
         ListItem<MapLayer*>* mapLayerItem;
         mapLayerItem = mapData.maplayers.start;
         navigationLayer = mapLayerItem->data;
 
-        //Busca la capa en el mapa la cual contiene informaci髇 del mapa de navegaci髇
+        //Busca la capa en el mapa la cual contiene informaci贸n del mapa de navegaci贸n
         while (mapLayerItem != NULL) {
             if (mapLayerItem->data->properties.GetProperty("Navigation") != NULL && mapLayerItem->data->properties.GetProperty("Navigation")->value) {
                 navigationLayer = mapLayerItem->data;
