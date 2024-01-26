@@ -61,6 +61,7 @@ public:
 	int saltofx;
 	int muertefx;
 	int hello;
+	int checkpointfx;
 	bool isWalking = false;
 	bool destroyplayer = false;
 	bool right = false;
