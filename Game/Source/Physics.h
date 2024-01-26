@@ -36,6 +36,7 @@ enum class ColliderType {
 	ENEMYATTACK,
 	CHECKPOINT,
 	CHECKPOINT2,
+	LEVELEND,
 	
 	// ..
 };
