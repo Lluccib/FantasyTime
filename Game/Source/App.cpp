@@ -12,6 +12,7 @@
 #include "SceneTitle.h"
 #include "HUD.h"
 #include "DeathScreen.h"
+#include "SceneWin.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -43,6 +44,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	sceneTitle = new SceneTitle(this, false);
 	hud = new HUD(this, false);
 	deathScreen = new DeathScreen(this, false);
+	sceneWin = new SceneWin(this, false);
 
 
 
@@ -63,6 +65,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(hud);
 	AddModule(sceneTitle);
 	AddModule(deathScreen);
+    AddModule(sceneWin);
 	
 	AddModule(entityManager);
 	

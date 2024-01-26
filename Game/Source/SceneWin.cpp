@@ -6,6 +6,7 @@
 #include "Render.h"
 #include "Window.h"
 #include "ModuleFadeToBlack.h"
+#include "Scene.h"
 
 
 #include <string.h>
@@ -69,13 +70,13 @@ bool SceneWin::Update(float dt)
 {
 	//dibujamos
 
-
+	app->render->DrawTexture(youwin, 0, 0, NULL, SDL_FLIP_NONE, 0);
 
 	return true;
 }
 
 // Called each loop iteration
-bool SceneIntro::PostUpdate()
+bool SceneWin::PostUpdate()
 {
 	bool ret = true;
 
@@ -86,11 +87,11 @@ bool SceneIntro::PostUpdate()
 }
 
 // Called before quitting
-bool SceneIntro::CleanUp()
+bool SceneWin::CleanUp()
 {
 	LOG("Freeing scene");
 
-	app->tex->UnLoad(logo);
+	app->tex->UnLoad(youwin);
 
 	return true;
 }

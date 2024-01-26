@@ -19,6 +19,7 @@
 #include "HUD.h"
 #include "SceneTitle.h"
 #include "DeathScreen.h"
+#include "SceneWin.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -173,6 +174,10 @@ bool Scene::Update(float dt)
 		app->fade->FadeToBlack(this, (Module*)app->deathScreen, 60.0f);
 	}
 
+	if (golem.lives == 0) {
+		app->fade->FadeToBlack(this, (Module*)app->sceneWin, 60.0f);
+	}
+            
 	app->render->DrawTexture(img, (int)textPosX, (int)textPosY);
 	
 	return true; 
