@@ -36,6 +36,7 @@
     <ClCompile Include="Source\DeathScreen.cpp" />
     <ClCompile Include="Source\coins.cpp" />
     <ClCompile Include="Source\heals.cpp" />
+    <ClCompile Include="Source\SceneWin.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -99,6 +100,7 @@
     <ClInclude Include="Source\DeathScreen.h" />
     <ClInclude Include="Source\coins.h" />
     <ClInclude Include="Source\heals.h" />
+    <ClInclude Include="Source\SceneWin.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
