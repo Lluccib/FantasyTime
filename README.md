@@ -8,6 +8,9 @@ Adéntrate en un emocionante viaje a través de un mágico reino lleno de desaf�
 
  - Move Right or left to advance
  - Jump to avoid obstacles or enemies
+ - Use power ups to get stronger!
+ - collect coins to get rich
+ - collect crosses and use them to heal yourself
 
 ## Controls
 
@@ -15,11 +18,14 @@ Adéntrate en un emocionante viaje a través de un mágico reino lleno de desaf�
  - D -> move right
  - SPACE -> jump
  - Q -> attack
+ - E -> heal
 ## Debug
  - F1/F2 Start from the first/second level
  - F3 Start from the beginning of the current level
  - F5 Save the current game state
  - F6 Load the previous state (even across levels)
+ - F7 Change of checkpoint
+ - F8 -
  - F9 Visualize the colliders/logic
  - F10 God Mode (fly arounf, cannot be killed)
  - F11 Enable/Disable FPS cap to 30
