@@ -28,7 +28,7 @@
     <ClCompile Include="Source\NightBringer.cpp" />
     <ClCompile Include="Source\Fantasma.cpp" />
     <ClCompile Include="Source\SceneIntro.cpp" />
-    <ClCompile Include="Source\ModuleFade.cpp" />
+    <ClCompile Include="Source\ModuleFadeToBlack.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -84,7 +84,7 @@
     <ClInclude Include="Source\NightBringer.h" />
     <ClInclude Include="Source\Fantasma.h" />
     <ClInclude Include="Source\SceneIntro.h" />
-    <ClInclude Include="Source\ModuleFade.h" />
+    <ClInclude Include="Source\ModuleFadeToBlack.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

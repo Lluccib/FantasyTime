@@ -43,12 +43,16 @@ private:
 	Uint32 frameCount = 0;
 	Uint32 maxFadeFrames = 0;
 
+	uint windowW = 1024;
+	uint windowH = 768;
+
 	// The rectangle of the screen, used to render the black rectangle
 	SDL_Rect screenRect;
 
 	// The modules that should be switched after the first step
 	Module* moduleToEnable = nullptr;
 	Module* moduleToDisable = nullptr;
+	
 };
 
 #endif //__MODULEFADETOBLACK_H__

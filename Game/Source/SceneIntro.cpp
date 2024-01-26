@@ -5,6 +5,7 @@
 #include "Audio.h"
 #include "Render.h"
 #include "Window.h"
+#include "ModuleFadeToBlack.h"
 
 
 #include <string.h>
@@ -73,7 +74,8 @@ bool SceneIntro::Update(float dt)
 	
 	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 	{
-		app->
+		app->fade->FadeToBlack(this, (Module*)app->scene, 60.0f);
+		
 	}
 	return true;
 }
@@ -93,6 +95,8 @@ bool SceneIntro::PostUpdate()
 bool SceneIntro::CleanUp()
 {
 	LOG("Freeing scene");
+
+	app->tex->UnLoad(titlescreen);
 
 	return true;
 }

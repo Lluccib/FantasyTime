@@ -20,6 +20,7 @@ class Scene;
 class EntityManager;
 class Map;
 class Physics;
+class ModuleFadeToBlack;
 
 class App
 {
@@ -90,6 +91,7 @@ public:
 	EntityManager* entityManager;
 	Map* map;
 	Physics* physics;
+	ModuleFadeToBlack* fade;
 
 	bool saveRequest = false;
 	bool loadRequest = false;
