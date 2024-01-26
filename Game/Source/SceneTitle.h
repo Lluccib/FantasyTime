@@ -1,18 +1,18 @@
-#ifndef __SCENEINTRO_H__
-#define __SCENEINTRO_H__
+#ifndef __SCENETITLE_H__
+#define __SCENETITLE_H__
 
 #include "Module.h"
 
 struct SDL_Texture;
 
-class SceneIntro : public Module
+class SceneTitle : public Module
 {
 public:
 
-	SceneIntro(App* app, bool start_enabled = true);
+	SceneTitle(App* app, bool start_enabled = true);
 
 	// Destructor
-	virtual ~SceneIntro();
+	virtual ~SceneTitle();
 
 	// Called before render is available
 	bool Awake(pugi::xml_node& conf);
@@ -34,12 +34,12 @@ public:
 
 
 private:
-	
-	SDL_Texture* logo;
+
+	SDL_Texture* titlescreen;
 	float textPosX, textPosY = 0;
 	uint texW, texH;
 	uint windowW, windowH;
-		
+
 
 
 };
