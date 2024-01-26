@@ -64,8 +64,14 @@ bool Map::Update(float dt)
             //Utilizamos estas dos posiciones para poder cargar unos tiles determinados.
             iPoint posMapin = WorldToMap(app->scene->player->position.x - 1200, 0);
             iPoint posMapfi = WorldToMap(app->scene->player->position.x + 1200, 0);
-
-            
+            if (posMapin.x < 0)
+            {
+                posMapin.x = 0;
+            }
+            if (posMapfi.x < 0)
+            {
+                posMapfi.x = 0;
+            }
             for (int x = posMapin.x; x < posMapfi.x; x++) 
             {
                 for (int y = 0; y < mapLayerItem->data->height; y++)
