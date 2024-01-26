@@ -16,6 +16,8 @@ enum class EntityType
 	DRAKE,
 	NIGHTBRINGER,
 	GHOST,
+	GOLEM,
+	DRAGON,
 	UNKNOWN
 };
 

@@ -8,6 +8,8 @@
 #include "Dragoncin.h"
 #include "NightBringer.h"
 #include "Fantasma.h"
+#include "Boss_Golem.h"
+#include "Red_dragon.h"
 
 struct SDL_Texture;
 
@@ -44,13 +46,14 @@ public:
 	//Enemies
 	Bringer bringer;
 	Ghost ghost;
-
+	Golem golem;
 	iPoint GetPlayerPosition();
 
 	virtual bool LoadState(pugi::xml_node node);
 	virtual bool SaveState(pugi::xml_node node);
 private:
 	SDL_Texture* img;
+	SDL_Texture* hoguera;
 	float textPosX, textPosY = 0;
 	uint texW, texH;
 	uint windowW, windowH;
