@@ -28,7 +28,7 @@ public:
 
 public:
 	int level;
-	int lives = 5;
+	int lives = 1;
 	int curas = 5;
 	int monedas = 5;
 	int damage = 1;
