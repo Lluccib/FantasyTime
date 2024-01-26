@@ -91,7 +91,6 @@
     <ClInclude Include="Source\Boss_Golem.h" />
     <ClInclude Include="Source\Red_dragon.h" />
     <ClInclude Include="piranha_plant.h" />
-
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

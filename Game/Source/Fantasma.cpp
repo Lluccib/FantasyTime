@@ -127,7 +127,7 @@ bool Ghost::Update(float dt)
 	{
 		
 		velocity = { 0,0 };
-		dead = true;
+		dead = false;
 		pbody->body->SetActive(false);
 		app->audio->PlayFx(muertefantasma);
 		/*enemyPbody->body->SetActive(false)*/;

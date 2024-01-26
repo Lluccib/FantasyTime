@@ -64,7 +64,14 @@ bool Map::Update(float dt)
             //Utilizamos estas dos posiciones para poder cargar unos tiles determinados.
             iPoint posMapin = WorldToMap(app->scene->player->position.x - 1200, 0);
             iPoint posMapfi = WorldToMap(app->scene->player->position.x + 1200, 0);
-
+            if (posMapin.x < 0)
+            {
+                posMapin.x = 0;
+            }
+            if (posMapfi.x < 0)
+            {
+                posMapfi.x = 0;
+            }
             
             for (int x = posMapin.x; x < posMapfi.x; x++) 
             {
@@ -161,6 +168,15 @@ bool Map::LoadColliders(pugi::xml_node& layerNode) {
                 // Crear un collider para el tile rojo en la posición (x, y)
                 PhysBody* collider = app->physics->CreateRectangle(x * mapData.tileWidth + 30, y * mapData.tileHeight + 1, mapData.tileWidth / 2, 2, STATIC);
                 collider->ctype = ColliderType::PLATFORM; // Define el tipo de collider según tu necesidad
+            }
+            else if (gid == 9189) {
+                // Calcular las coordenadas del tile en el mundo del juego
+                int x = tileIndex % mapData.width;
+                int y = tileIndex / mapData.width;
+
+                // Crear un collider para el tile rojo en la posición (x, y)
+                PhysBody* collider = app->physics->CreateRectangleSensor(x * mapData.tileWidth + 16.1f, y * mapData.tileHeight + 16, mapData.tileWidth, mapData.tileHeight, STATIC);
+                collider->ctype = ColliderType::LEVELEND; // Define el tipo de collider según tu necesidad
             }
             else if (gid == 9191) {
                 // Calcular las coordenadas del tile en el mundo del juego
