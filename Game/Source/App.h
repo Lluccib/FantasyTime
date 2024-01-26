@@ -22,6 +22,7 @@ class Map;
 class Physics;
 class ModuleFadeToBlack;
 class SceneTitle;
+class HUD;
 
 
 class App
@@ -95,6 +96,7 @@ public:
 	Physics* physics;
 	ModuleFadeToBlack* fade;
 	SceneTitle* sceneTitle;
+	HUD* hud;
 
 	bool saveRequest = false;
 	bool loadRequest = false;
