@@ -1,18 +1,18 @@
-#ifndef __SCENEINTRO_H__
-#define __SCENEINTRO_H__
+#ifndef __SCENEWIN_H__
+#define __SCENEWIN_H__
 
 #include "Module.h"
 
 struct SDL_Texture;
 
-class SceneIntro : public Module
+class SceneWin : public Module
 {
 public:
 
-	SceneIntro(App* app, bool start_enabled = true);
+	SceneWin(App* app, bool start_enabled = true);
 
 	// Destructor
-	virtual ~SceneIntro();
+	virtual ~SceneWin();
 
 	// Called before render is available
 	bool Awake(pugi::xml_node& conf);
@@ -34,8 +34,8 @@ public:
 
 
 private:
-	
-	SDL_Texture* logo;
+
+	SDL_Texture* youwin;
 	float textPosX, textPosY = 0;
 	uint texW, texH;
 	uint windowW, windowH;
@@ -44,5 +44,6 @@ private:
 
 };
 
-#endif // __SCENEINTRO_H__
+#endif // __SCENEWIN_H__
+
 

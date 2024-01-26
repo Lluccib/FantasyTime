@@ -1,4 +1,4 @@
-#include "SceneIntro.h"
+#include "SceneWin.h"
 #include "App.h"
 #include "Input.h"
 #include "Textures.h"
@@ -6,6 +6,7 @@
 #include "Render.h"
 #include "Window.h"
 #include "ModuleFadeToBlack.h"
+#include "Scene.h"
 
 
 #include <string.h>
@@ -16,33 +17,33 @@
 #include "Defs.h"
 #include "Log.h"
 
-SceneIntro::SceneIntro(App* app, bool start_enabled) : Module(app, start_enabled)
+SceneWin::SceneWin(App* app, bool start_enabled) : Module(app, start_enabled)
 {
 	name.Create("scene");
 }
 
 // Destructor
-SceneIntro::~SceneIntro()
+SceneWin::~SceneWin()
 {}
 
 // Called before render is available
-bool SceneIntro::Awake(pugi::xml_node& config)
+bool SceneWin::Awake(pugi::xml_node& config)
 {
-	LOG("Loading SceneIntro");
+	LOG("Loading SceneWin");
 	bool ret = true;
 
 
 	return ret;
 }
 
-bool SceneIntro::Start()
+bool SceneWin::Start()
 {
-	
-	LOG("Loading SceneIntro assets");
+
+	LOG("Loading SceneWin assets");
 	bool ret = true;
 
-	
-	logo = app->tex->Load("Assets/Textures/DreamSphere.png");
+
+	youwin = app->tex->Load("Assets/Textures/Youwin.png");
 
 	//Get the size of the window
 	app->win->GetWindowSize(windowW, windowH);
@@ -52,37 +53,30 @@ bool SceneIntro::Start()
 	textPosX = (float)windowW / 2 - (float)texW / 2;
 	textPosY = (float)windowH / 2 - (float)texH / 2;
 
-	timer = 0.0f;
 
 	/*app->audio->PlayMusic("Assets/Audio/Music/tema_principal.ogg", 0.0f);*/
 	return true;
 }
 
 // Called each loop iteration
-bool SceneIntro::PreUpdate()
+bool SceneWin::PreUpdate()
 {
 	return true;
 }
 
 
 // Called each loop iteration
-bool SceneIntro::Update(float dt)
+bool SceneWin::Update(float dt)
 {
 	//dibujamos
-	SDL_Rect Recttitlescreen{ 0, 0, windowW, windowH };
-	app->render->DrawTexture(logo, 0, 0, NULL, SDL_FLIP_NONE, 0);
-	
-	timer += dt * 1000; // Convertir dt a milisegundos
-	
-	if (timer >= 3000) {
-		app->fade->FadeToBlack(this, (Module*)app->sceneTitle, 60.0f);
-	}
+
+	app->render->DrawTexture(youwin, 0, 0, NULL, SDL_FLIP_NONE, 0);
 
 	return true;
 }
 
 // Called each loop iteration
-bool SceneIntro::PostUpdate()
+bool SceneWin::PostUpdate()
 {
 	bool ret = true;
 
@@ -93,11 +87,11 @@ bool SceneIntro::PostUpdate()
 }
 
 // Called before quitting
-bool SceneIntro::CleanUp()
+bool SceneWin::CleanUp()
 {
 	LOG("Freeing scene");
 
-	app->tex->UnLoad(logo);
+	app->tex->UnLoad(youwin);
 
 	return true;
 }
