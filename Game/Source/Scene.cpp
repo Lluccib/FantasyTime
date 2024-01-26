@@ -14,11 +14,13 @@
 #include <string>
 #include <iostream>
 #include <sstream>
+#include "ModuleFadeToBlack.h"
+#include "SceneIntro.h"
 
 #include "Defs.h"
 #include "Log.h"
 
-Scene::Scene() : Module()
+Scene::Scene(App* app, bool start_enabled) : Module(app, start_enabled)
 {
 	name.Create("scene");
 }
@@ -88,6 +90,13 @@ bool Scene::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool Scene::Start()
 {
+	app->sceneintro->Disable();
+	app->physics->Enable();
+	app->map->Enable();
+	app->entityManager->Enable();
+	
+	
+
 	// NOTE: We have to avoid the use of paths in the code, we will move it later to a config file
 	//img = app->tex->Load("Assets/Textures/test.png");
 	
@@ -127,7 +136,11 @@ iPoint Scene::GetPlayerPosition(){
 // Called each loop iteration
 bool Scene::Update(float dt)
 {
-	
+	/*if (app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
+	{
+		app->fade->FadeToBlack(this, (Module*)app->sceneintro, 60.0f);
+
+	}*/
 
 	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 	{

@@ -107,6 +107,7 @@
     <ClCompile Include="Source\Audio.cpp" />
     <ClCompile Include="Source\Input.cpp" />
     <ClCompile Include="Source\Map.cpp" />
+    <ClCompile Include="Source\ModuleFadeToBlack.cpp" />
     <ClCompile Include="Source\Pathfinding.cpp" />
     <ClCompile Include="Source\NightBringer.cpp" />
     <ClCompile Include="Source\PerfTimer.cpp" />
@@ -115,6 +116,7 @@
     <ClCompile Include="Source\Red_dragon.cpp" />
     <ClCompile Include="Source\Scene.cpp" />
     <ClCompile Include="Source\Render.cpp" />
+    <ClCompile Include="Source\SceneIntro.cpp" />
     <ClCompile Include="Source\Textures.cpp" />
     <ClCompile Include="Source\Timer.cpp" />
     <ClCompile Include="Source\Window.cpp" />
@@ -128,6 +130,7 @@
     <ClInclude Include="Source\Fantasma.h" />
     <ClInclude Include="Source\Item.h" />
     <ClInclude Include="Source\Map.h" />
+    <ClInclude Include="Source\ModuleFadeToBlack.h" />
     <ClInclude Include="Source\Pathfinding.h" />
     <ClInclude Include="Source\NightBringer.h" />
     <ClInclude Include="Source\PerfTimer.h" />
@@ -142,6 +145,7 @@
     <ClInclude Include="Source\App.h" />
     <ClInclude Include="Source\Module.h" />
     <ClInclude Include="Source\Render.h" />
+    <ClInclude Include="Source\SceneIntro.h" />
     <ClInclude Include="Source\Textures.h" />
     <ClInclude Include="Source\Timer.h" />
     <ClInclude Include="Source\Window.h" />
