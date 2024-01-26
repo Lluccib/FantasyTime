@@ -41,6 +41,18 @@ private:
 	SDL_Texture* dosvidas;
 	SDL_Texture* unavida;
 
+	SDL_Texture* cincocuras;
+	SDL_Texture* cuatrocuras;
+	SDL_Texture* trescuras;
+	SDL_Texture* doscuras;
+	SDL_Texture* unacura;
+	
+	SDL_Texture* cincomonedas;
+	SDL_Texture* cuatromonedas;
+	SDL_Texture* tresmonedas;
+	SDL_Texture* dosmonedas;
+	SDL_Texture* unamoneda;
+
 	float textPosX, textPosY = 0;
 	uint texW, texH;
 	uint windowW, windowH;

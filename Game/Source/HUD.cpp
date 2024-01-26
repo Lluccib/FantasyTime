@@ -50,6 +50,20 @@ bool HUD::Start()
 	dosvidas = app->tex->Load("Assets/Textures/dosvidas.png");
 	unavida = app->tex->Load("Assets/Textures/unavida.png");
 
+	cincocuras = app->tex->Load("Assets/Textures/cincocuras.png");
+	cuatrocuras = app->tex->Load("Assets/Textures/cuatrocuras.png");
+	trescuras = app->tex->Load("Assets/Textures/trescuras.png");
+	doscuras = app->tex->Load("Assets/Textures/doscuras.png");
+	unacura = app->tex->Load("Assets/Textures/unacura.png");
+
+	cincomonedas = app->tex->Load("Assets/Textures/cincomonedas.png");
+	cuatromonedas = app->tex->Load("Assets/Textures/cuatromonedas.png");
+	tresmonedas = app->tex->Load("Assets/Textures/tresmonedas.png");
+	dosmonedas = app->tex->Load("Assets/Textures/dosmonedas.png");
+	unamoneda = app->tex->Load("Assets/Textures/unamoneda.png");
+
+	
+
 
 	//Get the size of the window
 	app->win->GetWindowSize(windowW, windowH);
@@ -106,6 +120,50 @@ bool HUD::Update(float dt)
 		app->render->DrawTexture(unavida, 0, 0, NULL, SDL_FLIP_NONE, 0);
 	}
 
+	if (app->scene->player->curas == 5)
+	{
+		app->render->DrawTexture(cincocuras, 0, 32, NULL, SDL_FLIP_NONE, 0);
+	}
+	if (app->scene->player->curas == 4)
+	{
+		app->render->DrawTexture(cuatrocuras, 0, 32, NULL, SDL_FLIP_NONE, 0);
+	}
+	if (app->scene->player->curas == 3)
+	{
+		app->render->DrawTexture(trescuras, 0, 32, NULL, SDL_FLIP_NONE, 0);
+	}
+	if (app->scene->player->curas == 2)
+	{
+		app->render->DrawTexture(doscuras, 0, 32, NULL, SDL_FLIP_NONE, 0);
+	}
+	if (app->scene->player->curas == 1)
+	{
+		app->render->DrawTexture(unacura, 0, 32, NULL, SDL_FLIP_NONE, 0);
+	}
+
+	if (app->scene->player->monedas == 5)
+	{
+		app->render->DrawTexture(cincomonedas, 0, 64, NULL, SDL_FLIP_NONE, 0);
+	}
+	if (app->scene->player->monedas == 4)
+	{
+		app->render->DrawTexture(cuatromonedas, 0, 64, NULL, SDL_FLIP_NONE, 0);
+	}
+	if (app->scene->player->monedas == 3)
+	{
+		app->render->DrawTexture(tresmonedas, 0, 64, NULL, SDL_FLIP_NONE, 0);
+	}
+	if (app->scene->player->monedas == 2)
+	{
+		app->render->DrawTexture(dosmonedas, 0, 64, NULL, SDL_FLIP_NONE, 0);
+	}
+	if (app->scene->player->monedas == 1)
+	{
+		app->render->DrawTexture(unamoneda, 0, 64, NULL, SDL_FLIP_NONE, 0);
+	}
+
+
+
 
 	return true;
 }
@@ -132,6 +190,17 @@ bool HUD::CleanUp()
 	app->tex->UnLoad(dosvidas);
 	app->tex->UnLoad(unavida);
 
+	app->tex->UnLoad(cincocuras);
+	app->tex->UnLoad(cuatrocuras);
+	app->tex->UnLoad(trescuras);
+	app->tex->UnLoad(doscuras);
+	app->tex->UnLoad(unacura);
+
+	app->tex->UnLoad(cincomonedas);
+	app->tex->UnLoad(cuatromonedas);
+	app->tex->UnLoad(tresmonedas);
+	app->tex->UnLoad(dosmonedas);
+	app->tex->UnLoad(unamoneda);
 
 	return true;
 }
